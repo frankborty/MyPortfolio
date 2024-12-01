@@ -7,7 +7,7 @@ namespace MyPortfolio.Data
     {
         public DbSet<Expense> Expenses { get; set; }
         public DbSet<ExpenseType> ExpenseTypes { get; set; }
-        public DbSet<ExpenseCategory> Categories { get; set; }
+        public DbSet<ExpenseCategory> ExpenseCategories { get; set; }
 
         public DataDbContext(DbContextOptions<DataDbContext> options) : base(options) { }
 
