@@ -18,7 +18,7 @@ namespace MyPortfolio.Controllers.ExpenseController
 
         [HttpGet]
         [SwaggerOperation(Summary = "Get all expensive")]
-        public async Task<IActionResult> GetAllExpenseList()
+        public async Task<IActionResult> GetAllExpenses()
         {
             try
             {
@@ -109,7 +109,7 @@ namespace MyPortfolio.Controllers.ExpenseController
         {
             try
             {
-                await _expenseRepo.DeleteExpense(expenseId);
+                await _expenseRepo.DeleteExpenseAsync(expenseId);
                 return Ok();
             }
             catch (KeyNotFoundException)
@@ -132,7 +132,7 @@ namespace MyPortfolio.Controllers.ExpenseController
             {
                 foreach (var expenseId in expenseIdList)
                 {
-                    await _expenseRepo.DeleteExpense(expenseId);
+                    await _expenseRepo.DeleteExpenseAsync(expenseId);
                 }
                 return Ok();
             }
@@ -154,7 +154,7 @@ namespace MyPortfolio.Controllers.ExpenseController
             try
             {
                 var expenseUpdated = ExpenseStaticUtils.CreateExpenseFromExpenseToAddDto(expenseToUpdate);
-                var expense = await _expenseRepo.UpdateExpense(expenseId, expenseUpdated);
+                var expense = await _expenseRepo.UpdateExpenseAsync(expenseId, expenseUpdated);
                 if (expense is null)
                 {
                     return NotFound("Nessuna spesa trovata.");

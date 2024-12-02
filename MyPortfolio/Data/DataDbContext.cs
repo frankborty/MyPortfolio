@@ -14,6 +14,11 @@ namespace MyPortfolio.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Expense>()
+                .Property(e => e.Date) // Assicurati di usare il nome aggiornato
+                .HasColumnType("date"); // Specifica il tipo "date" per PostgreSQL
+
+
+            modelBuilder.Entity<Expense>()
                 .HasOne(e => e.ExpenseType)
                 .WithMany(t => t.Expenses)
                 .HasForeignKey(e => e.TypeId);
