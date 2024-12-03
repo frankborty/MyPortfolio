@@ -2,7 +2,7 @@
 
 namespace MyPortfolio.Data.Repositories.ExpenseRepo
 {
-    public interface IExpenseTypeRepo
+    public interface IIncomeTypeRepo
     {
         Task<IEnumerable<ExpenseType>> GetAllExpenseTypesAsync();
         Task<ExpenseType?> GetExpenseTypeAsync(int expenseTypeId);

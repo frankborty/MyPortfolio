@@ -12,8 +12,8 @@ namespace MyPortfolio.Controllers.ExpenseController
     [ApiController]
     public class ExpenseTypeController : ControllerBase
     {
-        private readonly IExpenseTypeRepo _expenseTypeRepo;
-        public ExpenseTypeController(IExpenseTypeRepo expenseTypeRepo)
+        private readonly IIncomeTypeRepo _expenseTypeRepo;
+        public ExpenseTypeController(IIncomeTypeRepo expenseTypeRepo)
         {
             _expenseTypeRepo = expenseTypeRepo;
         }
@@ -29,10 +29,10 @@ namespace MyPortfolio.Controllers.ExpenseController
                 {
                     return NotFound("Nessun tipo trovato");
                 }
-                List<ExpenseTypeDTO> expenseListDto = new List<ExpenseTypeDTO>();
+                List<IncomeTypeDTO> expenseListDto = new List<IncomeTypeDTO>();
                 foreach (var expenseType in expenseTypeList)
                 {
-                    ExpenseTypeDTO expenseTypeDto = new ExpenseTypeDTO(expenseType);
+                    IncomeTypeDTO expenseTypeDto = new ExpenseTypeDTO(expenseType);
                     expenseListDto.Add(expenseTypeDto);
                 }
 
@@ -57,7 +57,7 @@ namespace MyPortfolio.Controllers.ExpenseController
                     return NotFound("Nessun tipo trovata.");
                 }
 
-                ExpenseTypeDTO expenseTypeDto = new ExpenseTypeDTO(expenseType);
+                IncomeTypeDTO expenseTypeDto = new ExpenseTypeDTO(expenseType);
                 return Ok(expenseTypeDto);
             }
             catch (Exception ex)
@@ -80,7 +80,7 @@ namespace MyPortfolio.Controllers.ExpenseController
                     return NotFound("Nessun tipo trovata.");
                 }
 
-                ExpenseTypeDTO expenseTypeDto = new ExpenseTypeDTO(expenseType);
+                IncomeTypeDTO expenseTypeDto = new ExpenseTypeDTO(expenseType);
                 return Ok(expenseTypeDto);
             }
             catch (Exception ex)
@@ -192,7 +192,7 @@ namespace MyPortfolio.Controllers.ExpenseController
                     return NotFound("Nessun tipo trovato");
                 }
 
-                ExpenseTypeDTO expenseDto = new ExpenseTypeDTO(expenseType);
+                IncomeTypeDTO expenseDto = new ExpenseTypeDTO(expenseType);
                 return Ok(expenseDto);
             }
             catch (Exception ex)

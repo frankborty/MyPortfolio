@@ -2,16 +2,16 @@
 
 namespace MyPortfolio.DTO.ExpenseDTO
 {
-    public class ExpenseTypeDTO
+    public class IncomeTypeDTO
     { 
 
         public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
         public ExpenseCategoryDTO Category { get; set; } = new ExpenseCategoryDTO();
 
-        public ExpenseTypeDTO() { }
+        public IncomeTypeDTO() { }
 
-        public ExpenseTypeDTO(ExpenseType expenseType)
+        public IncomeTypeDTO(ExpenseType expenseType)
         {
             Id = expenseType.Id;
             Name = expenseType.Name;

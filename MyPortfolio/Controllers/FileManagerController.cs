@@ -13,10 +13,10 @@ namespace MyPortfolio.Controllers
     public class FileManagerController : ControllerBase
     {
         private readonly IExpenseCategoryRepo _expenseCategoryRepo;
-        private readonly IExpenseRepo _expenseRepo;
-        private readonly IExpenseTypeRepo _expenseTypeRepo;
+        private readonly IIncomeRepo _expenseRepo;
+        private readonly IIncomeTypeRepo _expenseTypeRepo;
 
-        public FileManagerController(IExpenseCategoryRepo expenseCategoryRepo, IExpenseRepo expenseRepo, IExpenseTypeRepo expenseTypeRepo)
+        public FileManagerController(IExpenseCategoryRepo expenseCategoryRepo, IIncomeRepo expenseRepo, IIncomeTypeRepo expenseTypeRepo)
         {
             _expenseCategoryRepo = expenseCategoryRepo;
             _expenseRepo = expenseRepo;

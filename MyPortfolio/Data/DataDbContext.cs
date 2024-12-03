@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MyPortfolio.Models.Expenses;
+using MyPortfolio.Models.Incomes;
 
 namespace MyPortfolio.Data
 {
@@ -8,6 +9,8 @@ namespace MyPortfolio.Data
         public DbSet<Expense> Expenses { get; set; }
         public DbSet<ExpenseType> ExpenseTypes { get; set; }
         public DbSet<ExpenseCategory> ExpenseCategories { get; set; }
+        public DbSet<Income> Incomes { get; set; }
+        public DbSet<IncomeType> IncomeTypes { get; set; }
 
         public DataDbContext(DbContextOptions<DataDbContext> options) : base(options) { }
 
@@ -17,17 +20,24 @@ namespace MyPortfolio.Data
                 .Property(e => e.Date) // Assicurati di usare il nome aggiornato
                 .HasColumnType("date"); // Specifica il tipo "date" per PostgreSQL
 
-
             modelBuilder.Entity<Expense>()
                 .HasOne(e => e.ExpenseType)
                 .WithMany(t => t.Expenses)
                 .HasForeignKey(e => e.TypeId);
 
-
             modelBuilder.Entity<ExpenseType>()
                 .HasOne(t => t.Category)
                 .WithMany(c => c.ExpenseTypes)
                 .HasForeignKey(t => t.CategoryId);
+
+            modelBuilder.Entity<Income>()
+                .Property(e => e.Date) // Assicurati di usare il nome aggiornato
+                .HasColumnType("date"); // Specifica il tipo "date" per PostgreSQL
+
+            modelBuilder.Entity<Income>()
+                .HasOne(i => i.IncomeType)
+                .WithMany(t => t.Incomes)
+                .HasForeignKey(e => e.TypeId);
         }
     }
 }

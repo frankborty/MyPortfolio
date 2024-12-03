@@ -3,11 +3,11 @@ using MyPortfolio.Models.Expenses;
 
 namespace MyPortfolio.Data.Repositories.ExpenseRepo
 {
-    public class ExpenseRepo : IExpenseRepo
+    public class IncomeRepo : IIncomeRepo
     {
         private readonly DataDbContext dataDbContext;
 
-        public ExpenseRepo(DataDbContext dataDbContext)
+        public IncomeRepo(DataDbContext dataDbContext)
         {
             this.dataDbContext = dataDbContext;
         }

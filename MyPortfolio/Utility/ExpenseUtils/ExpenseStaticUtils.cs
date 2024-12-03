@@ -29,7 +29,7 @@ namespace MyPortfolio.Utility.ExpenseUtils
             };
         }
 
-        public static async Task AddSingleExpense(IExpenseRepo _expenseRepo, Expense expenseToAdd)
+        public static async Task AddSingleExpense(IIncomeRepo _expenseRepo, Expense expenseToAdd)
         {
             await _expenseRepo.AddExpenseAsync(expenseToAdd);
         }
