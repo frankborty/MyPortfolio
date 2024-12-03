@@ -10,8 +10,8 @@ namespace MyPortfolio.Controllers.ExpenseController
     [ApiController]
     public class ExpenseController : ControllerBase
     {
-        private readonly IIncomeRepo _expenseRepo;
-        public ExpenseController(IIncomeRepo expenseRepo)
+        private readonly IExpenseRepo _expenseRepo;
+        public ExpenseController(IExpenseRepo expenseRepo)
         {
             _expenseRepo = expenseRepo;
         }
@@ -27,10 +27,10 @@ namespace MyPortfolio.Controllers.ExpenseController
                 {
                     return NotFound("Nessuna spesa trovata.");
                 }
-                List<IncomeDTO> expenseListDto = new List<IncomeDTO>();
+                List<ExpenseDTO> expenseListDto = new List<ExpenseDTO>();
                 foreach (var expense in expenseList)
                 {
-                    IncomeDTO expenseDto = new ExpenseDTO(expense);
+                    ExpenseDTO expenseDto = new ExpenseDTO(expense);
                     expenseListDto.Add(expenseDto);
                 }
 
@@ -55,7 +55,7 @@ namespace MyPortfolio.Controllers.ExpenseController
                     return NotFound("Nessuna spesa trovata.");
                 }
 
-                IncomeDTO expenseDto = new ExpenseDTO(expense);
+                ExpenseDTO expenseDto = new ExpenseDTO(expense);
                 return Ok(expenseDto);
             }
             catch (Exception ex)
@@ -160,7 +160,7 @@ namespace MyPortfolio.Controllers.ExpenseController
                     return NotFound("Nessuna spesa trovata.");
                 }
 
-                IncomeDTO expenseDto = new ExpenseDTO(expense);
+                ExpenseDTO expenseDto = new ExpenseDTO(expense);
                 return Ok(expenseDto);
             }
             catch (Exception ex)

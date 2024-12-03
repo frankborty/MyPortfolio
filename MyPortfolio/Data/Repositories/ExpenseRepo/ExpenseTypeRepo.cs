@@ -3,7 +3,7 @@ using MyPortfolio.Models.Expenses;
 
 namespace MyPortfolio.Data.Repositories.ExpenseRepo
 {
-    public class ExpenseTypeRepo : IIncomeTypeRepo
+    public class ExpenseTypeRepo : IExpenseTypeRepo
     {
         private readonly DataDbContext dataDbContext;
 

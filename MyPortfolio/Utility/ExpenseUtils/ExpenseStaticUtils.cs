@@ -2,7 +2,6 @@
 using MyPortfolio.DTO.ExpenseDTO;
 using MyPortfolio.Models.Expenses;
 using System.Globalization;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace MyPortfolio.Utility.ExpenseUtils
 {
@@ -29,7 +28,7 @@ namespace MyPortfolio.Utility.ExpenseUtils
             };
         }
 
-        public static async Task AddSingleExpense(IIncomeRepo _expenseRepo, Expense expenseToAdd)
+        public static async Task AddSingleExpense(IExpenseRepo _expenseRepo, Expense expenseToAdd)
         {
             await _expenseRepo.AddExpenseAsync(expenseToAdd);
         }

@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace MyPortfolio.Models.Expenses
 {
@@ -8,7 +9,6 @@ namespace MyPortfolio.Models.Expenses
         public string Name { get; set; } = string.Empty;
         public int CategoryId { get; set; }
         public ExpenseCategory? Category { get; set; }
-
         public Collection<Expense>? Expenses { get; set; }
     }
 }

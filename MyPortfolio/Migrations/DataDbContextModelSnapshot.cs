@@ -93,7 +93,7 @@ namespace MyPortfolio.Migrations
                     b.ToTable("ExpenseTypes");
                 });
 
-            modelBuilder.Entity("MyPortfolio.Models.Income.Income", b =>
+            modelBuilder.Entity("MyPortfolio.Models.Incomes.Income", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -121,7 +121,7 @@ namespace MyPortfolio.Migrations
                     b.ToTable("Incomes");
                 });
 
-            modelBuilder.Entity("MyPortfolio.Models.Income.IncomeType", b =>
+            modelBuilder.Entity("MyPortfolio.Models.Incomes.IncomeType", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -160,9 +160,9 @@ namespace MyPortfolio.Migrations
                     b.Navigation("Category");
                 });
 
-            modelBuilder.Entity("MyPortfolio.Models.Income.Income", b =>
+            modelBuilder.Entity("MyPortfolio.Models.Incomes.Income", b =>
                 {
-                    b.HasOne("MyPortfolio.Models.Income.IncomeType", "IncomeType")
+                    b.HasOne("MyPortfolio.Models.Incomes.IncomeType", "IncomeType")
                         .WithMany("Incomes")
                         .HasForeignKey("TypeId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -181,7 +181,7 @@ namespace MyPortfolio.Migrations
                     b.Navigation("Expenses");
                 });
 
-            modelBuilder.Entity("MyPortfolio.Models.Income.IncomeType", b =>
+            modelBuilder.Entity("MyPortfolio.Models.Incomes.IncomeType", b =>
                 {
                     b.Navigation("Incomes");
                 });

@@ -3,11 +3,11 @@ using MyPortfolio.Models.Expenses;
 
 namespace MyPortfolio.Data.Repositories.ExpenseRepo
 {
-    public class IncomeRepo : IIncomeRepo
+    public class ExpenseRepo : IExpenseRepo
     {
         private readonly DataDbContext dataDbContext;
 
-        public IncomeRepo(DataDbContext dataDbContext)
+        public ExpenseRepo(DataDbContext dataDbContext)
         {
             this.dataDbContext = dataDbContext;
         }
@@ -16,7 +16,7 @@ namespace MyPortfolio.Data.Repositories.ExpenseRepo
         {
             return await dataDbContext.Expenses
                 .Include(e => e.ExpenseType)
-                .ThenInclude(et => et.Category)
+                .ThenInclude(et => et!.Category)
                 .FirstOrDefaultAsync(e => e.Id == expenseId);
         }
 
@@ -24,7 +24,7 @@ namespace MyPortfolio.Data.Repositories.ExpenseRepo
         {
             return await dataDbContext.Expenses
                 .Include(e => e.ExpenseType)
-                .ThenInclude(et => et.Category)
+                .ThenInclude(et => et!.Category)
                 .ToListAsync();
         }
 

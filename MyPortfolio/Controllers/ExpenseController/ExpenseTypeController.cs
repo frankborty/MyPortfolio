@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using MyPortfolio.Data.Repositories.ExpenseRepo;
 using MyPortfolio.DTO.ExpenseDTO;
 using MyPortfolio.Models.Expenses;
@@ -12,8 +11,8 @@ namespace MyPortfolio.Controllers.ExpenseController
     [ApiController]
     public class ExpenseTypeController : ControllerBase
     {
-        private readonly IIncomeTypeRepo _expenseTypeRepo;
-        public ExpenseTypeController(IIncomeTypeRepo expenseTypeRepo)
+        private readonly IExpenseTypeRepo _expenseTypeRepo;
+        public ExpenseTypeController(IExpenseTypeRepo expenseTypeRepo)
         {
             _expenseTypeRepo = expenseTypeRepo;
         }
@@ -29,10 +28,10 @@ namespace MyPortfolio.Controllers.ExpenseController
                 {
                     return NotFound("Nessun tipo trovato");
                 }
-                List<IncomeTypeDTO> expenseListDto = new List<IncomeTypeDTO>();
+                List<ExpenseTypeDTO> expenseListDto = new List<ExpenseTypeDTO>();
                 foreach (var expenseType in expenseTypeList)
                 {
-                    IncomeTypeDTO expenseTypeDto = new ExpenseTypeDTO(expenseType);
+                    ExpenseTypeDTO expenseTypeDto = new ExpenseTypeDTO(expenseType);
                     expenseListDto.Add(expenseTypeDto);
                 }
 
@@ -45,7 +44,7 @@ namespace MyPortfolio.Controllers.ExpenseController
             }
         }
 
-        [HttpGet("{expenseTypoeId}")]
+        [HttpGet("{expenseTypeId}")]
         [SwaggerOperation(Summary = "Get expense type by ID")]
         public async Task<IActionResult> GetExpenseTypeById(int expenseTypeId)
         {
@@ -57,7 +56,7 @@ namespace MyPortfolio.Controllers.ExpenseController
                     return NotFound("Nessun tipo trovata.");
                 }
 
-                IncomeTypeDTO expenseTypeDto = new ExpenseTypeDTO(expenseType);
+                ExpenseTypeDTO expenseTypeDto = new ExpenseTypeDTO(expenseType);
                 return Ok(expenseTypeDto);
             }
             catch (Exception ex)
@@ -80,7 +79,7 @@ namespace MyPortfolio.Controllers.ExpenseController
                     return NotFound("Nessun tipo trovata.");
                 }
 
-                IncomeTypeDTO expenseTypeDto = new ExpenseTypeDTO(expenseType);
+                ExpenseTypeDTO expenseTypeDto = new ExpenseTypeDTO(expenseType);
                 return Ok(expenseTypeDto);
             }
             catch (Exception ex)
@@ -192,7 +191,7 @@ namespace MyPortfolio.Controllers.ExpenseController
                     return NotFound("Nessun tipo trovato");
                 }
 
-                IncomeTypeDTO expenseDto = new ExpenseTypeDTO(expenseType);
+                ExpenseTypeDTO expenseDto = new ExpenseTypeDTO(expenseType);
                 return Ok(expenseDto);
             }
             catch (Exception ex)
