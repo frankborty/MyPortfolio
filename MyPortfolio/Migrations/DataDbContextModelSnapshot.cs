@@ -93,6 +93,51 @@ namespace MyPortfolio.Migrations
                     b.ToTable("ExpenseTypes");
                 });
 
+            modelBuilder.Entity("MyPortfolio.Models.Incomes.Income", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("numeric");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("date");
+
+                    b.Property<string>("Note")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("TypeId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TypeId");
+
+                    b.ToTable("Incomes");
+                });
+
+            modelBuilder.Entity("MyPortfolio.Models.Incomes.IncomeType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("IncomeTypes");
+                });
+
             modelBuilder.Entity("MyPortfolio.Models.Expenses.Expense", b =>
                 {
                     b.HasOne("MyPortfolio.Models.Expenses.ExpenseType", "ExpenseType")
@@ -115,6 +160,17 @@ namespace MyPortfolio.Migrations
                     b.Navigation("Category");
                 });
 
+            modelBuilder.Entity("MyPortfolio.Models.Incomes.Income", b =>
+                {
+                    b.HasOne("MyPortfolio.Models.Incomes.IncomeType", "IncomeType")
+                        .WithMany("Incomes")
+                        .HasForeignKey("TypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("IncomeType");
+                });
+
             modelBuilder.Entity("MyPortfolio.Models.Expenses.ExpenseCategory", b =>
                 {
                     b.Navigation("ExpenseTypes");
@@ -123,6 +179,11 @@ namespace MyPortfolio.Migrations
             modelBuilder.Entity("MyPortfolio.Models.Expenses.ExpenseType", b =>
                 {
                     b.Navigation("Expenses");
+                });
+
+            modelBuilder.Entity("MyPortfolio.Models.Incomes.IncomeType", b =>
+                {
+                    b.Navigation("Incomes");
                 });
 #pragma warning restore 612, 618
         }

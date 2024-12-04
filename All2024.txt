@@ -1,0 +1,254 @@
+Piano	01/01	8.00	E	Casa	Telefono
+Now	01/01	10.00	E	Casa	AltroPerCasa
+Superenalotto	02/01	12.00	E	AltreSpese	SpeseVarie
+Ricarica Mamma	02/01	20.00	E	Casa	Mamma
+Bar	05/01	15.00	E	Fun	Bar
+Viennetta cena da Pes	06/01	18.00	E	Fun	CeneVarie
+Bolletta dic-gen	09/01	36.00	E	Casa	ElettNonnaMaria
+Bolletta dic-gen	09/01	162.00	E	Casa	ElettMamma
+Bar	13/01	12.00	E	Fun	Bar
+Estetista	19/01	25.00	E	Salute	AltroSalute
+Cagliari-Torino	26/01	40.00	E	Fun	ExtraFun
+Spesa	19/01	32.00	E	Spesa	EuroSpin
+Internet prob carta mamma	19/01	29.00	E	Casa	Internet
+Bar	20/01	15.00	E	Fun	Bar
+Pizza	24/01	20.00	E	Fun	Ristoranti
+Pizza io+marti	27/01	16.00	E	Fun	Ristoranti
+Rifornimento	27/01	30.00	E	Auto	Rifornimento
+Melatonina	30/01	3.00	E	Salute	AltroSalute
+Superenalotto	30/01	12.00	E	AltreSpese	SpeseVarie
+Piano	01/02	8.00	E	Casa	Telefono
+Now	01/02	10.00	E	Casa	AltroPerCasa
+Mamma	03/02	200.00	E	Casa	Mamma
+Bar	03/02	12.00	E	Fun	Bar
+Bar	03/02	12.00	E	Fun	Bar
+Aperitivo	04/02	17.00	E	Fun	Bar
+Cena Sara Cri	04/02	58.00	E	Fun	Ristoranti
+Regalo Francesco	04/02	20.00	E	Regali	OtherRegali
+Spesa	09/02	21.00	E	Spesa	Conad
+Taglio capelli	09/02	20.00	E	Salute	Capelli
+Regalo comple Sorella	09/02	55.00	E	Regali	OtherRegali
+Regalo figlio Simoneddu	09/02	35.00	E	Regali	OtherRegali
+Bar	09/02	12.00	E	Fun	Bar
+Bar	10/02	19.00	E	Fun	Bar
+Regalo figlio Silvia	11/02	20.00	E	Regali	OtherRegali
+Bar	16/02	4.00	E	Fun	Bar
+Bar	17/02	13.00	E	Fun	Bar
+Rifornimento	17/02	30.00	E	Auto	Rifornimento
+Spesa	19/02	18.00	E	Spesa	EuroSpin
+Superenalotto	22/02	12.00	E	AltreSpese	SpeseVarie
+Spazzolino 	23/02	14.00	E	Shop	AltriGadget
+Estetista	23/02	25.00	E	Salute	AltroSalute
+Bar	23/02	10.00	E	Fun	Bar
+Cena con fra	23/02	34.00	E	Fun	Ristoranti
+Bar	24/02	11.00	E	Fun	Bar
+Interruttore	26/02	8.00	E	Shop	AltriGadget
+Now	01/03	10.00	E	Casa	AltroPerCasa
+Piano	01/03	8.00	E	Casa	Telefono
+Bar	01/03	15.00	E	Fun	Bar
+Rifornimento	02/03	30.00	E	Auto	Rifornimento
+Montatura nuova	03/03	65.00	E	Salute	Occhiali
+Amazon Prime	04/03	50.00	E	Casa	AltroPerCasa
+Bar	08/03	4.00	E	Fun	Bar
+Bolletta feb-mar	08/03	39.00	E	Casa	ElettNonnaMaria
+Bolletta feb-mar	08/03	135.00	E	Casa	ElettMamma
+Spesa	08/03	31.00	E	Spesa	EuroSpin
+Spesa	08/03	62.00	E	Spesa	Conad
+Spesa	15/03	5.00	E	Spesa	Conad
+Cena a casa di Sara	16/03	45.00	E	Fun	CeneVarie
+Revisione	22/03	80.00	E	Auto	Revisione
+Estetista	22/03	20.00	E	Salute	AltroSalute
+Dentista	21/03	210.00	E	Salute	Dottori
+Rifornimento	22/02	10.00	E	Auto	Rifornimento
+Bar	22/03	12.00	E	Fun	Bar
+Regalo comple Cri	23/03	19.00	E	Regali	OtherRegali
+Biglietti tergu (martina mauro)	23/03	10.00	E	Fun	Feste
+Bar	23/03	8.00	E	Fun	Bar
+Gomme x4	26/03	350.00	E	Auto	Gomme
+Catene neve	26/03	30.00	E	Auto	AltroAuto
+Rifornimento	26/02	30.00	E	Auto	Rifornimento
+Bar	29/03	13.00	E	Fun	Bar
+Bar	31/03	30.00	E	Fun	Bar
+Piano	01/04	8.00	E	Casa	Telefono
+Now	01/04	10.00	E	Casa	AltroPerCasa
+Dentista	01/04	210.00	E	Salute	Dottori
+Mamma	01/04	200.00	E	Casa	Mamma
+Regalo Francesco	01/04	50.00	E	Regali	OtherRegali
+Taglio capelli	05/04	20.00	E	Salute	Capelli
+Estetista	23/04	30.00	E	Salute	AltroSalute
+Melatonina	04/04	2.00	E	Salute	AltroSalute
+Superenalotto	05/04	12.00	E	AltreSpese	SpeseVarie
+Spesa	05/04	25.00	E	Spesa	EuroSpin
+Spesa	05/04	32.00	E	Spesa	Conad
+Bar	05/04	4.00	E	Fun	Bar
+Bar	05/04	12.00	E	Fun	Bar
+Pizzeria domo de jana	06/04	18.00	E	Fun	Ristoranti
+Cagliari-Juve	10/04	180.00	E	Fun	ExtraFun
+Battesimo Nicolò	13/04	100.00	E	Regali	OtherRegali
+Rifornimento	10/04	30.00	E	Auto	Rifornimento
+Cena V	12/04	81.00	E	Fun	Ristoranti
+Bar	12/04	10.00	E	Fun	Bar
+Pranzo Fra V Giulia ecc	14/04	30.00	E	Fun	Ristoranti
+Bar	20/04	4.00	E	Fun	Bar
+Spesa	23/04	15.00	E	Spesa	EuroSpin
+Rifornimento	25/04	30.00	E	Auto	Rifornimento
+Pranzo 25 aprile da sara	25/04	25.00	E	Fun	CeneVarie
+Dolci 25 aprile	25/04	13.00	E	Fun	CeneVarie
+Occhiali	25/04	13.00	E	Regali	OtherRegali
+Bar	26/04	7.00	E	Fun	Bar
+Piano	01/05	8.00	E	Casa	Telefono
+Now	01/05	10.00	E	Casa	AltroPerCasa
+Dentista	01/05	210.00	E	Salute	Dottori
+TopSpin2k25	01/05	43.00	E	Shop	TechGadget
+Bar	03/05	9.00	E	Fun	Bar
+Bar	04/05	10.00	E	Fun	Bar
+Bolletta feb-mar	07/05	128.00	E	Casa	ElettMamma
+Bolletta feb-mar	07/05	35.00	E	Casa	ElettNonnaMaria
+Bar	10/05	10.00	E	Fun	Bar
+Caramellle festa vidda	10/05	13.00	E	Fun	Feste
+Festa viida	10/05	10.00	E	Fun	Feste
+Bar	12/05	12.00	E	Fun	Bar
+Spesa	15/05	41.00	E	Spesa	EuroSpin
+Spesa	15/05	10.00	E	Spesa	Conad
+Superenalotto	15/05	12.00	E	AltreSpese	SpeseVarie
+Bar	17/05	13.00	E	Fun	Bar
+Bar	18/05	13.00	E	Fun	Bar
+Estetista	22/05	25.00	E	Salute	AltroSalute
+Taglio capelli	23/05	20.00	E	Salute	Capelli
+Spesa	23/05	5.00	E	Spesa	Conad
+Bar	24/05	21.00	E	Fun	Bar
+Bar	25/05	30.00	E	Fun	Bar
+Cena scalitti	25/05	30.00	E	Fun	Ristoranti
+Rifornimento	27/05	30.00	E	Auto	Rifornimento
+Bar	31/05	5.00	E	Fun	Bar
+Piano	01/06	8.00	E	Casa	Telefono
+Now	01/06	10.00	E	Casa	AltroPerCasa
+Dentista	01/06	210.00	E	Salute	Dottori
+Bar	01/06	18.00	E	Fun	Bar
+Mamma	01/06	200.00	E	Casa	Mamma
+Pranzo Fra Scalitti	02/06	45.00	E	Fun	Ristoranti
+Bar	07/06	6.00	E	Fun	Bar
+Mare	08/06	12.00	E	Fun	Mare
+Bar	08/06	8.00	E	Fun	Bar
+Bar	08/06	15.00	E	Fun	Bar
+Spesa	10/06	26.00	E	Spesa	Conad
+Pizza al bar	14/06	10.00	E	Fun	CeneVarie
+Superenalotto	15/06	12.00	E	AltreSpese	SpeseVarie
+Cambio conto SISAL	15/06	3.00	E	AltreSpese	SpeseVarie
+Torneo mariglia SMaria	15/06	52.00	E	Fun	ExtraFun
+Taglio capelli	21/06	20.00	E	Salute	Capelli
+Spesa	21/06	10.00	E	Spesa	Conad
+Spesa	21/06	32.00	E	Spesa	EuroSpin
+Regalo battesimo Vale	22/06	150.00	E	Regali	OtherRegali
+Rifornimento	22/06	30.00	E	Auto	Rifornimento
+Bar	22/06	9.00	E	Fun	Bar
+Estetista	26/06	20.00	E	Salute	AltroSalute
+Bar	28/06	15.00	E	Fun	Bar
+Bar	29/06	30.00	E	Fun	Bar
+Piano	01/07	8.00	E	Casa	Telefono
+Now	01/07	20.00	E	Casa	AltroPerCasa
+Taglio capelli	25/07	20.00	E	Salute	Capelli
+Regalo Laurea mari	03/07	50.00	E	Regali	OtherRegali
+Regalo Conci 30 anni	01/07	30.00	E	Regali	OtherRegali
+Piscina Francesco	05/07	15.00	E	Fun	Mare
+Mare	06/07	3.00	E	Fun	Mare
+Scrub	07/07	3.00	E	Salute	AltroSalute
+Bolletta luglio-agosto	08/07	37.00	E	Casa	ElettNonnaMaria
+Pulizia denti	22/07	100.00	E	Salute	Dottori
+Regalo Loris	12/07	32.00	E	Regali	OtherRegali
+Rifornimento	13/07	40.00	E	Auto	Rifornimento
+Discovery+	12/07	8.00	E	Casa	AltroPerCasa
+Bar	12/07	10.00	E	Fun	Bar
+Piscina Francesco	13/07	16.00	E	Fun	Mare
+Bar	19/07	10.00	E	Fun	Bar
+Bar	20/07	20.00	E	Fun	Bar
+Piscina Francesco	20/07	10.00	E	Fun	Mare
+Cena maestrali	20/07	25.00	E	Fun	Ristoranti
+Spesa	20/07	10.00	E	Spesa	EuroSpin
+Festa della birra santa maria	20/07	20.00	E	Fun	Feste
+Marinedda fra Nadia giulia	21/07	14.00	E	Fun	Mare
+Cena Urban con fra e giuli	21/07	15.00	E	Fun	Ristoranti
+Spesa	22/07	36.00	E	Spesa	EuroSpin
+Spesa	22/07	4.00	E	Spesa	Conad
+Bollette internet non pagate	22/07	117.00	E	Casa	Internet
+Melatoninax3	22/07	5.00	E	Salute	AltroSalute
+Piscina Francesco	24/07	20.00	E	Fun	Mare
+Calcetto vidda	24/07	5.00	E	Fun	ExtraFun
+Lavaggio macchina	24/07	5.00	E	Auto	AltroAuto
+Bolletta luglio	24/07	80.00	E	Casa	ElettMamma
+Occhiali sole	24/07	74.00	E	Shop	AltriGadget
+Lampadina smart	22/07	1.00	E	Shop	TechGadget
+Rifornimento	26/07	30.00	E	Auto	Rifornimento
+Bar	26/07	9.00	E	Fun	Bar
+Bar	27/07	10.00	E	Fun	Bar
+Bar	28/07	12.00	E	Fun	Bar
+Bollo auto	01/09	220.00	E	Auto	Bollo
+Piano	01/09	8.00	E	Casa	Telefono
+Now	01/09	15.00	E	Casa	AltroPerCasa
+Bolletta Luglio	01/09	101.00	E	Casa	ElettMamma
+Vestiti presi da Mamma in viaggio	01/09	50.00	E	Shop	Vestiti
+Nba2k25	06/09	55.00	E	Shop	TechGadget
+Bar	06/09	20.00	E	Fun	Bar
+Cena caste Cri Sara Spad	07/09	65.00	E	Fun	Ristoranti
+Aperitivo Castel	07/09	25.00	E	Fun	Bar
+Bolletta agosto-settembre	09/09	38.00	E	Casa	ElettNonnaMaria
+Mouse	11/09	70.00	E	Shop	TechGadget
+Taglio capelli	13/09	20.00	E	Salute	Capelli
+Rifornimento	13/09	20.00	E	Auto	Rifornimento
+Spesa	13/09	8.00	E	Spesa	Conad
+Bar	13/09	10.00	E	Fun	Bar
+Festa santa maria	14/09	45.00	E	Fun	Feste
+Battesimo Gioele	21/09	70.00	E	Regali	OtherRegali
+Viaggio a Torino per Juve Cagliari	27/09	220.00	E	Fun	ExtraFun
+Festa santa maria	28/09	70.00	E	Fun	Feste
+Postepay fee	01/10	15.00	E	Fees	Postepay
+Internet	01/10	30.00	E	Casa	Internet
+Piano	01/10	8.00	E	Casa	Telefono
+Now	01/10	15.00	E	Casa	AltroPerCasa
+Assicurazione	01/10	366.00	E	Auto	Assicurazione
+Regalo comple Fra	01/10	50.00	E	Regali	OtherRegali
+Bolletta Agosto-Settembre	01/10	87.00	E	Casa	ElettMamma
+Spese Torino con Spad	06/10	110.00	E	Fun	ExtraFun
+Superenalotto	08/10	12.00	E	AltreSpese	SpeseVarie
+Estetista	10/10	25.00	E	Salute	AltroSalute
+Roba varia cinesi	10/10	5.00	E	Shop	AltriGadget
+Spesa	10/10	22.00	E	Spesa	Conad
+Spesa	10/10	31.00	E	Spesa	EuroSpin
+Rifornimento	11/10	70.00	E	Auto	Rifornimento
+Bar	12/10	20.00	E	Fun	Bar
+Taglio capelli	16/10	12.00	E	Salute	Capelli
+Spesa	16/10	5.00	E	Spesa	EuroSpin
+Comple Fra a Cagliari	18/10	90.00	E	Fun	ExtraFun
+Mamma	22/10	200.00	E	Casa	Mamma
+Spesa	26/10	31.00	E	Spesa	EuroSpin
+Spesa	26/10	13.00	E	Spesa	Conad
+Torneo Mariglia Bortigiadas	26/10	46.00	E	Fun	ExtraFun
+Capodanno in Paris	30/10	600.00	E	Fun	Viaggi
+Internet	01/11	26.00	E	Casa	Internet
+Piano	01/11	8.00	E	Casa	Telefono
+Now	01/11	15.00	E	Casa	AltroPerCasa
+Estetista	28/11	25.00	E	Salute	AltroSalute
+Partita Viddalba	02/11	10.00	E	Fun	ExtraFun
+Regalo comple Chiara	06/11	22.00	E	Regali	OtherRegali
+Prenotazioni varie Parigi	07/11	190.00	E	Fun	Viaggi
+Spesa	09/11	36.00	E	Spesa	Conad
+Roba varia da Mauris	09/11	3.00	E	Spesa	AltroSpesa
+Spesa	09/11	12.00	E	Spesa	EuroSpin
+Rifornimento	09/11	30.00	E	Auto	Rifornimento
+Pigiama Vale	09/11	14.00	E	Regali	OtherRegali
+Superenalotto	12/11	12.00	E	AltreSpese	SpeseVarie
+Bolletta Agosto-Settembre	01/11	38.00	E	Casa	ElettNonnaMaria
+Cavi elttrici e clip	19/11	26.00	E	Shop	AltriGadget
+Regalo Laurea Marti	20/11	100.00	E	Regali	OtherRegali
+Giubbotto	21/11	175.00	E	Shop	Vestiti
+Regalo comple Vale	22/11	20.00	E	Regali	OtherRegali
+Maglie e pantaloni termici	24/11	15.00	E	Shop	Vestiti
+Roba varia Temu	24/11	5.00	E	Shop	AltriGadget
+Prese elettriche	24/11	15.00	E	Shop	AltriGadget
+Spesa	25/11	20.00	E	Spesa	EuroSpin
+Scarpe Nike	27/11	68.00	E	Shop	Vestiti
+Rifornimento	30/11	30.00	E	Auto	Rifornimento
+Spesa	30/11	23.00	E	Spesa	EuroSpin
+Spesa	30/11	8.00	E	Spesa	Conad
+Bar	30/11	11.00	E	Fun	Bar
+Regalo macch foto fra chia	22/11	4.00	E	Regali	OtherRegali

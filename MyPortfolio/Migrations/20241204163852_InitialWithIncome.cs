@@ -7,13 +7,13 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MyPortfolio.Migrations
 {
     /// <inheritdoc />
-    public partial class ExpenseDataContext : Migration
+    public partial class InitialWithIncome : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Categories",
+                name: "ExpenseCategories",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
@@ -22,7 +22,20 @@ namespace MyPortfolio.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Categories", x => x.Id);
+                    table.PrimaryKey("PK_ExpenseCategories", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "IncomeTypes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_IncomeTypes", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -38,9 +51,31 @@ namespace MyPortfolio.Migrations
                 {
                     table.PrimaryKey("PK_ExpenseTypes", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ExpenseTypes_Categories_CategoryId",
+                        name: "FK_ExpenseTypes_ExpenseCategories_CategoryId",
                         column: x => x.CategoryId,
-                        principalTable: "Categories",
+                        principalTable: "ExpenseCategories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Incomes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Amount = table.Column<decimal>(type: "numeric", nullable: false),
+                    Date = table.Column<DateTime>(type: "date", nullable: false),
+                    Note = table.Column<string>(type: "text", nullable: false),
+                    TypeId = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Incomes", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Incomes_IncomeTypes_TypeId",
+                        column: x => x.TypeId,
+                        principalTable: "IncomeTypes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -53,7 +88,8 @@ namespace MyPortfolio.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Description = table.Column<string>(type: "text", nullable: false),
                     Amount = table.Column<decimal>(type: "numeric", nullable: false),
-                    TimeStamp = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    Date = table.Column<DateTime>(type: "date", nullable: false),
+                    Note = table.Column<string>(type: "text", nullable: false),
                     TypeId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
@@ -76,6 +112,11 @@ namespace MyPortfolio.Migrations
                 name: "IX_ExpenseTypes_CategoryId",
                 table: "ExpenseTypes",
                 column: "CategoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Incomes_TypeId",
+                table: "Incomes",
+                column: "TypeId");
         }
 
         /// <inheritdoc />
@@ -85,10 +126,16 @@ namespace MyPortfolio.Migrations
                 name: "Expenses");
 
             migrationBuilder.DropTable(
+                name: "Incomes");
+
+            migrationBuilder.DropTable(
                 name: "ExpenseTypes");
 
             migrationBuilder.DropTable(
-                name: "Categories");
+                name: "IncomeTypes");
+
+            migrationBuilder.DropTable(
+                name: "ExpenseCategories");
         }
     }
 }

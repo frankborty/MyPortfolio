@@ -2,7 +2,6 @@
 using MyPortfolio.DTO.ExpenseDTO;
 using MyPortfolio.Models.Expenses;
 using System.Globalization;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace MyPortfolio.Utility.ExpenseUtils
 {

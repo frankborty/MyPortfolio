@@ -16,7 +16,7 @@ namespace MyPortfolio.Data.Repositories.ExpenseRepo
         {
             return await dataDbContext.Expenses
                 .Include(e => e.ExpenseType)
-                .ThenInclude(et => et.Category)
+                .ThenInclude(et => et!.Category)
                 .FirstOrDefaultAsync(e => e.Id == expenseId);
         }
 
@@ -24,7 +24,7 @@ namespace MyPortfolio.Data.Repositories.ExpenseRepo
         {
             return await dataDbContext.Expenses
                 .Include(e => e.ExpenseType)
-                .ThenInclude(et => et.Category)
+                .ThenInclude(et => et!.Category)
                 .ToListAsync();
         }
 

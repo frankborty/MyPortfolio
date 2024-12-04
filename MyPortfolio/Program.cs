@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using MyPortfolio.Data;
 using MyPortfolio.Data.Repositories.ExpenseRepo;
+using MyPortfolio.Data.Repositories.IncomeRepo;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +16,9 @@ builder.Services.AddDbContext<DataDbContext>(options =>
 builder.Services.AddScoped<IExpenseRepo, ExpenseRepo>();
 builder.Services.AddScoped<IExpenseTypeRepo, ExpenseTypeRepo>();
 builder.Services.AddScoped<IExpenseCategoryRepo, ExpenseCategoryRepo>();
+
+builder.Services.AddScoped<IIncomeRepo, IncomeRepo>();
+builder.Services.AddScoped<IIncomeTypeRepo, IncomeTypeRepo>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

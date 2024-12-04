@@ -1,9 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using MyPortfolio.Data.Repositories.ExpenseRepo;
 using MyPortfolio.DTO.ExpenseDTO;
 using MyPortfolio.Models.Expenses;
-using MyPortfolio.Utility.ExpenseUtils;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace MyPortfolio.Controllers.ExpenseController
@@ -45,7 +43,7 @@ namespace MyPortfolio.Controllers.ExpenseController
             }
         }
 
-        [HttpGet("{expenseTypoeId}")]
+        [HttpGet("{expenseCategoryId}")]
         [SwaggerOperation(Summary = "Get expense category by ID")]
         public async Task<IActionResult> GetExpenseCategoryById(int expenseCategoryId)
         {
