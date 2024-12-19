@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using MyPortfolio.Models.Assets;
 using MyPortfolio.Models.Expenses;
 using MyPortfolio.Models.Incomes;
 
@@ -11,6 +12,10 @@ namespace MyPortfolio.Data
         public DbSet<ExpenseCategory> ExpenseCategories { get; set; }
         public DbSet<Income> Incomes { get; set; }
         public DbSet<IncomeType> IncomeTypes { get; set; }
+
+        public DbSet<Asset> Assets { get; set; }
+        public DbSet<AssetType> AssetTypes { get; set; }
+        public DbSet<AssetCategory> AssetCategories { get; set; }
 
         public DataDbContext(DbContextOptions<DataDbContext> options) : base(options) { }
 
@@ -38,6 +43,16 @@ namespace MyPortfolio.Data
                 .HasOne(i => i.IncomeType)
                 .WithMany(t => t.Incomes)
                 .HasForeignKey(e => e.TypeId);
+
+            modelBuilder.Entity<Asset>()
+                .HasOne(e => e.AssetType)
+                .WithMany(t => t.Assets)
+                .HasForeignKey(e => e.TypeId);
+
+            modelBuilder.Entity<AssetType>()
+                .HasOne(t => t.Category)
+                .WithMany(c => c.AssetTypes)
+                .HasForeignKey(t => t.CategoryId);
         }
     }
 }

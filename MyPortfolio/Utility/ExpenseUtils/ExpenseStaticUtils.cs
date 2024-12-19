@@ -64,24 +64,37 @@ namespace MyPortfolio.Utility.ExpenseUtils
                 throw new Exception($"Invalid Amount: {lineTokens}");
             }
 
-            ExpenseType? expenseType = ExtractExpenseTypeFromFileLine(lineTokens[5], expenseTypeList);
+            ExpenseType? expenseType = GetTypeFromName(lineTokens[5], expenseTypeList);
             if(expenseType is null)
             {
                 throw new Exception($"Invalid expense type {lineTokens}");
             }
 
             expense.ExpenseType = expenseType;
-
             return expense;
         }
 
-        private static ExpenseType? ExtractExpenseTypeFromFileLine(string expenseTypeName, List<ExpenseType> expenseTypeList)
+        internal static ExpenseType? GetTypeFromName(string expenseTypeName, List<ExpenseType> expenseTypeList)
         {
             foreach(ExpenseType expense in expenseTypeList)
             {
                 if(string.Equals(expenseTypeName, expense.Name, StringComparison.InvariantCultureIgnoreCase))
                 {
                     return expense;
+                }
+            }
+            return null;
+        }
+
+
+
+        internal static ExpenseCategory? GetCategoryFromName(string expenseCategoryName, List<ExpenseCategory> expenseCategoryList)
+        {
+            foreach (ExpenseCategory expenseCategory in expenseCategoryList)
+            {
+                if (string.Equals(expenseCategoryName, expenseCategory.Name, StringComparison.InvariantCultureIgnoreCase))
+                {
+                    return expenseCategory;
                 }
             }
             return null;

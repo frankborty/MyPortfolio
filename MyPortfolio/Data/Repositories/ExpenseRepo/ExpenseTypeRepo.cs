@@ -26,15 +26,16 @@ namespace MyPortfolio.Data.Repositories.ExpenseRepo
             return;
         }
 
-        public async Task<ExpenseType> DeleteExpenseType(int expenseTypeId)
+        public async Task DeleteExpenseType(int expenseTypeId)
         {
             var expense = await dataDbContext.ExpenseTypes.FindAsync(expenseTypeId);
-            if (expense != null)
+            if (expense is null)
             {
-                dataDbContext.ExpenseTypes.Remove(expense);
-                await dataDbContext.SaveChangesAsync();
+                throw new KeyNotFoundException();
             }
-            throw new KeyNotFoundException();
+            dataDbContext.ExpenseTypes.Remove(expense);
+            await dataDbContext.SaveChangesAsync();
+
         }
 
         public async Task<IEnumerable<ExpenseType>> GetAllExpenseTypesAsync()

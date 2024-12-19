@@ -37,8 +37,6 @@ namespace MyPortfolio.Utility.IncomeUtils
             return incomeList;
         }
 
-
-
         private static List<Income> ConvertFileLineInIncomeList(string content, int year, List<IncomeType> incomeTypeList)
         {
             List<Income> incomeList = new List<Income>();
@@ -48,7 +46,7 @@ namespace MyPortfolio.Utility.IncomeUtils
                 throw new Exception($"Invalid Line: {lineTokens}");
             }
 
-            IncomeType? incomeType = ExtractIncomeTypeFromFileLine(lineTokens[0], incomeTypeList);
+            IncomeType? incomeType = GetTypeFromName(lineTokens[0], incomeTypeList);
             if (incomeType is null)
             {
                 throw new Exception($"Invalid expense type {lineTokens}");
@@ -72,7 +70,7 @@ namespace MyPortfolio.Utility.IncomeUtils
             return incomeList;
         }
 
-        private static IncomeType? ExtractIncomeTypeFromFileLine(string incomeTypeName, List<IncomeType> incomeTypeList)
+        private static IncomeType? GetTypeFromName(string incomeTypeName, List<IncomeType> incomeTypeList)
         {
             foreach (IncomeType income in incomeTypeList)
             {

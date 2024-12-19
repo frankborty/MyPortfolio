@@ -10,6 +10,6 @@ namespace MyPortfolio.Data.Repositories.IncomeRepo
         Task<IncomeType> AddIncomeType(IncomeType incomeType);
         Task AddIncomeTypeList(List<IncomeType> incomeTypeList);
         Task<IncomeType> UpdateIncomeType(int incomeTypeList, IncomeType incomeType);
-        Task<IncomeType> DeleteIncomeType(int incomeTypeList);
+        Task DeleteIncomeType(int incomeTypeList);
     }
 }

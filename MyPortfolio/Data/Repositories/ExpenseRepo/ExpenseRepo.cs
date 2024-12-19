@@ -38,12 +38,12 @@ namespace MyPortfolio.Data.Repositories.ExpenseRepo
         public async Task DeleteExpenseAsync(int expenseId)
         {
             var expense = await dataDbContext.Expenses.FindAsync(expenseId);
-            if (expense != null)
+            if (expense is null)
             {
-                dataDbContext.Expenses.Remove(expense);
-                await dataDbContext.SaveChangesAsync();
+                throw new KeyNotFoundException();
             }
-            throw new KeyNotFoundException();
+            dataDbContext.Expenses.Remove(expense);
+            await dataDbContext.SaveChangesAsync();
         }
 
         public async Task<Expense> UpdateExpenseAsync(int expenseId, Expense expense)

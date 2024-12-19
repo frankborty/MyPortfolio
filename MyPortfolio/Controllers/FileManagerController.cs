@@ -36,7 +36,7 @@ namespace MyPortfolio.Controllers
         [SwaggerOperation(Summary = "Add expensive from file")]
         public async Task<IActionResult> AddExpenseFile(
             int year,
-            [FromBody] IFormFile file)
+            IFormFile file)
         {
             if (file == null || file.Length == 0)
             {
