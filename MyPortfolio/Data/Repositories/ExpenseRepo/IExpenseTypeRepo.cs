@@ -10,6 +10,6 @@ namespace MyPortfolio.Data.Repositories.ExpenseRepo
         Task<ExpenseType> AddExpenseType(ExpenseType expenseType);
         Task AddExpenseTypeList(List<ExpenseType> expenseTypeList);
         Task<ExpenseType> UpdateExpenseType(int expenseTypeList, ExpenseType expenseType);
-        Task<ExpenseType> DeleteExpenseType(int expenseTypeList);
+        Task DeleteExpenseType(int expenseTypeList);
     }
 }

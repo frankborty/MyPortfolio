@@ -36,12 +36,12 @@ namespace MyPortfolio.Data.Repositories.IncomeRepo
         public async Task DeleteIncomeAsync(int incomeId)
         {
             var income = await dataDbContext.Incomes.FindAsync(incomeId);
-            if (income != null)
+            if (income is null)
             {
-                dataDbContext.Incomes.Remove(income);
-                await dataDbContext.SaveChangesAsync();
+                throw new KeyNotFoundException();
             }
-            throw new KeyNotFoundException();
+            dataDbContext.Incomes.Remove(income);
+            await dataDbContext.SaveChangesAsync();
         }
 
         public async Task<Income> UpdateIncomeAsync(int incomeId, Income income)

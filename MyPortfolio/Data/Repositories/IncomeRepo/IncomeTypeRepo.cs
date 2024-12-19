@@ -26,15 +26,16 @@ namespace MyPortfolio.Data.Repositories.IncomeRepo
             return;
         }
 
-        public async Task<IncomeType> DeleteIncomeType(int incomeTypeId)
+        public async Task DeleteIncomeType(int incomeTypeId)
         {
             var income = await dataDbContext.IncomeTypes.FindAsync(incomeTypeId);
-            if (income != null)
+            if (income is null)
             {
-                dataDbContext.IncomeTypes.Remove(income);
-                await dataDbContext.SaveChangesAsync();
+                throw new KeyNotFoundException();
             }
-            throw new KeyNotFoundException();
+            dataDbContext.IncomeTypes.Remove(income);
+            await dataDbContext.SaveChangesAsync();
+            
         }
 
         public async Task<IEnumerable<IncomeType>> GetAllIncomeTypesAsync()

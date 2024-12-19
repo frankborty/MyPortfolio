@@ -60,15 +60,15 @@ namespace MyPortfolio.Data.Repositories.ExpenseRepo
             return;
         }
 
-        public async Task<ExpenseCategory> DeleteExpenseCategory(int expenseCategoryId)
+        public async Task DeleteExpenseCategory(int expenseCategoryId)
         {
             var expense = await dataDbContext.Expenses.FindAsync(expenseCategoryId);
-            if (expense != null)
+            if (expense is null)
             {
-                dataDbContext.Expenses.Remove(expense);
-                await dataDbContext.SaveChangesAsync();
+                throw new KeyNotFoundException();
             }
-            throw new KeyNotFoundException();
+            dataDbContext.Expenses.Remove(expense);
+            await dataDbContext.SaveChangesAsync();
         }
     }
 }
