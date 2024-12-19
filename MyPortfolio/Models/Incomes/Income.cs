@@ -1,7 +1,4 @@
-﻿using MyPortfolio.Models.Expenses;
-using System.ComponentModel.DataAnnotations;
-
-namespace MyPortfolio.Models.Incomes
+﻿namespace MyPortfolio.Models.Incomes
 {
     public class Income
     {
