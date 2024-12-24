@@ -31,7 +31,7 @@ namespace MyPortfolio.Data.Repositories.ExpenseRepo
                 .FirstOrDefaultAsync(e => e.Id == expenseCategoryId);
         }
 
-        public async Task<ExpenseCategory> UpdateExpenseCategory(int expenseCategoryId, ExpenseCategory expenseCategory)
+        public async Task<ExpenseCategory> UpdateExpenseCategoryAsync(int expenseCategoryId, ExpenseCategory expenseCategory)
         {
             ExpenseCategory? expenseCategoryToUpdate = await dataDbContext.ExpenseCategories
                 .FirstOrDefaultAsync(e => e.Id == expenseCategoryId);
@@ -46,21 +46,21 @@ namespace MyPortfolio.Data.Repositories.ExpenseRepo
             return expenseCategoryToUpdate;
         }
 
-        public async Task<ExpenseCategory> AddExpenseCategory(ExpenseCategory expenseCategory)
+        public async Task<ExpenseCategory> AddExpenseCategoryAsync(ExpenseCategory expenseCategory)
         {
             var result = await dataDbContext.ExpenseCategories.AddAsync(expenseCategory);
             await dataDbContext.SaveChangesAsync();
             return result.Entity;
         }
 
-        public async Task AddExpenseCategoryList(List<ExpenseCategory> expenseCategoryList)
+        public async Task AddExpenseCategoryListAsync(List<ExpenseCategory> expenseCategoryList)
         {
             await dataDbContext.ExpenseCategories.AddRangeAsync(expenseCategoryList);
             await dataDbContext.SaveChangesAsync();
             return;
         }
 
-        public async Task DeleteExpenseCategory(int expenseCategoryId)
+        public async Task DeleteExpenseCategoryAsync(int expenseCategoryId)
         {
             var expense = await dataDbContext.Expenses.FindAsync(expenseCategoryId);
             if (expense is null)

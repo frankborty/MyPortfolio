@@ -19,6 +19,12 @@ namespace MyPortfolio.Data.Repositories.AssetRepo
             return result.Entity;
         }
 
+        public async Task AddAssetListAsync(List<Asset> entityList)
+        {
+            await dataDbContext.Assets.AddRangeAsync(entityList);
+            await dataDbContext.SaveChangesAsync();
+        }
+
         public async Task DeleteAssetAsync(int assetId)
         {
             var asset = await dataDbContext.Assets.FindAsync(assetId);

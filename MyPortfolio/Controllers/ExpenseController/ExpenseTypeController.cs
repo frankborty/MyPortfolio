@@ -96,7 +96,7 @@ namespace MyPortfolio.Controllers.ExpenseController
             try
             {
                 ExpenseType expenseTypeToAdd = ExpenseTypeDTOConverter.FromExpenseTypeToAddDTO(expenseType);
-                await _expenseTypeRepo.AddExpenseType(expenseTypeToAdd);
+                await _expenseTypeRepo.AddExpenseTypeAsync(expenseTypeToAdd);
                 return Ok();
             }
             catch (Exception ex)
@@ -123,7 +123,7 @@ namespace MyPortfolio.Controllers.ExpenseController
                 }
                 if (expenseTypeToAddList.Count > 0)
                 {
-                    await _expenseTypeRepo.AddExpenseTypeList(expenseTypeToAddList);
+                    await _expenseTypeRepo.AddExpenseTypeListAsync(expenseTypeToAddList);
                 }
                 return Ok();
             }
@@ -140,7 +140,7 @@ namespace MyPortfolio.Controllers.ExpenseController
         {
             try
             {
-                await _expenseTypeRepo.DeleteExpenseType(expenseTypeId);
+                await _expenseTypeRepo.DeleteExpenseTypeAsync(expenseTypeId);
                 return Ok();
             }
             catch (KeyNotFoundException)
@@ -163,7 +163,7 @@ namespace MyPortfolio.Controllers.ExpenseController
             {
                 foreach (var expenseTypeId in expenseTypeIdList)
                 {
-                    await _expenseTypeRepo.DeleteExpenseType(expenseTypeId);
+                    await _expenseTypeRepo.DeleteExpenseTypeAsync(expenseTypeId);
                 }
                 return Ok();
             }
@@ -185,7 +185,7 @@ namespace MyPortfolio.Controllers.ExpenseController
             try
             {
                 ExpenseType expenseTypeUpdated = ExpenseTypeDTOConverter.FromExpenseTypeToAddDTO(expenseTypeToUpdate);
-                var expenseType = await _expenseTypeRepo.UpdateExpenseType(expenseTypeId, expenseTypeUpdated);
+                var expenseType = await _expenseTypeRepo.UpdateExpenseTypeAsync(expenseTypeId, expenseTypeUpdated);
                 if (expenseType is null)
                 {
                     return NotFound("Nessun tipo trovato");

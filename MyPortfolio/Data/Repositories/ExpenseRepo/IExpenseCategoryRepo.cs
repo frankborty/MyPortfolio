@@ -7,9 +7,9 @@ namespace MyPortfolio.Data.Repositories.ExpenseRepo
         Task<IEnumerable<ExpenseCategory>> GetAllExpenseCategorysAsync();
         Task<ExpenseCategory?> GetExpenseCategoryAsync(int expenseCategoryId);
         Task<ExpenseCategory?> GetExpenseCategoryByNameAsync(string expenseCategoryName);
-        Task<ExpenseCategory> AddExpenseCategory(ExpenseCategory expenseCategory);
-        Task<ExpenseCategory> UpdateExpenseCategory(int expenseCategoryId, ExpenseCategory expenseCategory);
-        Task DeleteExpenseCategory(int expenseCategoryId);
-        Task AddExpenseCategoryList(List<ExpenseCategory> expenseCategoryList);
+        Task<ExpenseCategory> AddExpenseCategoryAsync(ExpenseCategory expenseCategory);
+        Task<ExpenseCategory> UpdateExpenseCategoryAsync(int expenseCategoryId, ExpenseCategory expenseCategory);
+        Task DeleteExpenseCategoryAsync(int expenseCategoryId);
+        Task AddExpenseCategoryListAsync(List<ExpenseCategory> expenseCategoryList);
     }
 }

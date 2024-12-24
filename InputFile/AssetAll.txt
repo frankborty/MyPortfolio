@@ -1,0 +1,7 @@
+PostePay	522
+ING	150
+BBVA	31703
+Euro	210
+PayPal	0
+Martina	500
+Directa	67

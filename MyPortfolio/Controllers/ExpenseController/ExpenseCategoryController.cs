@@ -26,7 +26,7 @@ namespace MyPortfolio.Controllers.ExpenseController
                 var expenseCategoryList = await _expenseCategoryRepo.GetAllExpenseCategorysAsync();
                 if (expenseCategoryList == null || !expenseCategoryList.Any())
                 {
-                    return NotFound("Nessun tipo trovato");
+                    return NotFound("Nessuna category trovata");
                 }
                 List<ExpenseCategoryDTO> expenseListDto = new List<ExpenseCategoryDTO>();
                 foreach (var expenseCategory in expenseCategoryList)
@@ -99,7 +99,7 @@ namespace MyPortfolio.Controllers.ExpenseController
                 {
                     Name = expenseCategoryName,
                 };
-                await _expenseCategoryRepo.AddExpenseCategory(expenseCategoryToAdd);
+                await _expenseCategoryRepo.AddExpenseCategoryAsync(expenseCategoryToAdd);
                 return Ok();
             }
             catch (Exception ex)
@@ -129,7 +129,7 @@ namespace MyPortfolio.Controllers.ExpenseController
                 }
                 if (expenseCategoryToAddList.Count > 0)
                 {
-                    await _expenseCategoryRepo.AddExpenseCategoryList(expenseCategoryToAddList);
+                    await _expenseCategoryRepo.AddExpenseCategoryListAsync(expenseCategoryToAddList);
                 }
                 return Ok();
             }
@@ -146,7 +146,7 @@ namespace MyPortfolio.Controllers.ExpenseController
         {
             try
             {
-                await _expenseCategoryRepo.DeleteExpenseCategory(expenseCategoryId);
+                await _expenseCategoryRepo.DeleteExpenseCategoryAsync(expenseCategoryId);
                 return Ok();
             }
             catch (KeyNotFoundException)
@@ -169,7 +169,7 @@ namespace MyPortfolio.Controllers.ExpenseController
             {
                 foreach (var expenseCategoryId in expenseCategoryIdList)
                 {
-                    await _expenseCategoryRepo.DeleteExpenseCategory(expenseCategoryId);
+                    await _expenseCategoryRepo.DeleteExpenseCategoryAsync(expenseCategoryId);
                 }
                 return Ok();
             }
@@ -194,7 +194,7 @@ namespace MyPortfolio.Controllers.ExpenseController
                 {
                     Name = newExpenseCategoryName,
                 };
-                var expenseCategory = await _expenseCategoryRepo.UpdateExpenseCategory(expenseCategoryId, expenseCategoryUpdated);
+                var expenseCategory = await _expenseCategoryRepo.UpdateExpenseCategoryAsync(expenseCategoryId, expenseCategoryUpdated);
                 if (expenseCategory is null)
                 {
                     return NotFound("Nessun category trovato");

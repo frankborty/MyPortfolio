@@ -12,21 +12,21 @@ namespace MyPortfolio.Data.Repositories.ExpenseRepo
             this.dataDbContext = dataDbContext;
         }
 
-        public async Task<ExpenseType> AddExpenseType(ExpenseType expenseType)
+        public async Task<ExpenseType> AddExpenseTypeAsync(ExpenseType expenseType)
         {
             var result = await dataDbContext.ExpenseTypes.AddAsync(expenseType);
             await dataDbContext.SaveChangesAsync();
             return result.Entity;
         }
 
-        public async Task AddExpenseTypeList(List<ExpenseType> expenseTypeList)
+        public async Task AddExpenseTypeListAsync(List<ExpenseType> expenseTypeList)
         {
             await dataDbContext.ExpenseTypes.AddRangeAsync(expenseTypeList);
             await dataDbContext.SaveChangesAsync();
             return;
         }
 
-        public async Task DeleteExpenseType(int expenseTypeId)
+        public async Task DeleteExpenseTypeAsync(int expenseTypeId)
         {
             var expense = await dataDbContext.ExpenseTypes.FindAsync(expenseTypeId);
             if (expense is null)
@@ -53,7 +53,7 @@ namespace MyPortfolio.Data.Repositories.ExpenseRepo
             return await dataDbContext.ExpenseTypes.FirstOrDefaultAsync(e => e.Name == expenseTypeName);
         }
 
-        public async Task<ExpenseType> UpdateExpenseType(int expenseTypeId, ExpenseType expenseType)
+        public async Task<ExpenseType> UpdateExpenseTypeAsync(int expenseTypeId, ExpenseType expenseType)
         {
             ExpenseType? expenseTypeToUpdate = await dataDbContext.ExpenseTypes
                 .FirstOrDefaultAsync(e => e.Id == expenseTypeId);
