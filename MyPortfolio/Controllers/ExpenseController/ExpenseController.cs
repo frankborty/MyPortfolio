@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MyPortfolio.Data.Repositories.ExpenseRepo;
 using MyPortfolio.DTO.ExpenseDTO;
+using MyPortfolio.Models.Expenses;
 using MyPortfolio.Utility.ExpenseUtils;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -30,7 +31,7 @@ namespace MyPortfolio.Controllers.ExpenseController
                 List<ExpenseDTO> expenseListDto = new List<ExpenseDTO>();
                 foreach (var expense in expenseList)
                 {
-                    ExpenseDTO expenseDto = new ExpenseDTO(expense);
+                    ExpenseDTO expenseDto = ExpenseDTOConverter.ToExpenseDTO(expense);
                     expenseListDto.Add(expenseDto);
                 }
 
@@ -55,7 +56,7 @@ namespace MyPortfolio.Controllers.ExpenseController
                     return NotFound("Nessuna spesa trovata.");
                 }
 
-                ExpenseDTO expenseDto = new ExpenseDTO(expense);
+                ExpenseDTO expenseDto = ExpenseDTOConverter.ToExpenseDTO(expense);
                 return Ok(expenseDto);
             }
             catch (Exception ex)
@@ -71,7 +72,7 @@ namespace MyPortfolio.Controllers.ExpenseController
         {
             try
             {
-                var expenseToAdd = ExpenseStaticUtils.CreateExpenseFromExpenseToAddDto(expense);
+                Expense expenseToAdd = ExpenseDTOConverter.FromExpenseToAddDTO(expense);
                 await ExpenseStaticUtils.AddSingleExpense(_expenseRepo, expenseToAdd);
                 return Ok();
             }
@@ -91,7 +92,7 @@ namespace MyPortfolio.Controllers.ExpenseController
             {
                 foreach (var expense in expenseList)
                 {
-                    var expenseToAdd = ExpenseStaticUtils.CreateExpenseFromExpenseToAddDto(expense);
+                    Expense expenseToAdd = ExpenseDTOConverter.FromExpenseToAddDTO(expense);
                     await ExpenseStaticUtils.AddSingleExpense(_expenseRepo, expenseToAdd);
                 }
                 return Ok();
@@ -153,14 +154,14 @@ namespace MyPortfolio.Controllers.ExpenseController
         {
             try
             {
-                var expenseUpdated = ExpenseStaticUtils.CreateExpenseFromExpenseToAddDto(expenseToUpdate);
+                Expense expenseUpdated = ExpenseDTOConverter.FromExpenseToAddDTO(expenseToUpdate);
                 var expense = await _expenseRepo.UpdateExpenseAsync(expenseId, expenseUpdated);
                 if (expense is null)
                 {
                     return NotFound("Nessuna spesa trovata.");
                 }
 
-                ExpenseDTO expenseDto = new ExpenseDTO(expense);
+                ExpenseDTO expenseDto = ExpenseDTOConverter.ToExpenseDTO(expense);
                 return Ok(expenseDto);
             }
             catch (Exception ex)

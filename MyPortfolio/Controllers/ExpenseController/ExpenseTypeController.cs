@@ -31,7 +31,7 @@ namespace MyPortfolio.Controllers.ExpenseController
                 List<ExpenseTypeDTO> expenseListDto = new List<ExpenseTypeDTO>();
                 foreach (var expenseType in expenseTypeList)
                 {
-                    ExpenseTypeDTO expenseTypeDto = new ExpenseTypeDTO(expenseType);
+                    ExpenseTypeDTO expenseTypeDto = ExpenseTypeDTOConverter.ToExpenseTypeDTO(expenseType);
                     expenseListDto.Add(expenseTypeDto);
                 }
 
@@ -56,7 +56,7 @@ namespace MyPortfolio.Controllers.ExpenseController
                     return NotFound("Nessun tipo trovata.");
                 }
 
-                ExpenseTypeDTO expenseTypeDto = new ExpenseTypeDTO(expenseType);
+                ExpenseTypeDTO expenseTypeDto = ExpenseTypeDTOConverter.ToExpenseTypeDTO(expenseType);
                 return Ok(expenseTypeDto);
             }
             catch (Exception ex)
@@ -79,7 +79,7 @@ namespace MyPortfolio.Controllers.ExpenseController
                     return NotFound("Nessun tipo trovata.");
                 }
 
-                ExpenseTypeDTO expenseTypeDto = new ExpenseTypeDTO(expenseType);
+                ExpenseTypeDTO expenseTypeDto = ExpenseTypeDTOConverter.ToExpenseTypeDTO(expenseType);
                 return Ok(expenseTypeDto);
             }
             catch (Exception ex)
@@ -95,8 +95,8 @@ namespace MyPortfolio.Controllers.ExpenseController
         {
             try
             {
-                var expenseToAdd = ExpenseStaticUtils.CreateExpenseTypeFromExpenseTypeToAddDto(expenseType);
-                await _expenseTypeRepo.AddExpenseType(expenseToAdd);
+                ExpenseType expenseTypeToAdd = ExpenseTypeDTOConverter.FromExpenseTypeToAddDTO(expenseType);
+                await _expenseTypeRepo.AddExpenseType(expenseTypeToAdd);
                 return Ok();
             }
             catch (Exception ex)
@@ -118,7 +118,7 @@ namespace MyPortfolio.Controllers.ExpenseController
                 List<ExpenseType> expenseTypeToAddList = new List<ExpenseType>();
                 foreach (var expenseType in expenseTypeList)
                 {
-                    var expenseTypeToAdd = ExpenseStaticUtils.CreateExpenseTypeFromExpenseTypeToAddDto(expenseType);
+                    ExpenseType expenseTypeToAdd = ExpenseTypeDTOConverter.FromExpenseTypeToAddDTO(expenseType);
                     expenseTypeToAddList.Add(expenseTypeToAdd);
                 }
                 if (expenseTypeToAddList.Count > 0)
@@ -184,14 +184,14 @@ namespace MyPortfolio.Controllers.ExpenseController
         {
             try
             {
-                var expenseTypeUpdated = ExpenseStaticUtils.CreateExpenseTypeFromExpenseTypeToAddDto(expenseTypeToUpdate);
+                ExpenseType expenseTypeUpdated = ExpenseTypeDTOConverter.FromExpenseTypeToAddDTO(expenseTypeToUpdate);
                 var expenseType = await _expenseTypeRepo.UpdateExpenseType(expenseTypeId, expenseTypeUpdated);
                 if (expenseType is null)
                 {
                     return NotFound("Nessun tipo trovato");
                 }
 
-                ExpenseTypeDTO expenseDto = new ExpenseTypeDTO(expenseType);
+                ExpenseTypeDTO expenseDto = ExpenseTypeDTOConverter.ToExpenseTypeDTO(expenseType);
                 return Ok(expenseDto);
             }
             catch (Exception ex)

@@ -8,11 +8,5 @@ namespace MyPortfolio.DTO.IncomeDTO
         public string Name { get; set; } = string.Empty;
 
         public IncomeTypeDTO() { }
-
-        public IncomeTypeDTO(IncomeType incomeType)
-        {
-            Id = incomeType.Id;
-            Name = incomeType.Name;
-        }
     }
 }

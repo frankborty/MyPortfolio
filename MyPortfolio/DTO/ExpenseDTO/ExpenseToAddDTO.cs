@@ -13,17 +13,5 @@ namespace MyPortfolio.DTO.ExpenseDTO
         public string ExpenseTypeName { get; set; } = string.Empty;
 
         public ExpenseToAddDTO() { }
-        public ExpenseToAddDTO(Expense expense)
-        {
-            Description = expense.Description;
-            Amount = expense.Amount;
-            Date = expense.Date;
-            Note = expense.Note;
-            if (expense.ExpenseType is not null)
-            {
-                ExpenseTypeId = expense.ExpenseType.Id;
-                ExpenseTypeName = expense.ExpenseType.Name;
-            }
-        }
     }
 }

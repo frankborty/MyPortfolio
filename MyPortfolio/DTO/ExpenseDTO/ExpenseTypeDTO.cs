@@ -10,15 +10,5 @@ namespace MyPortfolio.DTO.ExpenseDTO
 
         public ExpenseTypeDTO() { }
 
-        public ExpenseTypeDTO(ExpenseType expenseType)
-        {
-            Id = expenseType.Id;
-            Name = expenseType.Name;
-            if (expenseType.Category is not null)
-            {
-                Category = new ExpenseCategoryDTO(expenseType.Category);
-            }
-        }
-
     }
 }

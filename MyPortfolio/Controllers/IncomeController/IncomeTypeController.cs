@@ -31,7 +31,7 @@ namespace MyPortfolio.Controllers.IncomeController
                 List<IncomeTypeDTO> incomeListDto = new List<IncomeTypeDTO>();
                 foreach (var incomeType in incomeTypeList)
                 {
-                    IncomeTypeDTO incomeTypeDto = new IncomeTypeDTO(incomeType);
+                    IncomeTypeDTO incomeTypeDto = IncomeTypeDTOConverter.ToIncomeTypeDTO(incomeType);
                     incomeListDto.Add(incomeTypeDto);
                 }
 
@@ -56,7 +56,7 @@ namespace MyPortfolio.Controllers.IncomeController
                     return NotFound("Nessun tipo trovata.");
                 }
 
-                IncomeTypeDTO incomeTypeDto = new IncomeTypeDTO(incomeType);
+                IncomeTypeDTO incomeTypeDto = IncomeTypeDTOConverter.ToIncomeTypeDTO(incomeType);
                 return Ok(incomeTypeDto);
             }
             catch (Exception ex)
@@ -79,7 +79,7 @@ namespace MyPortfolio.Controllers.IncomeController
                     return NotFound("Nessun tipo trovata.");
                 }
 
-                IncomeTypeDTO incomeTypeDto = new IncomeTypeDTO(incomeType);
+                IncomeTypeDTO incomeTypeDto = IncomeTypeDTOConverter.ToIncomeTypeDTO(incomeType);
                 return Ok(incomeTypeDto);
             }
             catch (Exception ex)
@@ -199,7 +199,7 @@ namespace MyPortfolio.Controllers.IncomeController
                     return NotFound("Nessun tipo trovato");
                 }
 
-                IncomeTypeDTO incomeDto = new IncomeTypeDTO(incomeType);
+                IncomeTypeDTO incomeDto = IncomeTypeDTOConverter.ToIncomeTypeDTO(incomeType);
                 return Ok(incomeDto);
             }
             catch (Exception ex)

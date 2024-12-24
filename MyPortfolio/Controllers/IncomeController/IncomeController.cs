@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MyPortfolio.Data.Repositories.IncomeRepo;
 using MyPortfolio.DTO.IncomeDTO;
+using MyPortfolio.Models.Expenses;
+using MyPortfolio.Utility.ExpenseUtils;
 using MyPortfolio.Utility.IncomeUtils;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -31,7 +33,7 @@ namespace MyPortfolio.Controllers.IncomeController
                 List<IncomeDTO> incomeListDto = new List<IncomeDTO>();
                 foreach (var income in incomeList)
                 {
-                    IncomeDTO incomeDto = new IncomeDTO(income);
+                    IncomeDTO incomeDto = IncomeDTOConverter.ToIncomeDTO(income);
                     incomeListDto.Add(incomeDto);
                 }
 
@@ -56,7 +58,7 @@ namespace MyPortfolio.Controllers.IncomeController
                     return NotFound("Nessun income trovata.");
                 }
 
-                IncomeDTO incomeDto = new IncomeDTO(income);
+                IncomeDTO incomeDto = IncomeDTOConverter.ToIncomeDTO(income);
                 return Ok(incomeDto);
             }
             catch (Exception ex)
@@ -72,7 +74,7 @@ namespace MyPortfolio.Controllers.IncomeController
         {
             try
             {
-                var incomeToAdd = IncomeStaticUtils.CreateIncomeFromIncomeDto(income);
+                var incomeToAdd = IncomeDTOConverter.FromIncomeDTO(income);
                 await IncomeStaticUtils.AddSingleIncome(_incomeRepo, incomeToAdd);
                 return Ok();
             }
@@ -92,7 +94,7 @@ namespace MyPortfolio.Controllers.IncomeController
             {
                 foreach (var income in incomeList)
                 {
-                    var incomeToAdd = IncomeStaticUtils.CreateIncomeFromIncomeDto(income);
+                    var incomeToAdd = IncomeDTOConverter.FromIncomeDTO(income);
                     await IncomeStaticUtils.AddSingleIncome(_incomeRepo, incomeToAdd);
                 }
                 return Ok();
@@ -154,14 +156,14 @@ namespace MyPortfolio.Controllers.IncomeController
         {
             try
             {
-                var incomeUpdated = IncomeStaticUtils.CreateIncomeFromIncomeDto(incomeToUpdate);
+                var incomeUpdated = IncomeDTOConverter.FromIncomeDTO(incomeToUpdate);
                 var income = await _incomeRepo.UpdateIncomeAsync(incomeId, incomeUpdated);
                 if (income is null)
                 {
                     return NotFound("Nessuna spesa trovata.");
                 }
 
-                IncomeDTO incomeDto = new IncomeDTO(income);
+                IncomeDTO incomeDto = IncomeDTOConverter.ToIncomeDTO(income);
                 return Ok(incomeDto);
             }
             catch (Exception ex)
