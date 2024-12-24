@@ -1,6 +1,4 @@
-﻿using MyPortfolio.Models.Incomes;
-
-namespace MyPortfolio.DTO.IncomeDTO
+﻿namespace MyPortfolio.DTO.IncomeDTO
 {
     public class IncomeDTO
     {

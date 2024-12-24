@@ -1,8 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using MyPortfolio.Data.Repositories.ExpenseRepo;
 using MyPortfolio.Data.Repositories.IncomeRepo;
-using MyPortfolio.DTO.ExpenseDTO;
 using MyPortfolio.Models.Expenses;
 using MyPortfolio.Models.Incomes;
 using MyPortfolio.Utility.ExpenseUtils;

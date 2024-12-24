@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MyPortfolio.Data.Repositories.IncomeRepo;
 using MyPortfolio.DTO.IncomeDTO;
-using MyPortfolio.Models.Expenses;
-using MyPortfolio.Utility.ExpenseUtils;
 using MyPortfolio.Utility.IncomeUtils;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -45,7 +43,7 @@ namespace MyPortfolio.Controllers.IncomeController
                 return StatusCode(500, $"Errore interno del server: {ex.Message}");
             }
         }
-        
+
         [HttpGet("{incomeId}")]
         [SwaggerOperation(Summary = "Get income by ID")]
         public async Task<IActionResult> GetIncomeById(int incomeId)
@@ -172,6 +170,6 @@ namespace MyPortfolio.Controllers.IncomeController
                 return StatusCode(500, $"Errore interno del server: {ex.Message}");
             }
         }
-        
+
     }
 }

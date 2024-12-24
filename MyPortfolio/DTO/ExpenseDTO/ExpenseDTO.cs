@@ -1,6 +1,4 @@
-﻿using MyPortfolio.Models.Expenses;
-
-namespace MyPortfolio.DTO.ExpenseDTO
+﻿namespace MyPortfolio.DTO.ExpenseDTO
 {
     public class ExpenseDTO
     {
