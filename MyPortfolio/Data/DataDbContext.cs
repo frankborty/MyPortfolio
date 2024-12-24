@@ -16,6 +16,8 @@ namespace MyPortfolio.Data
         public DbSet<Asset> Assets { get; set; }
         public DbSet<AssetType> AssetTypes { get; set; }
         public DbSet<AssetCategory> AssetCategories { get; set; }
+        public DbSet<AssetOperation> AssetOperations { get; set; }
+        public DbSet<AssetValue> AssetValues { get; set; }
 
         public DataDbContext(DbContextOptions<DataDbContext> options) : base(options) { }
 
@@ -53,6 +55,16 @@ namespace MyPortfolio.Data
                 .HasOne(t => t.Category)
                 .WithMany(c => c.AssetTypes)
                 .HasForeignKey(t => t.CategoryId);
+
+            modelBuilder.Entity<AssetOperation>()
+                .HasOne(e => e.Asset)
+                .WithMany(t => t.OperationList)
+                .HasForeignKey(e => e.AssetId);
+
+            modelBuilder.Entity<AssetValue>()
+                .HasOne(e => e.Asset)
+                .WithMany(t => t.ValueList)
+                .HasForeignKey(e => e.AssetId);
         }
     }
 }
