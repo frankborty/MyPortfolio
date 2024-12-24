@@ -1,6 +1,4 @@
-﻿using MyPortfolio.Models.Expenses;
-
-namespace MyPortfolio.DTO.ExpenseDTO
+﻿namespace MyPortfolio.DTO.ExpenseDTO
 {
     public class ExpenseTypeToAddDTO
     {
@@ -8,14 +6,5 @@ namespace MyPortfolio.DTO.ExpenseDTO
         public int CategoryId { get; set; }
 
         public ExpenseTypeToAddDTO() { }
-
-        public ExpenseTypeToAddDTO(ExpenseType expenseType)
-        {
-            Name = expenseType.Name;
-            if (expenseType.Category is not null)
-            {
-                CategoryId = expenseType.Category.Id;
-            }
-        }
     }
 }

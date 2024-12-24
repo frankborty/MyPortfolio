@@ -7,7 +7,7 @@ namespace MyPortfolio.Utility.IncomeUtils
 {
     public class IncomeStaticUtils
     {
-        public static Income CreateIncomeFromIncomeDto(IncomeDTO incomeToAdd)
+        /*public static Income CreateIncomeFromIncomeDto(IncomeDTO incomeToAdd)
         {
             var income = new Income()
             {
@@ -20,7 +20,7 @@ namespace MyPortfolio.Utility.IncomeUtils
             return income;
 
         }
-
+        */
         public static async Task AddSingleIncome(IIncomeRepo _incomeRepo, Income incomeToAdd)
         {
             await _incomeRepo.AddIncomeAsync(incomeToAdd);

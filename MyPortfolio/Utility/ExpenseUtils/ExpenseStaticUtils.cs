@@ -7,27 +7,6 @@ namespace MyPortfolio.Utility.ExpenseUtils
 {
     public class ExpenseStaticUtils
     {
-        public static Expense CreateExpenseFromExpenseToAddDto(ExpenseToAddDTO expenseToAdd)
-        {
-            return new Expense()
-            {
-                Amount = expenseToAdd.Amount,
-                Description = expenseToAdd.Description,
-                Date = expenseToAdd.Date,
-                Note = expenseToAdd.Note,
-                TypeId = expenseToAdd.ExpenseTypeId
-            };
-        }
-
-        public static ExpenseType CreateExpenseTypeFromExpenseTypeToAddDto(ExpenseTypeToAddDTO expenseTypeToAdd)
-        {
-            return new ExpenseType()
-            {
-                Name = expenseTypeToAdd.Name,
-                CategoryId = expenseTypeToAdd.CategoryId
-            };
-        }
-
         public static async Task AddSingleExpense(IExpenseRepo _expenseRepo, Expense expenseToAdd)
         {
             await _expenseRepo.AddExpenseAsync(expenseToAdd);
@@ -85,8 +64,6 @@ namespace MyPortfolio.Utility.ExpenseUtils
             }
             return null;
         }
-
-
 
         internal static ExpenseCategory? GetCategoryFromName(string expenseCategoryName, List<ExpenseCategory> expenseCategoryList)
         {

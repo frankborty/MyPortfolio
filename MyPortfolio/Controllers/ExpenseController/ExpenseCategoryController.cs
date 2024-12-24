@@ -2,6 +2,7 @@
 using MyPortfolio.Data.Repositories.ExpenseRepo;
 using MyPortfolio.DTO.ExpenseDTO;
 using MyPortfolio.Models.Expenses;
+using MyPortfolio.Utility.ExpenseUtils;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace MyPortfolio.Controllers.ExpenseController
@@ -30,7 +31,7 @@ namespace MyPortfolio.Controllers.ExpenseController
                 List<ExpenseCategoryDTO> expenseListDto = new List<ExpenseCategoryDTO>();
                 foreach (var expenseCategory in expenseCategoryList)
                 {
-                    ExpenseCategoryDTO expenseCategoryDto = new ExpenseCategoryDTO(expenseCategory);
+                    ExpenseCategoryDTO expenseCategoryDto = ExpenseCategoryDTOConverter.ToExpenseCategoryDTO(expenseCategory);
                     expenseListDto.Add(expenseCategoryDto);
                 }
 
@@ -55,7 +56,7 @@ namespace MyPortfolio.Controllers.ExpenseController
                     return NotFound("Nessun category trovata.");
                 }
 
-                ExpenseCategoryDTO expenseCategoryDto = new ExpenseCategoryDTO(expenseCategory);
+                ExpenseCategoryDTO expenseCategoryDto = ExpenseCategoryDTOConverter.ToExpenseCategoryDTO(expenseCategory);
                 return Ok(expenseCategoryDto);
             }
             catch (Exception ex)
@@ -78,7 +79,7 @@ namespace MyPortfolio.Controllers.ExpenseController
                     return NotFound("Nessun category trovata.");
                 }
 
-                ExpenseCategoryDTO expenseCategoryDto = new ExpenseCategoryDTO(expenseCategory);
+                ExpenseCategoryDTO expenseCategoryDto = ExpenseCategoryDTOConverter.ToExpenseCategoryDTO(expenseCategory);
                 return Ok(expenseCategoryDto);
             }
             catch (Exception ex)
@@ -199,7 +200,7 @@ namespace MyPortfolio.Controllers.ExpenseController
                     return NotFound("Nessun category trovato");
                 }
 
-                ExpenseCategoryDTO expenseDto = new ExpenseCategoryDTO(expenseCategory);
+                ExpenseCategoryDTO expenseDto = ExpenseCategoryDTOConverter.ToExpenseCategoryDTO(expenseCategory);
                 return Ok(expenseDto);
             }
             catch (Exception ex)
