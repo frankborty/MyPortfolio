@@ -7,7 +7,6 @@
         public DateTime Date { get; set; }
         public string Note { get; set; } = string.Empty;
         public int ExpenseTypeId { get; set; }
-        public string ExpenseTypeName { get; set; } = string.Empty;
 
         public ExpenseToAddDTO() { }
     }

@@ -19,7 +19,7 @@ namespace MyPortfolio.Controllers.IncomeController
         
         [HttpGet]
         [SwaggerOperation(Summary = "Get all income type")]
-        public async Task<IActionResult> GetAllIncomeTypes()
+        public async Task<IActionResult> GetAllIncomeTypesAsync()
         {
             try
             {
@@ -46,7 +46,7 @@ namespace MyPortfolio.Controllers.IncomeController
         
         [HttpGet("{incomeTypeId}")]
         [SwaggerOperation(Summary = "Get income type by ID")]
-        public async Task<IActionResult> GetIncomeTypeById(int incomeTypeId)
+        public async Task<IActionResult> GetIncomeTypeByIdAsync(int incomeTypeId)
         {
             try
             {
@@ -69,7 +69,7 @@ namespace MyPortfolio.Controllers.IncomeController
         [HttpGet]
         [Route("{incomeTypeName}/byName")]
         [SwaggerOperation(Summary = "Get income type by name")]
-        public async Task<IActionResult> GetIncomeTypeByName(string incomeTypeName)
+        public async Task<IActionResult> GetIncomeTypeByNameAsync(string incomeTypeName)
         {
             try
             {
@@ -91,7 +91,7 @@ namespace MyPortfolio.Controllers.IncomeController
         
         [HttpPost]
         [SwaggerOperation(Summary = "Add expensive type")]
-        public async Task<IActionResult> AddIncomeType(string incomeType)
+        public async Task<IActionResult> AddIncomeTypeAsync(string incomeType)
         {
             try
             {
@@ -99,7 +99,7 @@ namespace MyPortfolio.Controllers.IncomeController
                 {
                     Name = incomeType
                 };
-                await _incomeTypeRepo.AddIncomeType(incomeTypeToAdd);
+                await _incomeTypeRepo.AddIncomeTypeAsync(incomeTypeToAdd);
                 return Ok();
             }
             catch (Exception ex)
@@ -109,11 +109,10 @@ namespace MyPortfolio.Controllers.IncomeController
             }
         }
 
-        
         [HttpPost]
         [Route("addList")]
         [SwaggerOperation(Summary = "Add expensive type list")]
-        public async Task<IActionResult> AddIncomeTypeList([FromBody] List<string> incomeTypeList)
+        public async Task<IActionResult> AddIncomeTypeListAsync([FromBody] List<string> incomeTypeList)
         {
             try
             {
@@ -128,7 +127,7 @@ namespace MyPortfolio.Controllers.IncomeController
                 }
                 if (incomeTypeToAddList.Count > 0)
                 {
-                    await _incomeTypeRepo.AddIncomeTypeList(incomeTypeToAddList);
+                    await _incomeTypeRepo.AddIncomeTypeListAsync(incomeTypeToAddList);
                 }
                 return Ok();
             }
@@ -141,11 +140,11 @@ namespace MyPortfolio.Controllers.IncomeController
         
         [HttpDelete]
         [SwaggerOperation(Summary = "Delete income type")]
-        public async Task<IActionResult> DeleteIncomeType(int incomeTypeId)
+        public async Task<IActionResult> DeleteIncomeTypeAsync(int incomeTypeId)
         {
             try
             {
-                await _incomeTypeRepo.DeleteIncomeType(incomeTypeId);
+                await _incomeTypeRepo.DeleteIncomeTypeAsync(incomeTypeId);
                 return Ok();
             }
             catch (KeyNotFoundException)
@@ -162,13 +161,13 @@ namespace MyPortfolio.Controllers.IncomeController
         [HttpDelete]
         [Route("deleteList")]
         [SwaggerOperation(Summary = "Delete expensive type list")]
-        public async Task<IActionResult> DeleteIncomeTypeList(List<int> incomeTypeIdList)
+        public async Task<IActionResult> DeleteIncomeTypeListAsync(List<int> incomeTypeIdList)
         {
             try
             {
                 foreach (var incomeTypeId in incomeTypeIdList)
                 {
-                    await _incomeTypeRepo.DeleteIncomeType(incomeTypeId);
+                    await _incomeTypeRepo.DeleteIncomeTypeAsync(incomeTypeId);
                 }
                 return Ok();
             }
@@ -185,7 +184,7 @@ namespace MyPortfolio.Controllers.IncomeController
         
         [HttpPut("{incomeTypeId}")]
         [SwaggerOperation(Summary = "Update income type")]
-        public async Task<IActionResult> UpdateIncomeById(int incomeTypeId, [FromBody] IncomeTypeDTO incomeTypeToUpdate)
+        public async Task<IActionResult> UpdateIncomeByIdAsync(int incomeTypeId, [FromBody] IncomeTypeDTO incomeTypeToUpdate)
         {
             try
             {
@@ -193,7 +192,7 @@ namespace MyPortfolio.Controllers.IncomeController
                 {
                     Name = incomeTypeToUpdate.Name
                 };
-                var incomeType = await _incomeTypeRepo.UpdateIncomeType(incomeTypeId, icomeTypeUpdated);
+                var incomeType = await _incomeTypeRepo.UpdateIncomeTypeAsync(incomeTypeId, icomeTypeUpdated);
                 if (incomeType is null)
                 {
                     return NotFound("Nessun tipo trovato");

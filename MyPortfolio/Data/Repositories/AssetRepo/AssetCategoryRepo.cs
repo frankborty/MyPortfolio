@@ -49,6 +49,13 @@ namespace MyPortfolio.Data.Repositories.AssetRepo
                 .FirstOrDefaultAsync(e => e.Id == assetCategoryId);
         }
 
+        public async Task<AssetCategory?> GetAssetCategoryByNameAsync(string assetCategoryName)
+        {
+            return await dataDbContext.AssetCategories
+                .Include(e => e.AssetTypes)
+                .FirstOrDefaultAsync(e => e.Name == assetCategoryName);
+        }
+
         public async Task<AssetCategory> UpdateAssetCategoryAsync(int assetCategoryId, AssetCategory assetCategory)
         {
             AssetCategory? assetCategoryToUpdate = await dataDbContext.AssetCategories

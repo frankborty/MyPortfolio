@@ -12,21 +12,21 @@ namespace MyPortfolio.Data.Repositories.IncomeRepo
             this.dataDbContext = dataDbContext;
         }
 
-        public async Task<IncomeType> AddIncomeType(IncomeType incomeType)
+        public async Task<IncomeType> AddIncomeTypeAsync(IncomeType incomeType)
         {
             var result = await dataDbContext.IncomeTypes.AddAsync(incomeType);
             await dataDbContext.SaveChangesAsync();
             return result.Entity;
         }
 
-        public async Task AddIncomeTypeList(List<IncomeType> incomeTypeList)
+        public async Task AddIncomeTypeListAsync(List<IncomeType> incomeTypeList)
         {
             await dataDbContext.IncomeTypes.AddRangeAsync(incomeTypeList);
             await dataDbContext.SaveChangesAsync();
             return;
         }
 
-        public async Task DeleteIncomeType(int incomeTypeId)
+        public async Task DeleteIncomeTypeAsync(int incomeTypeId)
         {
             var income = await dataDbContext.IncomeTypes.FindAsync(incomeTypeId);
             if (income is null)
@@ -53,7 +53,7 @@ namespace MyPortfolio.Data.Repositories.IncomeRepo
             return await dataDbContext.IncomeTypes.FirstOrDefaultAsync(e => e.Name == incomeTypeName);
         }
 
-        public async Task<IncomeType> UpdateIncomeType(int incomeTypeId, IncomeType incomeType)
+        public async Task<IncomeType> UpdateIncomeTypeAsync(int incomeTypeId, IncomeType incomeType)
         {
             IncomeType? incomeTypeToUpdate = await dataDbContext.IncomeTypes
                 .FirstOrDefaultAsync(e => e.Id == incomeTypeId);

@@ -7,9 +7,9 @@ namespace MyPortfolio.Data.Repositories.IncomeRepo
         Task<IEnumerable<IncomeType>> GetAllIncomeTypesAsync();
         Task<IncomeType?> GetIncomeTypeAsync(int incomeTypeId);
         Task<IncomeType?> GetIncomeTypeByNameAsync(string incomeTypeName);
-        Task<IncomeType> AddIncomeType(IncomeType incomeType);
-        Task AddIncomeTypeList(List<IncomeType> incomeTypeList);
-        Task<IncomeType> UpdateIncomeType(int incomeTypeList, IncomeType incomeType);
-        Task DeleteIncomeType(int incomeTypeList);
+        Task<IncomeType> AddIncomeTypeAsync(IncomeType incomeType);
+        Task AddIncomeTypeListAsync(List<IncomeType> incomeTypeList);
+        Task<IncomeType> UpdateIncomeTypeAsync(int incomeTypeList, IncomeType incomeType);
+        Task DeleteIncomeTypeAsync(int incomeTypeList);
     }
 }

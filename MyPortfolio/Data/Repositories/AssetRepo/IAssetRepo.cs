@@ -7,6 +7,7 @@ namespace MyPortfolio.Data.Repositories.AssetRepo
         Task<IEnumerable<Asset>> GetAllAssetAsync();
         Task<Asset?> GetAssetByIdAsync(int id);
         Task<Asset?> AddAssetAsync(Asset entity);
+        Task AddAssetListAsync(List<Asset> entityList);
         Task<Asset> UpdateAssetAsync(int id, Asset entity);
         Task DeleteAssetAsync(int id);
     }

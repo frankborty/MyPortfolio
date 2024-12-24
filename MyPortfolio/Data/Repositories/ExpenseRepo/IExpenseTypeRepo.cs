@@ -7,9 +7,9 @@ namespace MyPortfolio.Data.Repositories.ExpenseRepo
         Task<IEnumerable<ExpenseType>> GetAllExpenseTypesAsync();
         Task<ExpenseType?> GetExpenseTypeAsync(int expenseTypeId);
         Task<ExpenseType?> GetExpenseTypeByNameAsync(string expenseTypeName);
-        Task<ExpenseType> AddExpenseType(ExpenseType expenseType);
-        Task AddExpenseTypeList(List<ExpenseType> expenseTypeList);
-        Task<ExpenseType> UpdateExpenseType(int expenseTypeList, ExpenseType expenseType);
-        Task DeleteExpenseType(int expenseTypeList);
+        Task<ExpenseType> AddExpenseTypeAsync(ExpenseType expenseType);
+        Task AddExpenseTypeListAsync(List<ExpenseType> expenseTypeList);
+        Task<ExpenseType> UpdateExpenseTypeAsync(int expenseTypeList, ExpenseType expenseType);
+        Task DeleteExpenseTypeAsync(int expenseTypeList);
     }
 }
