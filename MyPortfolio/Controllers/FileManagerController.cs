@@ -16,25 +16,23 @@ namespace MyPortfolio.Controllers
     [ApiController]
     public class FileManagerController : ControllerBase
     {
-        private readonly IExpenseCategoryRepo _expenseCategoryRepo;
         private readonly IExpenseRepo _expenseRepo;
         private readonly IExpenseTypeRepo _expenseTypeRepo;
         private readonly IIncomeRepo _incomeRepo;
         private readonly IIncomeTypeRepo _incomeTypeRepo;
         private readonly IAssetRepo _assetRepo;
-        private readonly IAssetTypeRepo _assetTypeRepo;
+        private readonly IAssetCategoryRepo _assetCategoryRepo;
 
-        public FileManagerController(IExpenseCategoryRepo expenseCategoryRepo, IExpenseRepo expenseRepo, IExpenseTypeRepo expenseTypeRepo,
+        public FileManagerController(IExpenseRepo expenseRepo, IExpenseTypeRepo expenseTypeRepo,
             IIncomeRepo incomeRepo, IIncomeTypeRepo incomeTypeRepo,
-            IAssetRepo assetRepo, IAssetTypeRepo assetTypeRepo)
+            IAssetRepo assetRepo, IAssetCategoryRepo assetCategoryRepo)
         {
-            _expenseCategoryRepo = expenseCategoryRepo;
             _expenseRepo = expenseRepo;
             _expenseTypeRepo = expenseTypeRepo;
             _incomeRepo = incomeRepo;
             _incomeTypeRepo = incomeTypeRepo;
             _assetRepo = assetRepo;
-            _assetTypeRepo = assetTypeRepo;
+            _assetCategoryRepo = assetCategoryRepo;
         }
 
         [HttpPost]
@@ -99,9 +97,9 @@ namespace MyPortfolio.Controllers
             }
             try
             {
-                var assetTypeCollection = await _assetTypeRepo.GetAllAssetTypeAsync();
-                List<AssetType> assetTypeList = assetTypeCollection.ToList();
-                List<Asset> assetList = await AssetStaticUtils.ProcessAssetFile(file, assetTypeList);
+                var assetCategoryCollection = await _assetCategoryRepo.GetAllAssetCategoryAsync();
+                List<AssetCategory> assetCategoryList = assetCategoryCollection.ToList();
+                List<Asset> assetList = await AssetStaticUtils.ProcessAssetFile(file, assetCategoryList);
                 await _assetRepo.AddAssetListAsync(assetList);
                 return Ok($"{assetList.Count} asset added");
             }
@@ -122,9 +120,9 @@ namespace MyPortfolio.Controllers
             }
             try
             {
-                var assetTypeCollection = await _assetTypeRepo.GetAllAssetTypeAsync();
-                List<AssetType> assetTypeList = assetTypeCollection.ToList();
-                List<Asset> assetList = await AssetStaticUtils.ProcessFinancialAssetFile(file, assetTypeList);
+                var assetCategoryCollection = await _assetCategoryRepo.GetAllAssetCategoryAsync();
+                List<AssetCategory> assetCategoryList = assetCategoryCollection.ToList();
+                List<Asset> assetList = await AssetStaticUtils.ProcessFinancialAssetFile(file, assetCategoryList);
                 await _assetRepo.AddAssetListAsync(assetList);
                 return Ok($"{assetList.Count} asset added");
             }

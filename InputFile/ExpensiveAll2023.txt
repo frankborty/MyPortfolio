@@ -1,4 +1,4 @@
-Postepay imposta di bollo	02/01	2.00	E	Fees	Postepay
+Imposta di bollo	02/01	2.00	E	Fees	Postepay
 Piano	09/01	9.00	E	Casa	Telefono
 Bolletta dic-gen	09/01	320.00	E	Casa	ElettMamma
 Bolletta dic-gen	09/01	53.00	E	Casa	ElettNonnaMaria

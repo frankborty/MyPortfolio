@@ -8,7 +8,8 @@
         public string Note { get; set; } = string.Empty;
         public decimal Share { get; set; }
         public decimal AvgPrice { get; set; }
-        public int AssetTypeId { get; set; }
+        public DateTime TimeStamp { get; set; }
+        public int AssetCategoryId { get; set; }
 
         public AssetToAddDTO() { }
     }

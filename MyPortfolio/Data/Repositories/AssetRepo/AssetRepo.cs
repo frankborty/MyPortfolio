@@ -44,8 +44,7 @@ namespace MyPortfolio.Data.Repositories.AssetRepo
         public async Task<Asset?> GetAssetByIdAsync(int assetId)
         {
             return await dataDbContext.Assets
-                .Include(e => e.AssetType)
-                .ThenInclude(et => et!.Category)
+                .Include(e => e.AssetCategory)
                 .FirstOrDefaultAsync(e => e.Id == assetId);
         }
 
@@ -63,7 +62,7 @@ namespace MyPortfolio.Data.Repositories.AssetRepo
             assetToUpdate.Share = assetToUpdate.Share;
             assetToUpdate.AvgPrice = assetToUpdate.AvgPrice;
             assetToUpdate.Balance = assetToUpdate.Balance;
-            assetToUpdate.TypeId = assetToUpdate.TypeId;
+            assetToUpdate.CategoryId = assetToUpdate.CategoryId;
             await dataDbContext.SaveChangesAsync();
             return assetToUpdate;
         }

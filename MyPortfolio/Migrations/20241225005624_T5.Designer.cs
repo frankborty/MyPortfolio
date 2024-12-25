@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MyPortfolio.Migrations
 {
     [DbContext(typeof(DataDbContext))]
-    [Migration("20241224153556_T1")]
-    partial class T1
+    [Migration("20241225005624_T5")]
+    partial class T5
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -39,6 +39,9 @@ namespace MyPortfolio.Migrations
                     b.Property<decimal>("Balance")
                         .HasColumnType("numeric");
 
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("integer");
+
                     b.Property<string>("ISIN")
                         .IsRequired()
                         .HasColumnType("text");
@@ -54,12 +57,12 @@ namespace MyPortfolio.Migrations
                     b.Property<decimal>("Share")
                         .HasColumnType("numeric");
 
-                    b.Property<int>("TypeId")
-                        .HasColumnType("integer");
+                    b.Property<DateTime>("TimeStamp")
+                        .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TypeId");
+                    b.HasIndex("CategoryId");
 
                     b.ToTable("Assets");
                 });
@@ -84,7 +87,7 @@ namespace MyPortfolio.Migrations
                     b.ToTable("AssetCategories");
                 });
 
-            modelBuilder.Entity("MyPortfolio.Models.Assets.AssetType", b =>
+            modelBuilder.Entity("MyPortfolio.Models.Assets.AssetOperation", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -92,18 +95,27 @@ namespace MyPortfolio.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("CategoryId")
+                    b.Property<int>("AssetId")
                         .HasColumnType("integer");
 
-                    b.Property<string>("Name")
+                    b.Property<decimal>("AvgPrice")
+                        .HasColumnType("numeric");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("OperationType")
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<decimal>("Share")
+                        .HasColumnType("numeric");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("CategoryId");
+                    b.HasIndex("AssetId");
 
-                    b.ToTable("AssetTypes");
+                    b.ToTable("AssetOperations");
                 });
 
             modelBuilder.Entity("MyPortfolio.Models.Expenses.Expense", b =>
@@ -224,24 +236,24 @@ namespace MyPortfolio.Migrations
 
             modelBuilder.Entity("MyPortfolio.Models.Assets.Asset", b =>
                 {
-                    b.HasOne("MyPortfolio.Models.Assets.AssetType", "AssetType")
+                    b.HasOne("MyPortfolio.Models.Assets.AssetCategory", "AssetCategory")
                         .WithMany("Assets")
-                        .HasForeignKey("TypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("AssetType");
-                });
-
-            modelBuilder.Entity("MyPortfolio.Models.Assets.AssetType", b =>
-                {
-                    b.HasOne("MyPortfolio.Models.Assets.AssetCategory", "Category")
-                        .WithMany("AssetTypes")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Category");
+                    b.Navigation("AssetCategory");
+                });
+
+            modelBuilder.Entity("MyPortfolio.Models.Assets.AssetOperation", b =>
+                {
+                    b.HasOne("MyPortfolio.Models.Assets.Asset", "Asset")
+                        .WithMany("OperationList")
+                        .HasForeignKey("AssetId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Asset");
                 });
 
             modelBuilder.Entity("MyPortfolio.Models.Expenses.Expense", b =>
@@ -277,12 +289,12 @@ namespace MyPortfolio.Migrations
                     b.Navigation("IncomeType");
                 });
 
-            modelBuilder.Entity("MyPortfolio.Models.Assets.AssetCategory", b =>
+            modelBuilder.Entity("MyPortfolio.Models.Assets.Asset", b =>
                 {
-                    b.Navigation("AssetTypes");
+                    b.Navigation("OperationList");
                 });
 
-            modelBuilder.Entity("MyPortfolio.Models.Assets.AssetType", b =>
+            modelBuilder.Entity("MyPortfolio.Models.Assets.AssetCategory", b =>
                 {
                     b.Navigation("Assets");
                 });

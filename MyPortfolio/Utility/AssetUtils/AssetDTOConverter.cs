@@ -16,7 +16,8 @@ namespace MyPortfolio.Utility.AssetUtils
                 Note = asset.Note,
                 Share = asset.Share,
                 AvgPrice = asset.AvgPrice,
-                AssetType = AssetTypeDTOConverter.ToAssetTypeDTO(asset.AssetType)
+                TimeStamp = asset.TimeStamp,
+                AssetCategory = AssetCategoryDTOConverter.ToAssetCategoryDTO(asset.AssetCategory)
             };
         }
 
@@ -30,33 +31,8 @@ namespace MyPortfolio.Utility.AssetUtils
                 Name = assetToAdd.Name,
                 Note = assetToAdd.Note,
                 Share = assetToAdd.Share,
-                TypeId = assetToAdd.AssetTypeId
-            };
-        }
-    }
-
-    public static class AssetTypeDTOConverter
-    {
-        public static AssetTypeDTO ToAssetTypeDTO(AssetType? assetType)
-        {
-            if (assetType is null)
-            {
-                return new AssetTypeDTO();
-            }
-            return new AssetTypeDTO()
-            {
-                Id = assetType.Id,
-                Name = assetType.Name,
-                Category = AssetCategoryDTOConverter.ToAssetCategoryDTO(assetType.Category)
-            };
-        }
-
-        public static AssetType FromAssetTypeToAddDTO(AssetTypeToAddDTO assetTypeToAdd)
-        {
-            return new AssetType()
-            {
-                Name = assetTypeToAdd.Name,
-                CategoryId = assetTypeToAdd.CategoryId
+                TimeStamp = assetToAdd.TimeStamp,
+                CategoryId = assetToAdd.AssetCategoryId
             };
         }
     }

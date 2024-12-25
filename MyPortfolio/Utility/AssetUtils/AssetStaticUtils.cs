@@ -22,38 +22,52 @@ namespace MyPortfolio.Utility.AssetUtils
             return null;
         }
 
-        internal static AssetType? GetTypeFromName(string assetTypeName, List<AssetType> assetTypeList)
+        internal static AssetCategory? GetTypeFromName(string assetTypeName, List<AssetCategory> assetCategoryList)
         {
-            foreach (AssetType assetType in assetTypeList)
+            foreach (AssetCategory assetCategory in assetCategoryList)
             {
-                if (string.Equals(assetTypeName, assetType.Name, StringComparison.InvariantCultureIgnoreCase))
+                if (string.Equals(assetTypeName, assetCategory.Name, StringComparison.InvariantCultureIgnoreCase))
                 {
-                    return assetType;
+                    return assetCategory;
                 }
             }
             return null;
         }
 
-        internal static async Task<List<Asset>> ProcessAssetFile(IFormFile file, List<AssetType> assetTypeList)
+
+        internal static Asset? GetAssetFromName(string assetName, List<Asset> assetList)
+        {
+            foreach (Asset asset in assetList)
+            {
+                if (string.Equals(assetName, asset.Name, StringComparison.InvariantCultureIgnoreCase))
+                {
+                    return asset;
+                }
+            }
+            return null;
+        }
+
+        internal static async Task<List<Asset>> ProcessAssetFile(IFormFile file, List<AssetCategory> assetCategoryList)
         {
             List<Asset> assetList = new List<Asset>();
             List<string> fileContent = await FileManagerUtils.ReadIFileInStringList(file);
             foreach (string content in fileContent)
             {
-                Asset asset = ConvertFileLineInAsset(content, assetTypeList);
+                Asset asset = ConvertFileLineInAsset(content, assetCategoryList);
                 assetList.Add(asset);
             }
             return assetList;
         }
 
-        private static Asset ConvertFileLineInAsset(string content, List<AssetType> assetTypeList)
+        private static Asset ConvertFileLineInAsset(string content, List<AssetCategory> assetCategoryList)
         {
             Asset asset = new Asset();
             string[] lineTokens = content.Split('\t');
-            if (lineTokens.Length != 2)
+            if (lineTokens.Length != 4)
             {
                 throw new Exception($"Invalid Line: {lineTokens}");
             }
+            asset.Name = lineTokens[0];
             if (decimal.TryParse(lineTokens[1].Replace(".", ","), out decimal number))
             {
                 asset.Balance = number;
@@ -62,30 +76,30 @@ namespace MyPortfolio.Utility.AssetUtils
             {
                 throw new Exception($"Invalid Amount: {lineTokens}");
             }
-
-            AssetType? assetType = GetTypeFromName(lineTokens[0], assetTypeList);
-            if (assetType is null)
+            asset.TimeStamp = GenericUtils.ConvertStringToDateTime(lineTokens[2]);
+            AssetCategory? assetCategory = GetCategoryFromName(lineTokens[3], assetCategoryList);
+            if (assetCategory is null)
             {
                 throw new Exception($"Invalid asset type {lineTokens}");
             }
 
-            asset.AssetType = assetType;
+            asset.AssetCategory = assetCategory;
             return asset;
         }
 
-        internal static async Task<List<Asset>> ProcessFinancialAssetFile(IFormFile file, List<AssetType> assetTypeList)
+        internal static async Task<List<Asset>> ProcessFinancialAssetFile(IFormFile file, List<AssetCategory> assetCategoryList)
         {
             List<Asset> assetList = new List<Asset>();
             List<string> fileContent = await FileManagerUtils.ReadIFileInStringList(file);
             foreach (string content in fileContent)
             {
-                Asset asset = ConvertFileLineInFinancialAsset(content, assetTypeList);
+                Asset asset = ConvertFileLineInFinancialAsset(content, assetCategoryList);
                 assetList.Add(asset);
             }
             return assetList;
         }
-
-        private static Asset ConvertFileLineInFinancialAsset(string content, List<AssetType> assetTypeList)
+        
+        private static Asset ConvertFileLineInFinancialAsset(string content, List<AssetCategory> assetCategoryList)
         {
             Asset asset = new Asset();
             string[] lineTokens = content.Split('\t');
@@ -121,13 +135,13 @@ namespace MyPortfolio.Utility.AssetUtils
                 throw new Exception($"Invalid AvgPrice: {lineTokens}");
             }
 
-            AssetType? assetType = GetTypeFromName(lineTokens[5], assetTypeList);
-            if (assetType is null)
+            AssetCategory? assetCategory = GetTypeFromName(lineTokens[5], assetCategoryList);
+            if (assetCategory is null)
             {
                 throw new Exception($"Invalid asset type {lineTokens}");
             }
 
-            asset.AssetType = assetType;
+            asset.AssetCategory = assetCategory;
             return asset;
         }
     }

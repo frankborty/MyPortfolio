@@ -9,9 +9,9 @@
         public string Note { get; set; } = string.Empty;
         public decimal Share { get; set; }
         public decimal AvgPrice { get; set; }
-        public int TypeId { get; set; }
-        public AssetType? AssetType { get; set; }
+        public DateTime TimeStamp { get; set; }
+        public int CategoryId { get; set; }
+        public AssetCategory? AssetCategory { get; set; }
         public List<AssetOperation>? OperationList { get; set; }
-        public List<AssetValue>? ValueList { get; set; }
     }
 }

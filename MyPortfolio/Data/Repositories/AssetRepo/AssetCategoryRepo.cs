@@ -45,14 +45,12 @@ namespace MyPortfolio.Data.Repositories.AssetRepo
         public async Task<AssetCategory?> GetAssetCategoryByIdAsync(int assetCategoryId)
         {
             return await dataDbContext.AssetCategories
-                .Include(e => e.AssetTypes)
                 .FirstOrDefaultAsync(e => e.Id == assetCategoryId);
         }
 
         public async Task<AssetCategory?> GetAssetCategoryByNameAsync(string assetCategoryName)
         {
             return await dataDbContext.AssetCategories
-                .Include(e => e.AssetTypes)
                 .FirstOrDefaultAsync(e => e.Name == assetCategoryName);
         }
 

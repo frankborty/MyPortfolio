@@ -2,12 +2,7 @@
 using MyPortfolio.Data.Repositories.AssetRepo;
 using MyPortfolio.Data.Repositories.ExpenseRepo;
 using MyPortfolio.Data.Repositories.IncomeRepo;
-using MyPortfolio.Models.Assets;
-using MyPortfolio.Models.Expenses;
-using MyPortfolio.Models.Incomes;
 using MyPortfolio.Utility;
-using MyPortfolio.Utility.AssetUtils;
-using MyPortfolio.Utility.ExpenseUtils;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace MyPortfolio.Controllers
@@ -18,18 +13,15 @@ namespace MyPortfolio.Controllers
     {
         private readonly IExpenseTypeRepo _expenseTypeRepo;
         private readonly IExpenseCategoryRepo _expenseCategoryRepo;
-        private readonly IAssetTypeRepo _assetTypeRepo;
         private readonly IAssetCategoryRepo _assetCategoryRepo;
         private readonly IIncomeTypeRepo _incomeTypeRepo;
         public DataSeedController(IExpenseTypeRepo expenseTypeRepo,
             IExpenseCategoryRepo expenseCategoryRepo,
-            IAssetTypeRepo assetTypeRepo,
             IAssetCategoryRepo assetCategoryRepo,
             IIncomeTypeRepo incomeTypeRepo)
         {
             _expenseTypeRepo = expenseTypeRepo;
             _expenseCategoryRepo = expenseCategoryRepo;
-            _assetTypeRepo = assetTypeRepo;
             _assetCategoryRepo = assetCategoryRepo;
             _incomeTypeRepo = incomeTypeRepo;
         }
@@ -43,7 +35,7 @@ namespace MyPortfolio.Controllers
             {
                 await SeedUtils.SetExpenseSchema(_expenseTypeRepo, _expenseCategoryRepo);
                 await SeedUtils.SetIncomeSchema(_incomeTypeRepo);
-                await SeedUtils.SetAssetSchema(_assetTypeRepo, _assetCategoryRepo);
+                await SeedUtils.SetAssetSchema(_assetCategoryRepo);
                 return Ok();
             }
             catch (Exception ex)
@@ -95,8 +87,8 @@ namespace MyPortfolio.Controllers
         {
             try
             {
-                await SeedUtils.SetAssetSchema(_assetTypeRepo, _assetCategoryRepo);
-                
+                await SeedUtils.SetAssetSchema(_assetCategoryRepo);
+
                 return Ok();
             }
             catch (Exception ex)

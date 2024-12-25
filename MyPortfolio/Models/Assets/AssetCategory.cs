@@ -7,6 +7,6 @@ namespace MyPortfolio.Models.Assets
         public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
         public bool IsInvested { get; set; } = false;
-        public Collection<AssetType>? AssetTypes { get; set; }
+        public Collection<Asset>? Assets { get; set; }
     }
 }

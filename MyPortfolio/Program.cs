@@ -21,10 +21,8 @@ builder.Services.AddScoped<IIncomeRepo, IncomeRepo>();
 builder.Services.AddScoped<IIncomeTypeRepo, IncomeTypeRepo>();
 
 builder.Services.AddScoped<IAssetRepo, AssetRepo>();
-builder.Services.AddScoped<IAssetTypeRepo, AssetTypeRepo>();
 builder.Services.AddScoped<IAssetCategoryRepo, AssetCategoryRepo>();
 builder.Services.AddScoped<IAssetOperationRepo, AssetOperationRepo>();
-builder.Services.AddScoped<IAssetValueRepo, AssetValueRepo>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -34,6 +32,7 @@ builder.Services.AddSwaggerGen(options =>
     options.EnableAnnotations();
 });
 var app = builder.Build();
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
 // Configure the HTTP request pipeline.
 //if (app.Environment.IsDevelopment())
