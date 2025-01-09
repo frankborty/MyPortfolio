@@ -1,7 +1,0 @@
-PostePay	522	25/12/2024	Account
-ING	150	25/12/2024	Account
-BBVA	31703	25/12/2024	Account
-Euro	210	25/12/2024	Cash
-PayPal	0	25/12/2024	Account
-Martina	500	25/12/2024	Credit
-Directa	67	25/12/2024	Account

@@ -110,6 +110,7 @@ namespace MyPortfolio.Utility
                     new IncomeType(){ Name = "Regali" },
                     new IncomeType(){ Name = "StipendiAggiuntivi" },
                     new IncomeType(){ Name = "InteressiCC" },
+                    new IncomeType(){ Name = "Cedole" },
                     new IncomeType(){ Name = "Altro" }
                 };
 
@@ -119,7 +120,7 @@ namespace MyPortfolio.Utility
             await _incomeTypeRepo.AddIncomeTypeListAsync(incomeTypeListToAdd);
         }
 
-        internal static async Task SetAssetSchema(IAssetCategoryRepo _assetCategoryRepo)
+        internal static async Task SetAssetSchema(IAssetRepo _assetRepo, IAssetCategoryRepo _assetCategoryRepo)
         {
             List<AssetCategory> assetCategoryListToAdd = new List<AssetCategory>()
                 {
@@ -131,8 +132,34 @@ namespace MyPortfolio.Utility
 
             var currentCategoryList = await _assetCategoryRepo.GetAllAssetCategoryAsync();
             assetCategoryListToAdd.RemoveAll(item1 => currentCategoryList.Any(item2 => item2.Name == item1.Name));
-
             await _assetCategoryRepo.AddAssetCategoryListAsync(assetCategoryListToAdd);
+
+            currentCategoryList = await _assetCategoryRepo.GetAllAssetCategoryAsync();
+            List<AssetCategory> categoryList = currentCategoryList.ToList();
+            List<Asset> assetListToAdd = new List<Asset>() {
+                new  Asset(){ AssetCategory = AssetUtils.AssetStaticUtils.GetCategoryFromName("Account", categoryList), Name = "PostePay" },
+                new  Asset(){ AssetCategory = AssetUtils.AssetStaticUtils.GetCategoryFromName("Account", categoryList), Name = "ING" },
+                new  Asset(){ AssetCategory = AssetUtils.AssetStaticUtils.GetCategoryFromName("Account", categoryList), Name = "BBVA" },
+                new  Asset(){ AssetCategory = AssetUtils.AssetStaticUtils.GetCategoryFromName("Cash", categoryList), Name = "Euro" },
+                new  Asset(){ AssetCategory = AssetUtils.AssetStaticUtils.GetCategoryFromName("Account", categoryList), Name = "PayPal" },
+                new  Asset(){ AssetCategory = AssetUtils.AssetStaticUtils.GetCategoryFromName("Credit", categoryList), Name = "Martina" },
+                new  Asset(){ AssetCategory = AssetUtils.AssetStaticUtils.GetCategoryFromName("Credit", categoryList), Name = "Virginia" },
+                new  Asset(){ AssetCategory = AssetUtils.AssetStaticUtils.GetCategoryFromName("Account", categoryList), Name = "Directa" },
+
+                new  Asset(){ AssetCategory = AssetUtils.AssetStaticUtils.GetCategoryFromName("Financial", categoryList), Name = "XZMU", ISIN = "IE00BFMNPS42", Share = 183 },
+                new  Asset(){ AssetCategory = AssetUtils.AssetStaticUtils.GetCategoryFromName("Financial", categoryList), Name = "SUAS", ISIN = "IE00BYVJRR92", Share = 680 },
+                new  Asset(){ AssetCategory = AssetUtils.AssetStaticUtils.GetCategoryFromName("Financial", categoryList), Name = "V3AA", ISIN = "IE00BNG8L278", Share = 1000 },
+                new  Asset(){ AssetCategory = AssetUtils.AssetStaticUtils.GetCategoryFromName("Financial", categoryList), Name = "EMESG", ISIN = "LU2109787551", Share = 50 },
+                new  Asset(){ AssetCategory = AssetUtils.AssetStaticUtils.GetCategoryFromName("Financial", categoryList), Name = "V3EA", ISIN = "IE000QUOSE01", Share = 432 },
+                new  Asset(){ AssetCategory = AssetUtils.AssetStaticUtils.GetCategoryFromName("Financial", categoryList), Name = "V3MA", ISIN = "IE000KPJJWM6", Share = 900 },
+                new  Asset(){ AssetCategory = AssetUtils.AssetStaticUtils.GetCategoryFromName("Financial", categoryList), Name = "V3PA", ISIN = "IE000GOJO2A3", Share = 392 },
+                new  Asset(){ AssetCategory = AssetUtils.AssetStaticUtils.GetCategoryFromName("Financial", categoryList), Name = "M.509954", ISIN = "IT0005496994", Share = 50 },
+                new  Asset(){ AssetCategory = AssetUtils.AssetStaticUtils.GetCategoryFromName("Financial", categoryList), Name = "M.510366", ISIN = "IT0005532715", Share = 50 }
+            };
+
+            var currentAssetList = await _assetRepo.GetAllAssetAsync();
+            assetListToAdd.RemoveAll(item1 => currentAssetList.Any(item2 => item2.Name == item1.Name));
+            await _assetRepo.AddAssetListAsync(assetListToAdd);
         }
     }
 }

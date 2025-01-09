@@ -60,8 +60,6 @@ namespace MyPortfolio.Data.Repositories.AssetRepo
 
             assetToUpdate.Note = assetToUpdate.Note;
             assetToUpdate.Share = assetToUpdate.Share;
-            assetToUpdate.AvgPrice = assetToUpdate.AvgPrice;
-            assetToUpdate.Balance = assetToUpdate.Balance;
             assetToUpdate.CategoryId = assetToUpdate.CategoryId;
             await dataDbContext.SaveChangesAsync();
             return assetToUpdate;

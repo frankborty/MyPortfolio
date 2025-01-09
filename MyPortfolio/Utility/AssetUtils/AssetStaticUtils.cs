@@ -1,5 +1,6 @@
 ﻿using MyPortfolio.Data.Repositories.AssetRepo;
 using MyPortfolio.Models.Assets;
+using System.Globalization;
 
 namespace MyPortfolio.Utility.AssetUtils
 {
@@ -22,18 +23,6 @@ namespace MyPortfolio.Utility.AssetUtils
             return null;
         }
 
-        internal static AssetCategory? GetTypeFromName(string assetTypeName, List<AssetCategory> assetCategoryList)
-        {
-            foreach (AssetCategory assetCategory in assetCategoryList)
-            {
-                if (string.Equals(assetTypeName, assetCategory.Name, StringComparison.InvariantCultureIgnoreCase))
-                {
-                    return assetCategory;
-                }
-            }
-            return null;
-        }
-
 
         internal static Asset? GetAssetFromName(string assetName, List<Asset> assetList)
         {
@@ -47,18 +36,6 @@ namespace MyPortfolio.Utility.AssetUtils
             return null;
         }
 
-        internal static async Task<List<Asset>> ProcessAssetFile(IFormFile file, List<AssetCategory> assetCategoryList)
-        {
-            List<Asset> assetList = new List<Asset>();
-            List<string> fileContent = await FileManagerUtils.ReadIFileInStringList(file);
-            foreach (string content in fileContent)
-            {
-                Asset asset = ConvertFileLineInAsset(content, assetCategoryList);
-                assetList.Add(asset);
-            }
-            return assetList;
-        }
-
         private static Asset ConvertFileLineInAsset(string content, List<AssetCategory> assetCategoryList)
         {
             Asset asset = new Asset();
@@ -68,15 +45,6 @@ namespace MyPortfolio.Utility.AssetUtils
                 throw new Exception($"Invalid Line: {lineTokens}");
             }
             asset.Name = lineTokens[0];
-            if (decimal.TryParse(lineTokens[1].Replace(".", ","), out decimal number))
-            {
-                asset.Balance = number;
-            }
-            else
-            {
-                throw new Exception($"Invalid Amount: {lineTokens}");
-            }
-            asset.TimeStamp = GenericUtils.ConvertStringToDateTime(lineTokens[2]);
             AssetCategory? assetCategory = GetCategoryFromName(lineTokens[3], assetCategoryList);
             if (assetCategory is null)
             {
@@ -87,62 +55,103 @@ namespace MyPortfolio.Utility.AssetUtils
             return asset;
         }
 
-        internal static async Task<List<Asset>> ProcessFinancialAssetFile(IFormFile file, List<AssetCategory> assetCategoryList)
+        internal static async Task<List<AssetValue>> ProcessAssetValueFile(IFormFile file, List<Asset> assetList)
         {
-            List<Asset> assetList = new List<Asset>();
+            List<AssetValue> assetValueList = new List<AssetValue>();
             List<string> fileContent = await FileManagerUtils.ReadIFileInStringList(file);
             foreach (string content in fileContent)
             {
-                Asset asset = ConvertFileLineInFinancialAsset(content, assetCategoryList);
-                assetList.Add(asset);
+                if (content.Length > 3)
+                {
+                    AssetValue assetValue = ConvertFileLineInAssetValue(content, assetList);
+                    assetValueList.Add(assetValue);
+                }
             }
-            return assetList;
+            return assetValueList;
         }
-        
-        private static Asset ConvertFileLineInFinancialAsset(string content, List<AssetCategory> assetCategoryList)
+
+        private static AssetValue ConvertFileLineInAssetValue(string content, List<Asset> assetList)
         {
-            Asset asset = new Asset();
-            string[] lineTokens = content.Split('\t');
-            if (lineTokens.Length != 6)
+            AssetValue assetValue = new AssetValue();
+            string[] lineTokens = content.Split(' ');
+            if (lineTokens.Length != 3)
             {
                 throw new Exception($"Invalid Line: {lineTokens}");
             }
 
-            asset.ISIN = lineTokens[0];
-            asset.Name = lineTokens[1];
-            if (decimal.TryParse(lineTokens[2].Replace(".", ","), out decimal balance))
+            var asset = GetAssetFromName(lineTokens[0], assetList);
+            if (asset is null)
             {
-                asset.Balance = balance;
+                throw new Exception($"Invalid Asset: {lineTokens}");
             }
-            else
+            assetValue.Asset = asset;
+            assetValue.AssetId = asset.Id;
+            assetValue.TimeStamp = DateTime.ParseExact(lineTokens[1], "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            if (decimal.TryParse(lineTokens[2].Replace(".", ","), out decimal value))
             {
-                throw new Exception($"Invalid Balance: {lineTokens}");
-            }
-            if (int.TryParse(lineTokens[3].Replace(".", ","), out int share))
-            {
-                asset.Share = share;
+                assetValue.Value = value;
             }
             else
             {
                 throw new Exception($"Invalid Share: {lineTokens}");
             }
-            if (decimal.TryParse(lineTokens[4].Replace(".", ","), out decimal avgPrice))
+
+            return assetValue;
+        }
+
+        internal static async Task<List<AssetOperation>> ProcessAssetOperationFile(IFormFile file, List<Asset> assetList)
+        {
+            List<AssetOperation> assetOperationList = new List<AssetOperation>();
+            List<string> fileContent = await FileManagerUtils.ReadIFileInStringList(file);
+            foreach (string content in fileContent)
             {
-                asset.AvgPrice = avgPrice;
+                if (content.Length > 3)
+                {
+                    AssetOperation assetValue = ConvertFileLineInAssetOperation(content, assetList);
+                    assetOperationList.Add(assetValue);
+                }
+            }
+            return assetOperationList;
+        }
+
+        private static AssetOperation ConvertFileLineInAssetOperation(string content, List<Asset> assetList)
+        {
+            AssetOperation assetOperation = new AssetOperation();
+            string[] lineTokens = content.Split(' ');
+            if (lineTokens.Length != 4)
+            {
+                throw new Exception($"Invalid Line: {lineTokens}");
+            }
+
+            var asset = GetAssetFromName(lineTokens[0], assetList);
+            if (asset is null)
+            {
+                throw new Exception($"Invalid Asset: {lineTokens}");
+            }
+            assetOperation.AssetId = asset.Id;
+            
+            if (decimal.TryParse(lineTokens[1].Replace(".", ","), out decimal share))
+            {
+                assetOperation.Share = share;
             }
             else
             {
-                throw new Exception($"Invalid AvgPrice: {lineTokens}");
+                throw new Exception($"Invalid Share: {lineTokens}");
             }
-
-            AssetCategory? assetCategory = GetTypeFromName(lineTokens[5], assetCategoryList);
-            if (assetCategory is null)
+            
+            if (decimal.TryParse(lineTokens[2].Replace(".", ","), out decimal price))
             {
-                throw new Exception($"Invalid asset type {lineTokens}");
+                assetOperation.AvgPrice = price;
             }
+            else
+            {
+                throw new Exception($"Invalid Price: {lineTokens}");
+            }
+            assetOperation.Date = DateTime.ParseExact(lineTokens[3], "dd/MM/yyyy", CultureInfo.InvariantCulture).Date;
+            assetOperation.OperationType = "BUY";
 
-            asset.AssetCategory = assetCategory;
-            return asset;
+
+            return assetOperation;
         }
     }
 }

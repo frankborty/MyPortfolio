@@ -13,15 +13,18 @@ namespace MyPortfolio.Controllers
     {
         private readonly IExpenseTypeRepo _expenseTypeRepo;
         private readonly IExpenseCategoryRepo _expenseCategoryRepo;
+        private readonly IAssetRepo _assetRepo;
         private readonly IAssetCategoryRepo _assetCategoryRepo;
         private readonly IIncomeTypeRepo _incomeTypeRepo;
         public DataSeedController(IExpenseTypeRepo expenseTypeRepo,
             IExpenseCategoryRepo expenseCategoryRepo,
+            IAssetRepo assetRepo,
             IAssetCategoryRepo assetCategoryRepo,
             IIncomeTypeRepo incomeTypeRepo)
         {
             _expenseTypeRepo = expenseTypeRepo;
             _expenseCategoryRepo = expenseCategoryRepo;
+            _assetRepo = assetRepo;
             _assetCategoryRepo = assetCategoryRepo;
             _incomeTypeRepo = incomeTypeRepo;
         }
@@ -35,7 +38,7 @@ namespace MyPortfolio.Controllers
             {
                 await SeedUtils.SetExpenseSchema(_expenseTypeRepo, _expenseCategoryRepo);
                 await SeedUtils.SetIncomeSchema(_incomeTypeRepo);
-                await SeedUtils.SetAssetSchema(_assetCategoryRepo);
+                await SeedUtils.SetAssetSchema(_assetRepo, _assetCategoryRepo);
                 return Ok();
             }
             catch (Exception ex)
@@ -87,7 +90,7 @@ namespace MyPortfolio.Controllers
         {
             try
             {
-                await SeedUtils.SetAssetSchema(_assetCategoryRepo);
+                await SeedUtils.SetAssetSchema(_assetRepo, _assetCategoryRepo);
 
                 return Ok();
             }

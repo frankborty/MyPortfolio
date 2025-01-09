@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MyPortfolio.Migrations
 {
     [DbContext(typeof(DataDbContext))]
-    [Migration("20241225010057_T6")]
-    partial class T6
+    [Migration("20250109151711_T8")]
+    partial class T8
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -33,12 +33,6 @@ namespace MyPortfolio.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<decimal>("AvgPrice")
-                        .HasColumnType("numeric");
-
-                    b.Property<decimal>("Balance")
-                        .HasColumnType("numeric");
-
                     b.Property<int>("CategoryId")
                         .HasColumnType("integer");
 
@@ -56,9 +50,6 @@ namespace MyPortfolio.Migrations
 
                     b.Property<decimal>("Share")
                         .HasColumnType("numeric");
-
-                    b.Property<DateTime>("TimeStamp")
-                        .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
 
@@ -116,6 +107,30 @@ namespace MyPortfolio.Migrations
                     b.HasIndex("AssetId");
 
                     b.ToTable("AssetOperations");
+                });
+
+            modelBuilder.Entity("MyPortfolio.Models.Assets.AssetValue", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AssetId")
+                        .HasColumnType("integer");
+
+                    b.Property<decimal>("Balance")
+                        .HasColumnType("numeric");
+
+                    b.Property<DateTime>("TimeStamp")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AssetId");
+
+                    b.ToTable("AssetValues");
                 });
 
             modelBuilder.Entity("MyPortfolio.Models.Expenses.Expense", b =>
@@ -256,6 +271,17 @@ namespace MyPortfolio.Migrations
                     b.Navigation("Asset");
                 });
 
+            modelBuilder.Entity("MyPortfolio.Models.Assets.AssetValue", b =>
+                {
+                    b.HasOne("MyPortfolio.Models.Assets.Asset", "Asset")
+                        .WithMany("ValueList")
+                        .HasForeignKey("AssetId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Asset");
+                });
+
             modelBuilder.Entity("MyPortfolio.Models.Expenses.Expense", b =>
                 {
                     b.HasOne("MyPortfolio.Models.Expenses.ExpenseType", "ExpenseType")
@@ -292,6 +318,8 @@ namespace MyPortfolio.Migrations
             modelBuilder.Entity("MyPortfolio.Models.Assets.Asset", b =>
                 {
                     b.Navigation("OperationList");
+
+                    b.Navigation("ValueList");
                 });
 
             modelBuilder.Entity("MyPortfolio.Models.Assets.AssetCategory", b =>

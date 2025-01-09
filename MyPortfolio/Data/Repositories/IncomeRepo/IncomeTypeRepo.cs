@@ -35,7 +35,7 @@ namespace MyPortfolio.Data.Repositories.IncomeRepo
             }
             dataDbContext.IncomeTypes.Remove(income);
             await dataDbContext.SaveChangesAsync();
-            
+
         }
 
         public async Task<IEnumerable<IncomeType>> GetAllIncomeTypesAsync()

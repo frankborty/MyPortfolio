@@ -9,6 +9,6 @@ namespace MyPortfolio.Data.Repositories.ExpenseRepo
         Task<Expense> AddExpenseAsync(Expense expense);
         Task AddExpenseListAsync(List<Expense> expenseList);
         Task DeleteExpenseAsync(int expenseId);
-        Task <Expense> UpdateExpenseAsync(int expenseId, Expense expense);
+        Task<Expense> UpdateExpenseAsync(int expenseId, Expense expense);
     }
 }

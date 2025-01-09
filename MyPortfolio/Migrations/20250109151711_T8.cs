@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
@@ -7,7 +6,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MyPortfolio.Migrations
 {
     /// <inheritdoc />
-    public partial class T5 : Migration
+    public partial class T8 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -60,11 +59,8 @@ namespace MyPortfolio.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Name = table.Column<string>(type: "text", nullable: false),
                     ISIN = table.Column<string>(type: "text", nullable: false),
-                    Balance = table.Column<decimal>(type: "numeric", nullable: false),
                     Note = table.Column<string>(type: "text", nullable: false),
                     Share = table.Column<decimal>(type: "numeric", nullable: false),
-                    AvgPrice = table.Column<decimal>(type: "numeric", nullable: false),
-                    TimeStamp = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     CategoryId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
@@ -144,6 +140,27 @@ namespace MyPortfolio.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "AssetValues",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    AssetId = table.Column<int>(type: "integer", nullable: false),
+                    Balance = table.Column<decimal>(type: "numeric", nullable: false),
+                    TimeStamp = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AssetValues", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AssetValues_Assets_AssetId",
+                        column: x => x.AssetId,
+                        principalTable: "Assets",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Expenses",
                 columns: table => new
                 {
@@ -177,6 +194,11 @@ namespace MyPortfolio.Migrations
                 column: "CategoryId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_AssetValues_AssetId",
+                table: "AssetValues",
+                column: "AssetId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Expenses_TypeId",
                 table: "Expenses",
                 column: "TypeId");
@@ -197,6 +219,9 @@ namespace MyPortfolio.Migrations
         {
             migrationBuilder.DropTable(
                 name: "AssetOperations");
+
+            migrationBuilder.DropTable(
+                name: "AssetValues");
 
             migrationBuilder.DropTable(
                 name: "Expenses");
