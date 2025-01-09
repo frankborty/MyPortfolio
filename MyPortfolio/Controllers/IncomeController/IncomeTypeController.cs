@@ -16,7 +16,7 @@ namespace MyPortfolio.Controllers.IncomeController
         {
             _incomeTypeRepo = incomeTypeRepo;
         }
-        
+
         [HttpGet]
         [SwaggerOperation(Summary = "Get all income type")]
         public async Task<IActionResult> GetAllIncomeTypesAsync()
@@ -43,7 +43,7 @@ namespace MyPortfolio.Controllers.IncomeController
                 return StatusCode(500, $"Errore interno del server: {ex.Message}");
             }
         }
-        
+
         [HttpGet("{incomeTypeId}")]
         [SwaggerOperation(Summary = "Get income type by ID")]
         public async Task<IActionResult> GetIncomeTypeByIdAsync(int incomeTypeId)
@@ -65,7 +65,7 @@ namespace MyPortfolio.Controllers.IncomeController
                 return StatusCode(500, $"Errore interno del server: {ex.Message}");
             }
         }
-        
+
         [HttpGet]
         [Route("{incomeTypeName}/byName")]
         [SwaggerOperation(Summary = "Get income type by name")]
@@ -88,7 +88,7 @@ namespace MyPortfolio.Controllers.IncomeController
                 return StatusCode(500, $"Errore interno del server: {ex.Message}");
             }
         }
-        
+
         [HttpPost]
         [SwaggerOperation(Summary = "Add expensive type")]
         public async Task<IActionResult> AddIncomeTypeAsync(string incomeType)
@@ -137,7 +137,7 @@ namespace MyPortfolio.Controllers.IncomeController
                 return StatusCode(500, $"Errore interno del server: {ex.Message}");
             }
         }
-        
+
         [HttpDelete]
         [SwaggerOperation(Summary = "Delete income type")]
         public async Task<IActionResult> DeleteIncomeTypeAsync(int incomeTypeId)
@@ -181,7 +181,7 @@ namespace MyPortfolio.Controllers.IncomeController
                 return StatusCode(500, $"Errore interno del server: {ex.Message}");
             }
         }
-        
+
         [HttpPut("{incomeTypeId}")]
         [SwaggerOperation(Summary = "Update income type")]
         public async Task<IActionResult> UpdateIncomeByIdAsync(int incomeTypeId, [FromBody] IncomeTypeDTO incomeTypeToUpdate)

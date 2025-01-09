@@ -30,7 +30,7 @@ namespace MyPortfolio.Utility.ExpenseUtils
             };
         }
     }
-    
+
     public static class ExpenseTypeDTOConverter
     {
         public static ExpenseTypeDTO ToExpenseTypeDTO(ExpenseType? expenseType)

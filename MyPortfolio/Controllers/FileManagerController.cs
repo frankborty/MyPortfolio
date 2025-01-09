@@ -21,17 +21,21 @@ namespace MyPortfolio.Controllers
         private readonly IIncomeRepo _incomeRepo;
         private readonly IIncomeTypeRepo _incomeTypeRepo;
         private readonly IAssetRepo _assetRepo;
+        private readonly IAssetValueRepo _assetValueRepo;
+        private readonly IAssetOperationRepo _assetOperationRepo;
         private readonly IAssetCategoryRepo _assetCategoryRepo;
 
         public FileManagerController(IExpenseRepo expenseRepo, IExpenseTypeRepo expenseTypeRepo,
             IIncomeRepo incomeRepo, IIncomeTypeRepo incomeTypeRepo,
-            IAssetRepo assetRepo, IAssetCategoryRepo assetCategoryRepo)
+            IAssetRepo assetRepo, IAssetValueRepo assetValueRepo, IAssetOperationRepo assetOperationRepo, IAssetCategoryRepo assetCategoryRepo)
         {
             _expenseRepo = expenseRepo;
             _expenseTypeRepo = expenseTypeRepo;
             _incomeRepo = incomeRepo;
             _incomeTypeRepo = incomeTypeRepo;
             _assetRepo = assetRepo;
+            _assetOperationRepo = assetOperationRepo;
+            _assetValueRepo = assetValueRepo;
             _assetCategoryRepo = assetCategoryRepo;
         }
 
@@ -97,11 +101,11 @@ namespace MyPortfolio.Controllers
             }
             try
             {
-                var assetCategoryCollection = await _assetCategoryRepo.GetAllAssetCategoryAsync();
-                List<AssetCategory> assetCategoryList = assetCategoryCollection.ToList();
-                List<Asset> assetList = await AssetStaticUtils.ProcessAssetFile(file, assetCategoryList);
-                await _assetRepo.AddAssetListAsync(assetList);
-                return Ok($"{assetList.Count} asset added");
+                var assetCollection = await _assetRepo.GetAllAssetAsync();
+                List<Asset> assetList = assetCollection.ToList();
+                List<AssetValue> assetValueList = await AssetStaticUtils.ProcessAssetValueFile(file, assetList);
+                await _assetValueRepo.AddAssetValueListAsync(assetValueList);
+                return Ok($"{assetValueList.Count} asset value added");
             }
             catch (Exception ex)
             {
@@ -110,9 +114,9 @@ namespace MyPortfolio.Controllers
         }
 
         [HttpPost]
-        [Route("financialAsset")]
-        [SwaggerOperation(Summary = "Add financial asset from file")]
-        public async Task<IActionResult> AddFinancialAssetFile(IFormFile file)
+        [Route("assetOperation")]
+        [SwaggerOperation(Summary = "Add asset from file")]
+        public async Task<IActionResult> AddAssetOperationFile(IFormFile file)
         {
             if (file == null || file.Length == 0)
             {
@@ -120,11 +124,11 @@ namespace MyPortfolio.Controllers
             }
             try
             {
-                var assetCategoryCollection = await _assetCategoryRepo.GetAllAssetCategoryAsync();
-                List<AssetCategory> assetCategoryList = assetCategoryCollection.ToList();
-                List<Asset> assetList = await AssetStaticUtils.ProcessFinancialAssetFile(file, assetCategoryList);
-                await _assetRepo.AddAssetListAsync(assetList);
-                return Ok($"{assetList.Count} asset added");
+                var assetCollection = await _assetRepo.GetAllAssetAsync();
+                List<Asset> assetList = assetCollection.ToList();
+                List<AssetOperation> assetOperationList = await AssetStaticUtils.ProcessAssetOperationFile(file, assetList);
+                await _assetOperationRepo.AddAssetOperationListAsync(assetOperationList);
+                return Ok($"{assetOperationList.Count} asset operation added");
             }
             catch (Exception ex)
             {

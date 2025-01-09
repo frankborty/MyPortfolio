@@ -7,7 +7,7 @@
         public decimal Share { get; set; }
         public decimal AvgPrice { get; set; }
         public DateTime Date { get; set; }
-        public string OperationType { get; set; } = "BUY"; //BUY, SELL, INTEREST
+        public string OperationType { get; set; } = "BUY"; //BUY, SELL
         public Asset? Asset { get; set; }
     }
 }

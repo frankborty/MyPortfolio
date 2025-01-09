@@ -23,6 +23,7 @@ builder.Services.AddScoped<IIncomeTypeRepo, IncomeTypeRepo>();
 builder.Services.AddScoped<IAssetRepo, AssetRepo>();
 builder.Services.AddScoped<IAssetCategoryRepo, AssetCategoryRepo>();
 builder.Services.AddScoped<IAssetOperationRepo, AssetOperationRepo>();
+builder.Services.AddScoped<IAssetValueRepo, AssetValueRepo>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

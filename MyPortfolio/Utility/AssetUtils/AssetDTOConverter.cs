@@ -12,11 +12,8 @@ namespace MyPortfolio.Utility.AssetUtils
                 Id = asset.Id,
                 Name = asset.Name,
                 ISIN = asset.ISIN,
-                Balance = asset.Balance,
                 Note = asset.Note,
                 Share = asset.Share,
-                AvgPrice = asset.AvgPrice,
-                TimeStamp = asset.TimeStamp,
                 AssetCategory = AssetCategoryDTOConverter.ToAssetCategoryDTO(asset.AssetCategory)
             };
         }
@@ -25,13 +22,10 @@ namespace MyPortfolio.Utility.AssetUtils
         {
             return new Asset()
             {
-                AvgPrice = assetToAdd.AvgPrice,
-                Balance = assetToAdd.Balance,
                 ISIN = assetToAdd.ISIN,
                 Name = assetToAdd.Name,
                 Note = assetToAdd.Note,
                 Share = assetToAdd.Share,
-                TimeStamp = assetToAdd.TimeStamp,
                 CategoryId = assetToAdd.AssetCategoryId
             };
         }
@@ -50,6 +44,24 @@ namespace MyPortfolio.Utility.AssetUtils
                 Id = assetCategory.Id,
                 Name = assetCategory.Name,
                 IsInvested = assetCategory.IsInvested,
+            };
+        }
+    }
+
+    public static class AssetValueDTOConverter
+    {
+        public static AssetValueDTO ToAssetValueDTO(AssetValue? assetValue)
+        {
+            if (assetValue is null)
+            {
+                return new AssetValueDTO();
+            }
+            return new AssetValueDTO()
+            {
+                Id = assetValue.Id,
+                AssetId = assetValue.AssetId,
+                Value = assetValue.Value,
+                TimeStamp = assetValue.TimeStamp
             };
         }
     }
