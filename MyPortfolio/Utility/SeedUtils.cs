@@ -20,7 +20,6 @@ namespace MyPortfolio.Utility
                 new ExpenseCategory(){ Name = "Auto" },
                 new ExpenseCategory(){ Name = "Fun" },
                 new ExpenseCategory(){ Name = "Shop" },
-                new ExpenseCategory(){ Name = "Vesiti" },
                 new ExpenseCategory(){ Name = "Regali" },
                 new ExpenseCategory(){ Name = "Fees" },
                 new ExpenseCategory(){ Name = "AltreSpese" },

@@ -12,9 +12,11 @@ namespace MyPortfolio.Controllers.ExpenseController
     public class ExpenseController : ControllerBase
     {
         private readonly IExpenseRepo _expenseRepo;
-        public ExpenseController(IExpenseRepo expenseRepo)
+        private readonly IExpenseTypeRepo _expenseTypeRepo;
+        public ExpenseController(IExpenseRepo expenseRepo, IExpenseTypeRepo expenseTypeRepo)
         {
             _expenseRepo = expenseRepo;
+            _expenseTypeRepo = expenseTypeRepo;
         }
 
         [HttpGet]
@@ -72,7 +74,9 @@ namespace MyPortfolio.Controllers.ExpenseController
         {
             try
             {
-                Expense expenseToAdd = ExpenseDTOConverter.FromExpenseToAddDTO(expense);
+                var expenseTypeList = await _expenseTypeRepo.GetAllExpenseTypesAsync();
+                ExpenseType? expenseType = ExpenseStaticUtils.GetTypeFromName(expense.ExpenseType, expenseTypeList.ToList());
+                Expense expenseToAdd = ExpenseDTOConverter.FromExpenseToAddDTO(expense, expenseType);
                 await ExpenseStaticUtils.AddSingleExpense(_expenseRepo, expenseToAdd);
                 return Ok();
             }
@@ -90,9 +94,11 @@ namespace MyPortfolio.Controllers.ExpenseController
         {
             try
             {
+                var expenseTypeList = await _expenseTypeRepo.GetAllExpenseTypesAsync();
                 foreach (var expense in expenseList)
                 {
-                    Expense expenseToAdd = ExpenseDTOConverter.FromExpenseToAddDTO(expense);
+                    ExpenseType? expenseType = ExpenseStaticUtils.GetTypeFromName(expense.ExpenseType, expenseTypeList.ToList());
+                    Expense expenseToAdd = ExpenseDTOConverter.FromExpenseToAddDTO(expense, expenseType);
                     await ExpenseStaticUtils.AddSingleExpense(_expenseRepo, expenseToAdd);
                 }
                 return Ok();
@@ -154,7 +160,9 @@ namespace MyPortfolio.Controllers.ExpenseController
         {
             try
             {
-                Expense expenseUpdated = ExpenseDTOConverter.FromExpenseToAddDTO(expenseToUpdate);
+                var expenseTypeList = await _expenseTypeRepo.GetAllExpenseTypesAsync();
+                ExpenseType? expenseType = ExpenseStaticUtils.GetTypeFromName(expenseToUpdate.ExpenseType, expenseTypeList.ToList());
+                Expense expenseUpdated = ExpenseDTOConverter.FromExpenseToAddDTO(expenseToUpdate, expenseType);
                 var expense = await _expenseRepo.UpdateExpenseAsync(expenseId, expenseUpdated);
                 if (expense is null)
                 {

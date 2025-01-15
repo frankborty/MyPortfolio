@@ -6,7 +6,7 @@
         public decimal Amount { get; set; }
         public DateTime Date { get; set; }
         public string Note { get; set; } = string.Empty;
-        public int ExpenseTypeId { get; set; }
+        public string ExpenseType { get; set; } = string.Empty;
 
         public ExpenseToAddDTO() { }
     }

@@ -18,15 +18,19 @@ namespace MyPortfolio.Utility.ExpenseUtils
             };
         }
 
-        public static Expense FromExpenseToAddDTO(ExpenseToAddDTO expenseToAdd)
+        public static Expense FromExpenseToAddDTO(ExpenseToAddDTO expenseToAdd, ExpenseType? expenseType)
         {
+            if(expenseType is null)
+            {
+                throw new Exception("Invalid type");
+            }
             return new Expense
             {
                 Amount = expenseToAdd.Amount,
                 Description = expenseToAdd.Description,
                 Date = expenseToAdd.Date,
                 Note = expenseToAdd.Note,
-                TypeId = expenseToAdd.ExpenseTypeId
+                TypeId = expenseType.Id
             };
         }
     }
@@ -66,6 +70,20 @@ namespace MyPortfolio.Utility.ExpenseUtils
                 return new ExpenseCategoryDTO();
             }
             return new ExpenseCategoryDTO()
+            {
+                Id = expenseCategory.Id,
+                Name = expenseCategory.Name
+            };
+        }
+
+
+        public static ExpenseCategoryAndTypesDTO ToExpenseCategoryAndTypeDTO(ExpenseCategory? expenseCategory)
+        {
+            if (expenseCategory is null)
+            {
+                return new ExpenseCategoryAndTypesDTO();
+            }
+            return new ExpenseCategoryAndTypesDTO()
             {
                 Id = expenseCategory.Id,
                 Name = expenseCategory.Name

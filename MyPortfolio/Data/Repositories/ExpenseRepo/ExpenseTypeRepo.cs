@@ -40,7 +40,9 @@ namespace MyPortfolio.Data.Repositories.ExpenseRepo
 
         public async Task<IEnumerable<ExpenseType>> GetAllExpenseTypesAsync()
         {
-            return await dataDbContext.ExpenseTypes.ToListAsync();
+            return await dataDbContext.ExpenseTypes
+                .Include(e => e.Category)
+                .ToListAsync();
         }
 
         public async Task<ExpenseType?> GetExpenseTypeAsync(int expenseTypeId)

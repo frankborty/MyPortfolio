@@ -12,14 +12,17 @@ namespace MyPortfolio.Controllers.ExpenseController
     public class ExpenseCategoryController : ControllerBase
     {
         private readonly IExpenseCategoryRepo _expenseCategoryRepo;
-        public ExpenseCategoryController(IExpenseCategoryRepo expenseCategoryRepo)
+        private readonly IExpenseTypeRepo _expenseTypeRepo;
+        public ExpenseCategoryController(IExpenseCategoryRepo expenseCategoryRepo,
+            IExpenseTypeRepo expenseTypeRepo)
         {
             _expenseCategoryRepo = expenseCategoryRepo;
+            _expenseTypeRepo = expenseTypeRepo;
         }
 
         [HttpGet]
         [SwaggerOperation(Summary = "Get all expensive category")]
-        public async Task<IActionResult> GetAllExpenseCategorys()
+        public async Task<IActionResult> GetAllExpenseCategories()
         {
             try
             {
@@ -32,6 +35,43 @@ namespace MyPortfolio.Controllers.ExpenseController
                 foreach (var expenseCategory in expenseCategoryList)
                 {
                     ExpenseCategoryDTO expenseCategoryDto = ExpenseCategoryDTOConverter.ToExpenseCategoryDTO(expenseCategory);
+                    expenseListDto.Add(expenseCategoryDto);
+                }
+
+                return Ok(expenseListDto);
+            }
+            catch (Exception ex)
+            {
+                // Log dell'errore (es. con un logger, se configurato)
+                return StatusCode(500, $"Errore interno del server: {ex.Message}");
+            }
+        }
+
+        [HttpGet]
+        [Route("categoriesAndTypes")]
+        [SwaggerOperation(Summary = "Get all expensive category with assciated types")]
+        public async Task<IActionResult> GetAllExpenseCategoriesAndTypes()
+        {
+            try
+            {
+                var expenseCategoryList = await _expenseCategoryRepo.GetAllExpenseCategorysAsync();
+                if (expenseCategoryList == null || !expenseCategoryList.Any())
+                {
+                    return NotFound("Nessuna category trovata");
+                }
+                var expenseTypeList = await _expenseTypeRepo.GetAllExpenseTypesAsync();
+                if (expenseTypeList == null || !expenseTypeList.Any())
+                {
+                    return NotFound("Nessun tipo trovato");
+                }
+                List<ExpenseCategoryAndTypesDTO> expenseListDto = new List<ExpenseCategoryAndTypesDTO>();
+                foreach (var expenseCategory in expenseCategoryList)
+                {
+                    ExpenseCategoryAndTypesDTO expenseCategoryDto = ExpenseCategoryDTOConverter.ToExpenseCategoryAndTypeDTO(expenseCategory);
+                    expenseCategoryDto.ExpenseTypeList = expenseTypeList
+                        .Where(et => et.CategoryId == expenseCategory.Id)
+                        .Select(et => et.Name)
+                        .ToList();
                     expenseListDto.Add(expenseCategoryDto);
                 }
 

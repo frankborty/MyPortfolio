@@ -3,6 +3,7 @@ using MyPortfolio.Data;
 using MyPortfolio.Data.Repositories.AssetRepo;
 using MyPortfolio.Data.Repositories.ExpenseRepo;
 using MyPortfolio.Data.Repositories.IncomeRepo;
+using MyPortfolio.Utility;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,6 +33,14 @@ builder.Services.AddSwaggerGen(options =>
 {
     options.EnableAnnotations();
 });
+
+
+builder.Services.AddCors(options =>
+{
+    ServiceFactory.ConfigureCors(builder.Configuration, options);
+});
+
+
 var app = builder.Build();
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
@@ -41,6 +50,7 @@ AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 app.UseSwagger();
 app.UseSwaggerUI();
 //}
+app.UseCors("AllowAll");
 
 app.UseAuthentication();
 app.UseAuthorization();
