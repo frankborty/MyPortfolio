@@ -12,7 +12,7 @@ namespace MyPortfolio.Utility.ExpenseUtils
                 Id = expense.Id,
                 Description = expense.Description,
                 Amount = expense.Amount,
-                Date = expense.Date,
+                Date = GenericUtils.ConvertDateTimeToString(expense.Date),
                 Note = expense.Note,
                 ExpenseType = ExpenseTypeDTOConverter.ToExpenseTypeDTO(expense.ExpenseType)
             };
@@ -28,7 +28,7 @@ namespace MyPortfolio.Utility.ExpenseUtils
             {
                 Amount = expenseToAdd.Amount,
                 Description = expenseToAdd.Description,
-                Date = expenseToAdd.Date,
+                Date = GenericUtils.ConvertStringToDateTime(expenseToAdd.Date),
                 Note = expenseToAdd.Note,
                 TypeId = expenseType.Id
             };

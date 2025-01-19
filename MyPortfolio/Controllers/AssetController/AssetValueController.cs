@@ -2,6 +2,7 @@
 using MyPortfolio.Data.Repositories.AssetRepo;
 using MyPortfolio.DTO.AssetDTO;
 using MyPortfolio.Models.Assets;
+using MyPortfolio.Utility;
 using MyPortfolio.Utility.AssetUtils;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -101,7 +102,7 @@ namespace MyPortfolio.Controllers.AssetController
                 var assetValueToAdd = new AssetValue()
                 {
                     AssetId = assetValueDTO.AssetId,
-                    TimeStamp = assetValueDTO.TimeStamp,
+                    TimeStamp = GenericUtils.ConvertStringToDateTime(assetValueDTO.TimeStamp),
                     Value = assetValueDTO.Value
                 };
                 await _assetValueRepo.AddAssetValueAsync(assetValueToAdd);
@@ -126,7 +127,7 @@ namespace MyPortfolio.Controllers.AssetController
                     var assetValueToAdd = new AssetValue()
                     {
                         AssetId = assetValueDTO.AssetId,
-                        TimeStamp = assetValueDTO.TimeStamp,
+                        TimeStamp = GenericUtils.ConvertStringToDateTime(assetValueDTO.TimeStamp),
                         Value = assetValueDTO.Value
                     };
                     assetValueToAddList.Add(assetValueToAdd);
@@ -195,7 +196,7 @@ namespace MyPortfolio.Controllers.AssetController
                 var assetValueUpdated = new AssetValue()
                 {
                     AssetId = newAssetValue.AssetId,
-                    TimeStamp = newAssetValue.TimeStamp,
+                    TimeStamp = GenericUtils.ConvertStringToDateTime(newAssetValue.TimeStamp),
                     Value = newAssetValue.Value
                 };
                 var assetValue = await _assetValueRepo.UpdateAssetValueAsync(assetValueId, assetValueUpdated);

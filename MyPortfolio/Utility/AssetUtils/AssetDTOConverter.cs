@@ -61,7 +61,7 @@ namespace MyPortfolio.Utility.AssetUtils
                 Id = assetValue.Id,
                 AssetId = assetValue.AssetId,
                 Value = assetValue.Value,
-                TimeStamp = assetValue.TimeStamp
+                TimeStamp = GenericUtils.ConvertDateTimeToString(assetValue.TimeStamp)
             };
         }
     }
