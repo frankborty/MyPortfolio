@@ -60,6 +60,7 @@ namespace MyPortfolio.Data.Repositories.ExpenseRepo
             expenseToUpdate.Amount = expense.Amount;
             expenseToUpdate.Date = expense.Date;
             expenseToUpdate.TypeId = expense.TypeId;
+            expenseToUpdate.Note = expense.Note;
             await dataDbContext.SaveChangesAsync();
             return expenseToUpdate;
         }
