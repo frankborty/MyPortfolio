@@ -4,6 +4,10 @@ using MyPortfolio.Data.Repositories.AssetRepo;
 using MyPortfolio.Data.Repositories.ExpenseRepo;
 using MyPortfolio.Data.Repositories.IncomeRepo;
 using MyPortfolio.Utility;
+using System.Globalization;
+
+CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("it-IT");
+CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo("it-IT");
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -50,6 +54,13 @@ AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 app.UseSwagger();
 app.UseSwaggerUI();
 //}
+
+var application = app.Services.CreateScope().ServiceProvider.GetRequiredService<DataDbContext>();
+
+var pendingMigrations = await application.Database.GetPendingMigrationsAsync();
+if (pendingMigrations != null)
+    await application.Database.MigrateAsync();
+
 app.UseCors("AllowAll");
 
 app.UseAuthentication();

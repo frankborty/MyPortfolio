@@ -5,7 +5,7 @@
         public int Id { get; set; }
         public int AssetId { get; set; }
         public decimal Value { get; set; }
-        public string TimeStamp { get; set; } = DateTime.Now.ToString("yyyyMMdd_hhmmss");
+        public string TimeStamp { get; set; } = DateTime.Now.ToString("yyyyMMdd_HHmmss");
         public AssetValueDTO()
         {
             Id = -1;

@@ -4,7 +4,7 @@
     {
         public int Id { get; set; }
         public decimal Amount { get; set; }
-        public string Date { get; set; } = DateTime.Now.ToString("yyyyMMdd_hhmmss");
+        public string Date { get; set; } = DateTime.Now.ToString("yyyyMMdd_HHmmss");
         public string Note { get; set; } = string.Empty;
         public IncomeTypeDTO IncomeType { get; set; } = new IncomeTypeDTO();
 

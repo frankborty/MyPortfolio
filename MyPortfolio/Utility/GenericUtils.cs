@@ -6,12 +6,12 @@ namespace MyPortfolio.Utility
     {
         public static DateTime ConvertStringToDateTime(string dateTime)
         {
-            return DateTime.ParseExact(dateTime, "yyyyMMdd_hhmmss", CultureInfo.InvariantCulture);
+            return DateTime.ParseExact(dateTime, "yyyyMMdd_HHmmss", CultureInfo.InvariantCulture);
         }
 
         public static string ConvertDateTimeToString(DateTime dateTime)
         {
-            return dateTime.ToString("yyyyMMdd_hhmmss", CultureInfo.InvariantCulture);
+            return dateTime.ToString("yyyyMMdd_HHmmss", CultureInfo.InvariantCulture);
         }
     }
 }
