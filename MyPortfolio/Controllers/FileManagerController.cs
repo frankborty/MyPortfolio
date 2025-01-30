@@ -23,11 +23,10 @@ namespace MyPortfolio.Controllers
         private readonly IAssetRepo _assetRepo;
         private readonly IAssetValueRepo _assetValueRepo;
         private readonly IAssetOperationRepo _assetOperationRepo;
-        private readonly IAssetCategoryRepo _assetCategoryRepo;
 
         public FileManagerController(IExpenseRepo expenseRepo, IExpenseTypeRepo expenseTypeRepo,
             IIncomeRepo incomeRepo, IIncomeTypeRepo incomeTypeRepo,
-            IAssetRepo assetRepo, IAssetValueRepo assetValueRepo, IAssetOperationRepo assetOperationRepo, IAssetCategoryRepo assetCategoryRepo)
+            IAssetRepo assetRepo, IAssetValueRepo assetValueRepo, IAssetOperationRepo assetOperationRepo)
         {
             _expenseRepo = expenseRepo;
             _expenseTypeRepo = expenseTypeRepo;
@@ -36,15 +35,12 @@ namespace MyPortfolio.Controllers
             _assetRepo = assetRepo;
             _assetOperationRepo = assetOperationRepo;
             _assetValueRepo = assetValueRepo;
-            _assetCategoryRepo = assetCategoryRepo;
         }
 
         [HttpPost]
         [Route("expense")]
         [SwaggerOperation(Summary = "Add expensive from file")]
-        public async Task<IActionResult> AddExpenseFile(
-            int year,
-            IFormFile file)
+        public async Task<IActionResult> AddExpenseFile(IFormFile file)
         {
             if (file == null || file.Length == 0)
             {
@@ -54,7 +50,7 @@ namespace MyPortfolio.Controllers
             {
                 var expenseTypeCollection = await _expenseTypeRepo.GetAllExpenseTypesAsync();
                 List<ExpenseType> expenseTypeList = expenseTypeCollection.ToList();
-                List<Expense> expenseList = await ExpenseStaticUtils.ProcessExpenseFile(file, year, expenseTypeList);
+                List<Expense> expenseList = await ExpenseStaticUtils.ProcessExpenseFile(file, expenseTypeList);
                 await _expenseRepo.AddExpenseListAsync(expenseList);
                 return Ok($"{expenseList.Count} expense added");
             }

@@ -11,19 +11,19 @@ namespace MyPortfolio.Utility.ExpenseUtils
             await _expenseRepo.AddExpenseAsync(expenseToAdd);
         }
 
-        public static async Task<List<Expense>> ProcessExpenseFile(IFormFile file, int year, List<ExpenseType> expenseTypeList)
+        public static async Task<List<Expense>> ProcessExpenseFile(IFormFile file, List<ExpenseType> expenseTypeList)
         {
             List<Expense> expenseList = new List<Expense>();
             List<string> fileContent = await FileManagerUtils.ReadIFileInStringList(file);
             foreach (string content in fileContent)
             {
-                Expense expense = ConvertFileLineInExpense(content, year, expenseTypeList);
+                Expense expense = ConvertFileLineInExpense(content, expenseTypeList);
                 expenseList.Add(expense);
             }
             return expenseList;
         }
 
-        private static Expense ConvertFileLineInExpense(string content, int year, List<ExpenseType> expenseTypeList)
+        private static Expense ConvertFileLineInExpense(string content, List<ExpenseType> expenseTypeList)
         {
             Expense expense = new Expense();
             string[] lineTokens = content.Split('\t');
@@ -32,8 +32,15 @@ namespace MyPortfolio.Utility.ExpenseUtils
                 throw new Exception($"Invalid Line: {lineTokens}");
             }
             expense.Description = lineTokens[0];
-            expense.Date = DateTime.ParseExact(lineTokens[1] + "/" + year, "dd/MM/yyyy", CultureInfo.InvariantCulture);
-            if (decimal.TryParse(lineTokens[2].Replace(".", ","), out decimal number))
+            try
+            {
+                expense.Date = DateTime.ParseExact(lineTokens[1], "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            if (decimal.TryParse(lineTokens[2], out decimal number))
             {
                 expense.Amount = number;
             }
