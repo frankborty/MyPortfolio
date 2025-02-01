@@ -64,9 +64,7 @@ namespace MyPortfolio.Controllers
         [HttpPost]
         [Route("income")]
         [SwaggerOperation(Summary = "Add income from file")]
-        public async Task<IActionResult> AddIncomeFile(
-            int year,
-            IFormFile file)
+        public async Task<IActionResult> AddIncomeFile(IFormFile file)
         {
             if (file == null || file.Length == 0)
             {
@@ -76,7 +74,7 @@ namespace MyPortfolio.Controllers
             {
                 var incomeTypeCollection = await _incomeTypeRepo.GetAllIncomeTypesAsync();
                 List<IncomeType> incomeTypeList = incomeTypeCollection.ToList();
-                List<Income> incomeList = await IncomeStaticUtils.ProcessIncomeFile(file, year, incomeTypeList);
+                List<Income> incomeList = await IncomeStaticUtils.ProcessIncomeFile(file, incomeTypeList);
                 await _incomeRepo.AddIncomeListAsync(incomeList);
                 return Ok($"{incomeList.Count} income added");
             }

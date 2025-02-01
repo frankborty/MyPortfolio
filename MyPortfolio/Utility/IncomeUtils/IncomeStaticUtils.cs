@@ -1,4 +1,5 @@
 ﻿using MyPortfolio.Data.Repositories.IncomeRepo;
+using MyPortfolio.Models.Expenses;
 using MyPortfolio.Models.Incomes;
 using System.Globalization;
 
@@ -11,22 +12,21 @@ namespace MyPortfolio.Utility.IncomeUtils
             await _incomeRepo.AddIncomeAsync(incomeToAdd);
         }
 
-        public static async Task<List<Income>> ProcessIncomeFile(IFormFile file, int year, List<IncomeType> incomeTypeList)
+        public static async Task<List<Income>> ProcessIncomeFile(IFormFile file, List<IncomeType> incomeTypeList)
         {
             List<Income> incomeList = new List<Income>();
             List<string> fileContent = await FileManagerUtils.ReadIFileInStringList(file);
             foreach (string content in fileContent)
             {
-                incomeList.AddRange(ConvertFileLineInIncomeList(content, year, incomeTypeList));
+                incomeList.Add(ConvertFileLineInIncomeList(content, incomeTypeList));
             }
             return incomeList;
         }
 
-        private static List<Income> ConvertFileLineInIncomeList(string content, int year, List<IncomeType> incomeTypeList)
+        private static Income ConvertFileLineInIncomeList(string content, List<IncomeType> incomeTypeList)
         {
-            List<Income> incomeList = new List<Income>();
             string[] lineTokens = content.Split('\t');
-            if (lineTokens.Length != 13)
+            if (lineTokens.Length != 4)
             {
                 throw new Exception($"Invalid Line: {lineTokens}");
             }
@@ -37,22 +37,32 @@ namespace MyPortfolio.Utility.IncomeUtils
                 throw new Exception($"Invalid expense type {lineTokens}");
             }
 
-            for (int i = 1; i <= 12; i++)
+            Income income = new Income();
+            income.IncomeType = incomeType;
+            try
             {
-                Income income = new Income();
-                income.IncomeType = incomeType;
-                if (decimal.TryParse(lineTokens[i].Replace(".", ","), out decimal amount))
-                {
-                    income.Amount = amount;
-                }
-                else
-                {
-                    throw new Exception($"Invalid Amount: {lineTokens}");
-                }
-                income.Date = DateTime.ParseExact("01/" + i.ToString("D2") + "/" + year, "dd/MM/yyyy", CultureInfo.InvariantCulture);
-                incomeList.Add(income);
+                income.Date = DateTime.ParseExact(lineTokens[1], "dd/MM/yyyy", CultureInfo.InvariantCulture);
             }
-            return incomeList;
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            if (decimal.TryParse(lineTokens[2], out decimal number))
+            {
+                income.Amount = number;
+            }
+            else
+            {
+                throw new Exception($"Invalid Amount: {lineTokens}");
+            }
+
+            if (lineTokens[3] != ";")
+            {
+                income.Note = lineTokens[3];
+            }
+
+
+            return income;
         }
 
         private static IncomeType? GetTypeFromName(string incomeTypeName, List<IncomeType> incomeTypeList)
