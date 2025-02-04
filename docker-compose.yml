@@ -31,6 +31,18 @@ services:
     volumes:
       - pgadmin_data:/var/lib/pgadmin
       
+#  mypf_fe:
+#    build:
+#      context: ../MyBadPortfolioSite  # Path dove si trova il Dockerfile del FE
+#      dockerfile: Dockerfile
+#    ports:
+#      - "4200:80"  # 4200 per convenzione FE Angular, esposto da NGINX su 80
+#    depends_on:
+#      - mypf_be  # Il FE dipende dal BE
+#    restart: always  # Riavvia automaticamente in caso di errori
+      
+
+      
 
 volumes:
   pgdata:
