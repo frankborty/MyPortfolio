@@ -90,7 +90,7 @@ namespace MyPortfolio.Controllers.IncomeController
         }
 
         [HttpPost]
-        [SwaggerOperation(Summary = "Add expensive type")]
+        [SwaggerOperation(Summary = "Add income type")]
         public async Task<IActionResult> AddIncomeTypeAsync(string incomeType)
         {
             try
@@ -111,7 +111,7 @@ namespace MyPortfolio.Controllers.IncomeController
 
         [HttpPost]
         [Route("addList")]
-        [SwaggerOperation(Summary = "Add expensive type list")]
+        [SwaggerOperation(Summary = "Add income type list")]
         public async Task<IActionResult> AddIncomeTypeListAsync([FromBody] List<string> incomeTypeList)
         {
             try
@@ -160,7 +160,7 @@ namespace MyPortfolio.Controllers.IncomeController
 
         [HttpDelete]
         [Route("deleteList")]
-        [SwaggerOperation(Summary = "Delete expensive type list")]
+        [SwaggerOperation(Summary = "Delete income type list")]
         public async Task<IActionResult> DeleteIncomeTypeListAsync(List<int> incomeTypeIdList)
         {
             try

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MyPortfolio.Data.Repositories.ExpenseRepo;
 using MyPortfolio.DTO.ExpenseDTO;
+using MyPortfolio.DTO.IncomeDTO;
 using MyPortfolio.Models.Expenses;
 using MyPortfolio.Utility.ExpenseUtils;
 using Swashbuckle.AspNetCore.Annotations;
@@ -226,13 +227,13 @@ namespace MyPortfolio.Controllers.ExpenseController
 
         [HttpPut("{expenseCategoryId}")]
         [SwaggerOperation(Summary = "Update expense category")]
-        public async Task<IActionResult> UpdateExpenseById(int expenseCategoryId, string newExpenseCategoryName)
+        public async Task<IActionResult> UpdateExpenseById(int expenseCategoryId, [FromBody] ExpenseCategoryDTO expenseCategoryToUpdate)
         {
             try
             {
                 var expenseCategoryUpdated = new ExpenseCategory()
                 {
-                    Name = newExpenseCategoryName,
+                    Name = expenseCategoryToUpdate.Name,
                 };
                 var expenseCategory = await _expenseCategoryRepo.UpdateExpenseCategoryAsync(expenseCategoryId, expenseCategoryUpdated);
                 if (expenseCategory is null)

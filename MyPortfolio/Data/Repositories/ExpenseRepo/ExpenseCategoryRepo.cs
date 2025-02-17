@@ -62,12 +62,12 @@ namespace MyPortfolio.Data.Repositories.ExpenseRepo
 
         public async Task DeleteExpenseCategoryAsync(int expenseCategoryId)
         {
-            var expense = await dataDbContext.Expenses.FindAsync(expenseCategoryId);
-            if (expense is null)
+            var expenseCategory = await dataDbContext.ExpenseCategories.FindAsync(expenseCategoryId);
+            if (expenseCategory is null)
             {
                 throw new KeyNotFoundException();
             }
-            dataDbContext.Expenses.Remove(expense);
+            dataDbContext.ExpenseCategories.Remove(expenseCategory);
             await dataDbContext.SaveChangesAsync();
         }
     }
