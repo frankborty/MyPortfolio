@@ -104,6 +104,7 @@ namespace MyPortfolio.Utility
         {
             List<IncomeType> incomeTypeListToAdd = new List<IncomeType>()
                 {
+                    new IncomeType(){ Name = MPFConstants.DefaultIncomeType },
                     new IncomeType(){ Name = "Stipendio" },
                     new IncomeType(){ Name = "Rimborsi" },
                     new IncomeType(){ Name = "Regali" },
@@ -123,6 +124,7 @@ namespace MyPortfolio.Utility
         {
             List<AssetCategory> assetCategoryListToAdd = new List<AssetCategory>()
                 {
+                    new AssetCategory(){ Name = "Account" },
                     new AssetCategory(){ Name = "Account" },
                     new AssetCategory(){ Name = "Cash" },
                     new AssetCategory(){ Name = "Credit" },

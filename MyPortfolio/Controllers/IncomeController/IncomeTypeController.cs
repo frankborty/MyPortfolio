@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualBasic;
 using MyPortfolio.Data.Repositories.IncomeRepo;
 using MyPortfolio.DTO.IncomeDTO;
+using MyPortfolio.Models.Expenses;
 using MyPortfolio.Models.Incomes;
+using MyPortfolio.Utility;
 using MyPortfolio.Utility.IncomeUtils;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -12,9 +15,11 @@ namespace MyPortfolio.Controllers.IncomeController
     public class IncomeTypeController : ControllerBase
     {
         private readonly IIncomeTypeRepo _incomeTypeRepo;
-        public IncomeTypeController(IIncomeTypeRepo incomeTypeRepo)
+        private readonly IIncomeRepo _incomeRepo;
+        public IncomeTypeController(IIncomeTypeRepo incomeTypeRepo, IIncomeRepo incomeRepo)
         {
             _incomeTypeRepo = incomeTypeRepo;
+            _incomeRepo = incomeRepo;
         }
 
         [HttpGet]
@@ -109,34 +114,6 @@ namespace MyPortfolio.Controllers.IncomeController
             }
         }
 
-        [HttpPost]
-        [Route("addList")]
-        [SwaggerOperation(Summary = "Add income type list")]
-        public async Task<IActionResult> AddIncomeTypeListAsync([FromBody] List<string> incomeTypeList)
-        {
-            try
-            {
-                List<IncomeType> incomeTypeToAddList = new List<IncomeType>();
-                foreach (var incomeType in incomeTypeList)
-                {
-                    IncomeType incomeTypeToAdd = new IncomeType()
-                    {
-                        Name = incomeType
-                    };
-                    incomeTypeToAddList.Add(incomeTypeToAdd);
-                }
-                if (incomeTypeToAddList.Count > 0)
-                {
-                    await _incomeTypeRepo.AddIncomeTypeListAsync(incomeTypeToAddList);
-                }
-                return Ok();
-            }
-            catch (Exception ex)
-            {
-                // Log dell'errore (es. con un logger, se configurato)
-                return StatusCode(500, $"Errore interno del server: {ex.Message}");
-            }
-        }
 
         [HttpDelete]
         [SwaggerOperation(Summary = "Delete income type")]
@@ -144,6 +121,12 @@ namespace MyPortfolio.Controllers.IncomeController
         {
             try
             {
+                // se ho income con questo tipo non cancello
+                var expenseList = await _incomeRepo.GetAllIncomesAsync();
+                if (expenseList.Any(x => x.IncomeType?.Id == incomeTypeId))
+                {
+                    throw new Exception("Esistono entrate associate a questo tipo");
+                }
                 await _incomeTypeRepo.DeleteIncomeTypeAsync(incomeTypeId);
                 return Ok();
             }
@@ -158,29 +141,6 @@ namespace MyPortfolio.Controllers.IncomeController
             }
         }
 
-        [HttpDelete]
-        [Route("deleteList")]
-        [SwaggerOperation(Summary = "Delete income type list")]
-        public async Task<IActionResult> DeleteIncomeTypeListAsync(List<int> incomeTypeIdList)
-        {
-            try
-            {
-                foreach (var incomeTypeId in incomeTypeIdList)
-                {
-                    await _incomeTypeRepo.DeleteIncomeTypeAsync(incomeTypeId);
-                }
-                return Ok();
-            }
-            catch (KeyNotFoundException)
-            {
-                return NoContent();
-            }
-            catch (Exception ex)
-            {
-                // Log dell'errore (es. con un logger, se configurato)
-                return StatusCode(500, $"Errore interno del server: {ex.Message}");
-            }
-        }
 
         [HttpPut("{incomeTypeId}")]
         [SwaggerOperation(Summary = "Update income type")]

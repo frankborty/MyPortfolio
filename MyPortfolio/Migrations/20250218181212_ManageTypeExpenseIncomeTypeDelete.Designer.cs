@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MyPortfolio.Migrations
 {
     [DbContext(typeof(DataDbContext))]
-    [Migration("20250109151711_T8")]
-    partial class T8
+    [Migration("20250218181212_ManageTypeExpenseIncomeTypeDelete")]
+    partial class ManageTypeExpenseIncomeTypeDelete
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -120,11 +120,11 @@ namespace MyPortfolio.Migrations
                     b.Property<int>("AssetId")
                         .HasColumnType("integer");
 
-                    b.Property<decimal>("Balance")
-                        .HasColumnType("numeric");
-
                     b.Property<DateTime>("TimeStamp")
                         .HasColumnType("timestamp with time zone");
+
+                    b.Property<decimal>("Value")
+                        .HasColumnType("numeric");
 
                     b.HasKey("Id");
 
@@ -287,7 +287,7 @@ namespace MyPortfolio.Migrations
                     b.HasOne("MyPortfolio.Models.Expenses.ExpenseType", "ExpenseType")
                         .WithMany("Expenses")
                         .HasForeignKey("TypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("ExpenseType");
@@ -309,7 +309,7 @@ namespace MyPortfolio.Migrations
                     b.HasOne("MyPortfolio.Models.Incomes.IncomeType", "IncomeType")
                         .WithMany("Incomes")
                         .HasForeignKey("TypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("IncomeType");

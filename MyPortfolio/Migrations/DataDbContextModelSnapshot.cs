@@ -284,7 +284,7 @@ namespace MyPortfolio.Migrations
                     b.HasOne("MyPortfolio.Models.Expenses.ExpenseType", "ExpenseType")
                         .WithMany("Expenses")
                         .HasForeignKey("TypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("ExpenseType");
@@ -306,7 +306,7 @@ namespace MyPortfolio.Migrations
                     b.HasOne("MyPortfolio.Models.Incomes.IncomeType", "IncomeType")
                         .WithMany("Incomes")
                         .HasForeignKey("TypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("IncomeType");

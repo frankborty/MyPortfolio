@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MyPortfolio.Migrations
 {
     [DbContext(typeof(DataDbContext))]
-    [Migration("20250109151828_T9")]
-    partial class T9
+    [Migration("20250218172201_ManageDefaultIncomeType")]
+    partial class ManageDefaultIncomeType
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -309,7 +309,7 @@ namespace MyPortfolio.Migrations
                     b.HasOne("MyPortfolio.Models.Incomes.IncomeType", "IncomeType")
                         .WithMany("Incomes")
                         .HasForeignKey("TypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("IncomeType");

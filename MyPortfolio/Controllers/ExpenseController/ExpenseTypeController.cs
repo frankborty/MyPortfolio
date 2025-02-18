@@ -12,9 +12,11 @@ namespace MyPortfolio.Controllers.ExpenseController
     public class ExpenseTypeController : ControllerBase
     {
         private readonly IExpenseTypeRepo _expenseTypeRepo;
-        public ExpenseTypeController(IExpenseTypeRepo expenseTypeRepo)
+        private readonly IExpenseRepo _expenseRepo;
+        public ExpenseTypeController(IExpenseTypeRepo expenseTypeRepo, IExpenseRepo expenseRepo)
         {
             _expenseTypeRepo = expenseTypeRepo;
+            _expenseRepo = expenseRepo;
         }
 
         [HttpGet]
@@ -106,65 +108,20 @@ namespace MyPortfolio.Controllers.ExpenseController
             }
         }
 
-
-
-        [HttpPost]
-        [Route("addList")]
-        [SwaggerOperation(Summary = "Add expensive type list")]
-        public async Task<IActionResult> AddExpenseTypeList([FromBody] List<ExpenseTypeToAddDTO> expenseTypeList)
-        {
-            try
-            {
-                List<ExpenseType> expenseTypeToAddList = new List<ExpenseType>();
-                foreach (var expenseType in expenseTypeList)
-                {
-                    ExpenseType expenseTypeToAdd = ExpenseTypeDTOConverter.FromExpenseTypeToAddDTO(expenseType);
-                    expenseTypeToAddList.Add(expenseTypeToAdd);
-                }
-                if (expenseTypeToAddList.Count > 0)
-                {
-                    await _expenseTypeRepo.AddExpenseTypeListAsync(expenseTypeToAddList);
-                }
-                return Ok();
-            }
-            catch (Exception ex)
-            {
-                // Log dell'errore (es. con un logger, se configurato)
-                return StatusCode(500, $"Errore interno del server: {ex.Message}");
-            }
-        }
-
         [HttpDelete]
         [SwaggerOperation(Summary = "Delete expense type")]
         public async Task<IActionResult> DeleteExpenseType(int expenseTypeId)
         {
             try
-            {
-                await _expenseTypeRepo.DeleteExpenseTypeAsync(expenseTypeId);
-                return Ok();
-            }
-            catch (KeyNotFoundException)
-            {
-                return NoContent();
-            }
-            catch (Exception ex)
-            {
-                // Log dell'errore (es. con un logger, se configurato)
-                return StatusCode(500, $"Errore interno del server: {ex.Message}");
-            }
-        }
-
-        [HttpDelete]
-        [Route("deleteList")]
-        [SwaggerOperation(Summary = "Delete expensive type list")]
-        public async Task<IActionResult> DeleteExpenseTypeList(List<int> expenseTypeIdList)
-        {
-            try
-            {
-                foreach (var expenseTypeId in expenseTypeIdList)
+            {   
+                // se ho spese con questa categoria non cancello
+                var expenseList = await _expenseRepo.GetAllExpensesAsync();
+                if (expenseList.Any(x => x.ExpenseType?.Id == expenseTypeId))
                 {
-                    await _expenseTypeRepo.DeleteExpenseTypeAsync(expenseTypeId);
+                    throw new Exception("Esistono spese associate a questo tipo");
                 }
+
+                await _expenseTypeRepo.DeleteExpenseTypeAsync(expenseTypeId);
                 return Ok();
             }
             catch (KeyNotFoundException)

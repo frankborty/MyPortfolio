@@ -29,7 +29,8 @@ namespace MyPortfolio.Data
             modelBuilder.Entity<Expense>()
                 .HasOne(e => e.ExpenseType)
                 .WithMany(t => t.Expenses)
-                .HasForeignKey(e => e.TypeId);
+                .HasForeignKey(e => e.TypeId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<ExpenseType>()
                 .HasOne(t => t.Category)
@@ -43,7 +44,8 @@ namespace MyPortfolio.Data
             modelBuilder.Entity<Income>()
                 .HasOne(i => i.IncomeType)
                 .WithMany(t => t.Incomes)
-                .HasForeignKey(e => e.TypeId);
+                .HasForeignKey(e => e.TypeId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Asset>()
                 .HasOne(e => e.AssetCategory)
