@@ -66,7 +66,7 @@ namespace MyPortfolio.Data.Repositories.ExpenseRepo
             }
 
             expenseTypeToUpdate.Name = expenseType.Name;
-            expenseTypeToUpdate.Category = expenseType.Category;
+            expenseTypeToUpdate.CategoryId = expenseType.CategoryId;
             await dataDbContext.SaveChangesAsync();
             return expenseTypeToUpdate;
         }

@@ -93,11 +93,15 @@ namespace MyPortfolio.Controllers.ExpenseController
 
         [HttpPost]
         [SwaggerOperation(Summary = "Add expensive type")]
-        public async Task<IActionResult> AddExpenseType(ExpenseTypeToAddDTO expenseType)
+        public async Task<IActionResult> AddExpenseType(ExpenseTypeDTO expenseType)
         {
             try
             {
-                ExpenseType expenseTypeToAdd = ExpenseTypeDTOConverter.FromExpenseTypeToAddDTO(expenseType);
+                ExpenseType expenseTypeToAdd = new ExpenseType()
+                {
+                    Name = expenseType.Name,
+                    CategoryId = expenseType.Category.Id
+                };
                 await _expenseTypeRepo.AddExpenseTypeAsync(expenseTypeToAdd);
                 return Ok();
             }
@@ -137,12 +141,16 @@ namespace MyPortfolio.Controllers.ExpenseController
 
         [HttpPut("{expenseTypeId}")]
         [SwaggerOperation(Summary = "Update expense type")]
-        public async Task<IActionResult> UpdateExpenseById(int expenseTypeId, [FromBody] ExpenseTypeToAddDTO expenseTypeToUpdate)
+        public async Task<IActionResult> UpdateExpenseById(int expenseTypeId, [FromBody] ExpenseTypeDTO expenseTypeToUpdate)
         {
             try
             {
-                ExpenseType expenseTypeUpdated = ExpenseTypeDTOConverter.FromExpenseTypeToAddDTO(expenseTypeToUpdate);
-                var expenseType = await _expenseTypeRepo.UpdateExpenseTypeAsync(expenseTypeId, expenseTypeUpdated);
+                ExpenseType updatedExpenseType = new ExpenseType()
+                {
+                    Name=expenseTypeToUpdate.Name,
+                    CategoryId=expenseTypeToUpdate.Category.Id
+                };
+                var expenseType = await _expenseTypeRepo.UpdateExpenseTypeAsync(expenseTypeId, updatedExpenseType);
                 if (expenseType is null)
                 {
                     return NotFound("Nessun tipo trovato");

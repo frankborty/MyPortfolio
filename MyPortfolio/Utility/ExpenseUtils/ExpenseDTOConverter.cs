@@ -50,15 +50,6 @@ namespace MyPortfolio.Utility.ExpenseUtils
                 Category = ExpenseCategoryDTOConverter.ToExpenseCategoryDTO(expenseType.Category)
             };
         }
-
-        public static ExpenseType FromExpenseTypeToAddDTO(ExpenseTypeToAddDTO expenseTypeToAdd)
-        {
-            return new ExpenseType()
-            {
-                Name = expenseTypeToAdd.Name,
-                CategoryId = expenseTypeToAdd.CategoryId
-            };
-        }
     }
 
     public static class ExpenseCategoryDTOConverter
