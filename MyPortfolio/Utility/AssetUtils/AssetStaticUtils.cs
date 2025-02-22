@@ -1,5 +1,7 @@
 ﻿using MyPortfolio.Data.Repositories.AssetRepo;
+using MyPortfolio.DTO.AssetDTO;
 using MyPortfolio.Models.Assets;
+using System.Collections.Immutable;
 using System.Globalization;
 
 namespace MyPortfolio.Utility.AssetUtils
@@ -152,6 +154,28 @@ namespace MyPortfolio.Utility.AssetUtils
 
 
             return assetOperation;
+        }
+
+        internal static AssetValueListDTO CreateMonthValueList(IGrouping<Asset, AssetValue> assetValueList)
+        {
+            AssetValueListDTO assetValueResult = new AssetValueListDTO()
+            {
+                Asset = AssetDTOConverter.ToAssetSimpleDTO(assetValueList.Key)
+            };
+
+            var groupedByMonth = assetValueList.GroupBy(a => new { a.TimeStamp.Year, a.TimeStamp.Month })
+                .OrderBy(g => g.Key.Year).ThenBy(g => g.Key.Month);
+
+            foreach (var monthValueList in groupedByMonth)
+            {
+                assetValueResult.AssetValueList.Add(new AssetValueDTO()
+                {
+                    Value = monthValueList.First().Value,
+                    TimeStamp = GenericUtils.ConvertDateTimeToString(monthValueList.First().TimeStamp)
+                });
+            }
+
+            return assetValueResult;
         }
     }
 }

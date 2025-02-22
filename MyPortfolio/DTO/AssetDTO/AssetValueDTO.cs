@@ -11,4 +11,10 @@
             Id = -1;
         }
     }
+
+    public class AssetValueListDTO
+    {
+        public AssetSimpleDTO Asset { get; set; } = new AssetSimpleDTO();
+        public List<AssetValueDTO> AssetValueList { get; set; } = new List<AssetValueDTO>();
+    }
 }

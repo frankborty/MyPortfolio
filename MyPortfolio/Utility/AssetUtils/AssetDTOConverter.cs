@@ -17,6 +17,14 @@ namespace MyPortfolio.Utility.AssetUtils
                 AssetCategory = AssetCategoryDTOConverter.ToAssetCategoryDTO(asset.AssetCategory)
             };
         }
+        public static AssetSimpleDTO ToAssetSimpleDTO(Asset asset)
+        {
+            return new AssetSimpleDTO()
+            {
+                Name = asset.Name,
+                AssetCategory = AssetCategoryDTOConverter.ToAssetCategoryDTO(asset.AssetCategory)
+            };
+        }
 
         public static Asset FromAssetToAddDTO(AssetToAddDTO assetToAdd)
         {

@@ -40,6 +40,23 @@ namespace MyPortfolio.Data.Repositories.AssetRepo
             return await dataDbContext.AssetValues.ToListAsync();
         }
 
+        public async Task<IEnumerable<IGrouping<Asset, AssetValue>>> GetAllAssetValueWithDetailsGroupByAssetIdAsync()
+        {
+            return await dataDbContext.AssetValues
+                .Include(a => a.Asset)
+                .ThenInclude(a => a.AssetCategory)
+                .GroupBy(a => a.Asset)
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<AssetValue>> GetAllAssetValueWithDetailsAsync()
+        {
+            return await dataDbContext.AssetValues
+                .Include(a => a.Asset)
+                .ThenInclude(a => a.AssetCategory)
+                .ToListAsync();
+        }
+
         public async Task<IEnumerable<AssetValue>> GetAssetValueByAssetIdAsync(int assetId)
         {
             return await dataDbContext.AssetValues.Where(a => a.AssetId == assetId).ToListAsync();

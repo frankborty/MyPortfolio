@@ -13,9 +13,11 @@ namespace MyPortfolio.Controllers.AssetController
     public class AssetValueController : ControllerBase
     {
         private readonly IAssetValueRepo _assetValueRepo;
-        public AssetValueController(IAssetValueRepo assetValueRepo)
+        private readonly IAssetRepo _assetRepo;
+        public AssetValueController(IAssetValueRepo assetValueRepo, IAssetRepo assetRepo)
         {
             _assetValueRepo = assetValueRepo;
+            _assetRepo = assetRepo;
         }
 
         [HttpGet]
@@ -214,5 +216,31 @@ namespace MyPortfolio.Controllers.AssetController
                 return StatusCode(500, $"Errore interno del server: {ex.Message}");
             }
         }
+
+        [HttpGet]
+        [Route("SummaryByMonth")]
+        [SwaggerOperation(Summary = "Get asset month vakye")]
+        public async Task<IActionResult> GetAssetValueListByMonth()
+        {
+            try
+            {
+                var allAssetValueListQuery = await _assetValueRepo.GetAllAssetValueWithDetailsGroupByAssetIdAsync();
+                var allAssetVaueList = allAssetValueListQuery.ToList();
+
+
+                List<AssetValueListDTO> result = new List<AssetValueListDTO>();
+                foreach (var assetValueList in allAssetVaueList) {
+                    result.Add(AssetStaticUtils.CreateMonthValueList(assetValueList));
+                }
+
+                
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Errore interno del server: {ex.Message}");
+            }
+        }
+
     }
 }

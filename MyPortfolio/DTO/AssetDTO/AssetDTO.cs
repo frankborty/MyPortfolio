@@ -13,4 +13,10 @@
 
         public AssetDTO() { }
     }
+
+    public class AssetSimpleDTO
+    {
+        public string Name { get; set; } = string.Empty;
+        public AssetCategoryDTO AssetCategory { get; set; } = new AssetCategoryDTO();
+    }
 }
