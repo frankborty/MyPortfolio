@@ -42,12 +42,13 @@ namespace MyPortfolio.Data.Repositories.AssetRepo
 
         public async Task<IEnumerable<IGrouping<Asset, AssetValue>>> GetAllAssetValueWithDetailsGroupByAssetIdAsync()
         {
-            return await dataDbContext.AssetValues
+            var tmporaryResult =  await dataDbContext.AssetValues
                 .Include(a => a.Asset)
                 .ThenInclude(a => a.AssetCategory)
                 .OrderBy(a=>a.TimeStamp)
-                .GroupBy(a => a.Asset)
                 .ToListAsync();
+            //non capisco perchè se faccio tutto assieme si perde l'ordinamento
+            return tmporaryResult.GroupBy(a => a.Asset).ToList();
         }
 
         public async Task<IEnumerable<AssetValue>> GetAllAssetValueWithDetailsAsync()
