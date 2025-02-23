@@ -45,6 +45,7 @@ namespace MyPortfolio.Data.Repositories.AssetRepo
             return await dataDbContext.AssetValues
                 .Include(a => a.Asset)
                 .ThenInclude(a => a.AssetCategory)
+                .OrderBy(a=>a.TimeStamp)
                 .GroupBy(a => a.Asset)
                 .ToListAsync();
         }
@@ -74,8 +75,7 @@ namespace MyPortfolio.Data.Repositories.AssetRepo
 
         public async Task<AssetValue> UpdateAssetValueAsync(int id, AssetValue entity)
         {
-            AssetValue? assetValue = await dataDbContext.AssetValues
-                .FirstOrDefaultAsync(e => e.Id == id);
+            AssetValue? assetValue = await dataDbContext.AssetValues.FirstOrDefaultAsync(e => e.Id == id);
             if (assetValue is null)
             {
                 throw new KeyNotFoundException();

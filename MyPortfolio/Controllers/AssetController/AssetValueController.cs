@@ -242,5 +242,53 @@ namespace MyPortfolio.Controllers.AssetController
             }
         }
 
+        [HttpPut]
+        [Route("SummaryByMonth")]
+        [SwaggerOperation(Summary = "Get asset month vakye")]
+        public async Task<IActionResult> SetAssetValueListByMonth([FromBody] AssetValueListDTO assetValueByMonth)
+        {
+            try
+            {
+                IEnumerable<AssetValue> allAssetValueList = await _assetValueRepo.GetAssetValueByAssetIdAsync(assetValueByMonth.Asset.Id);
+                if (allAssetValueList.Count() == 0)
+                {
+                    return Ok();
+                }
+
+                IEnumerable<IGrouping<string, AssetValue>> storedAssetVaueList = allAssetValueList.OrderBy(a => a.TimeStamp).GroupBy(a => a.TimeStamp.ToString("yyyyMM"));
+
+                foreach (AssetValueDTO assetNewValue in assetValueByMonth.AssetValueList)
+                {
+                    var monthYearStoredVallue = storedAssetVaueList.FirstOrDefault(g => g.Key == assetNewValue.TimeStamp.Substring(0,6))?.ToList();
+                    if(monthYearStoredVallue is null)
+                    {
+                        var assetToInsert = await _assetRepo.GetAssetByIdAsync(assetValueByMonth.Asset.Id);
+                        //aggiungo il nuovo valore con iil primo giorno del mese
+                        var assetValueToAdd = new AssetValue()
+                        {
+                            AssetId = assetValueByMonth.Asset.Id,
+                            TimeStamp = GenericUtils.ConvertStringToDateTime(assetNewValue.TimeStamp),
+                            Value = assetNewValue.Value,
+                            Asset = assetToInsert ?? new Asset()
+                        };
+                        await _assetValueRepo.AddAssetValueAsync(assetValueToAdd);
+                    }
+                    else
+                    {
+                        //aggiorno il valore dell'asset con data maggiore
+                        var assetToUpdate = monthYearStoredVallue.OrderByDescending(a => a.TimeStamp).First();
+                        assetToUpdate.Value = assetNewValue.Value;
+                        await _assetValueRepo.UpdateAssetValueAsync(assetToUpdate.Id, assetToUpdate);
+                    }
+
+                }
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Errore interno del server: {ex.Message}");
+            }
+        }
+
     }
 }

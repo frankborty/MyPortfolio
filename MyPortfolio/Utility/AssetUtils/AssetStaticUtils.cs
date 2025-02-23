@@ -163,17 +163,19 @@ namespace MyPortfolio.Utility.AssetUtils
                 Asset = AssetDTOConverter.ToAssetSimpleDTO(assetValueList.Key)
             };
 
-            var groupedByMonth = assetValueList.GroupBy(a => new { a.TimeStamp.Year, a.TimeStamp.Month })
-                .OrderBy(g => g.Key.Year).ThenBy(g => g.Key.Month);
+            var groupedByMonth = assetValueList.GroupBy(a => new { a.TimeStamp.Year, a.TimeStamp.Month }).ToList();
 
             foreach (var monthValueList in groupedByMonth)
             {
+                var orderdMonthValue = monthValueList.OrderBy(g => g.TimeStamp).ToList();
                 assetValueResult.AssetValueList.Add(new AssetValueDTO()
                 {
-                    Value = monthValueList.First().Value,
-                    TimeStamp = GenericUtils.ConvertDateTimeToString(monthValueList.First().TimeStamp)
+                    Value = orderdMonthValue.Last().Value,
+                    TimeStamp = GenericUtils.ConvertDateTimeToString(orderdMonthValue.Last().TimeStamp)
                 });
             }
+
+            //assetValueResult.AssetValueList = assetValueResult.AssetValueList.OrderBy(av => av.TimeStamp).ToList();
 
             return assetValueResult;
         }

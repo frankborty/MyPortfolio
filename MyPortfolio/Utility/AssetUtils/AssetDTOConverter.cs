@@ -21,6 +21,7 @@ namespace MyPortfolio.Utility.AssetUtils
         {
             return new AssetSimpleDTO()
             {
+                Id = asset.Id,
                 Name = asset.Name,
                 AssetCategory = AssetCategoryDTOConverter.ToAssetCategoryDTO(asset.AssetCategory)
             };
