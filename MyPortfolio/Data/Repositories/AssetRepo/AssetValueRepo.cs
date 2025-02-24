@@ -84,6 +84,7 @@ namespace MyPortfolio.Data.Repositories.AssetRepo
             assetValue.AssetId = entity.AssetId;
             assetValue.TimeStamp = entity.TimeStamp;
             assetValue.Value = entity.Value;
+            assetValue.Note = entity.Note;
             await dataDbContext.SaveChangesAsync();
             return assetValue;
         }

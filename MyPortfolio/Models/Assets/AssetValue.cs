@@ -6,6 +6,7 @@
         public int AssetId { get; set; }
         public decimal Value { get; set; }
         public DateTime TimeStamp { get; set; }
+        public string Note { get; set; } = string.Empty;
         public Asset Asset { get; set; } = new Asset();
     }
 }
