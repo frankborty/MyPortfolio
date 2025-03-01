@@ -224,7 +224,7 @@ namespace MyPortfolio.Controllers.AssetController
         {
             try
             {
-                var allAssetValueListQuery = await _assetValueRepo.GetAllAssetValueWithDetailsGroupByAssetIdAsync();
+                IEnumerable<IGrouping<Asset, AssetValue>> allAssetValueListQuery = await _assetValueRepo.GetAllAssetValueWithDetailsGroupByAssetIdAsync();
                 var allAssetVaueList = allAssetValueListQuery.ToList();
 
 

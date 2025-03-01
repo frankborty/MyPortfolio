@@ -163,7 +163,7 @@ namespace MyPortfolio.Controllers.ExpenseController
                 var expenseList = await _expenseRepo.GetAllExpensesAsync();
                 if(expenseList.Any(x=>x.ExpenseType?.Category?.Id == expenseCategoryId))
                 {
-                    throw new Exception("Esistono spese associate a questa categoria");
+                    return Conflict("Esistono asset associate a questo tipo");
                 }
                 await _expenseCategoryRepo.DeleteExpenseCategoryAsync(expenseCategoryId);
                 return Ok();

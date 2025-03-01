@@ -38,13 +38,15 @@ namespace MyPortfolio.Data.Repositories.AssetRepo
 
         public async Task<IEnumerable<Asset>> GetAllAssetAsync()
         {
-            return await dataDbContext.Assets.ToListAsync();
+            return await dataDbContext.Assets
+                .Include(a=>a.Category)
+                .ToListAsync();
         }
 
         public async Task<Asset?> GetAssetByIdAsync(int assetId)
         {
             return await dataDbContext.Assets
-                .Include(e => e.AssetCategory)
+                .Include(e => e.Category)
                 .FirstOrDefaultAsync(e => e.Id == assetId);
         }
 
@@ -58,9 +60,11 @@ namespace MyPortfolio.Data.Repositories.AssetRepo
                 throw new KeyNotFoundException();
             }
 
-            assetToUpdate.Note = assetToUpdate.Note;
-            assetToUpdate.Share = assetToUpdate.Share;
-            assetToUpdate.CategoryId = assetToUpdate.CategoryId;
+            assetToUpdate.Note = asset.Note;
+            assetToUpdate.Share = asset.Share;
+            assetToUpdate.CategoryId = asset.CategoryId;
+            assetToUpdate.Url = asset.Url;
+            assetToUpdate.ISIN = asset.ISIN;
             await dataDbContext.SaveChangesAsync();
             return assetToUpdate;
         }

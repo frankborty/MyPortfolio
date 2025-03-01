@@ -64,8 +64,8 @@ namespace MyPortfolio.Data.Repositories.AssetRepo
                 throw new KeyNotFoundException();
             }
 
-            assetCategoryToUpdate.Name = assetCategoryToUpdate.Name;
-            assetCategoryToUpdate.IsInvested = assetCategoryToUpdate.IsInvested;
+            assetCategoryToUpdate.Name = assetCategory.Name;
+            assetCategoryToUpdate.IsInvested = assetCategory.IsInvested;
             await dataDbContext.SaveChangesAsync();
             return assetCategoryToUpdate;
         }

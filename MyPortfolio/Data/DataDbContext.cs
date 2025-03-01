@@ -48,7 +48,7 @@ namespace MyPortfolio.Data
                 .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Asset>()
-                .HasOne(e => e.AssetCategory)
+                .HasOne(e => e.Category)
                 .WithMany(t => t.Assets)
                 .HasForeignKey(e => e.CategoryId);
 

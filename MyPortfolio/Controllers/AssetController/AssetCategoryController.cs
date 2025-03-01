@@ -12,9 +12,11 @@ namespace MyPortfolio.Controllers.AssetController
     public class AssetCategoryController : ControllerBase
     {
         private readonly IAssetCategoryRepo _assetCategoryRepo;
-        public AssetCategoryController(IAssetCategoryRepo assetCategoryRepo)
+        private readonly IAssetRepo _assetRepo;
+        public AssetCategoryController(IAssetCategoryRepo assetCategoryRepo, IAssetRepo assetRepo)
         {
             _assetCategoryRepo = assetCategoryRepo;
+            _assetRepo = assetRepo;
         }
 
         [HttpGet]
@@ -50,7 +52,7 @@ namespace MyPortfolio.Controllers.AssetController
         {
             try
             {
-                var assetCategory = await _assetCategoryRepo.GetAssetCategoryByIdAsync(assetCategoryId);
+                AssetCategory? assetCategory = await _assetCategoryRepo.GetAssetCategoryByIdAsync(assetCategoryId);
                 if (assetCategory is null)
                 {
                     return NotFound("Nessuna category trovata.");
@@ -91,44 +93,16 @@ namespace MyPortfolio.Controllers.AssetController
 
         [HttpPost]
         [SwaggerOperation(Summary = "Add expensive category")]
-        public async Task<IActionResult> AddAssetCategory(string assetCategoryName)
+        public async Task<IActionResult> AddAssetCategory(AssetCategoryDTO assetCategory)
         {
             try
             {
-                var assetCategoryToAdd = new AssetCategory()
+                AssetCategory assetCategoryToAdd = new AssetCategory()
                 {
-                    Name = assetCategoryName,
+                    Name = assetCategory.Name,
+                    IsInvested = assetCategory.IsInvested,
                 };
                 await _assetCategoryRepo.AddAssetCategoryAsync(assetCategoryToAdd);
-                return Ok();
-            }
-            catch (Exception ex)
-            {
-                // Log dell'errore (es. con un logger, se configurato)
-                return StatusCode(500, $"Errore interno del server: {ex.Message}");
-            }
-        }
-
-        [HttpPost]
-        [Route("addList")]
-        [SwaggerOperation(Summary = "Add expensive category list")]
-        public async Task<IActionResult> AddAssetCategoryList([FromBody] List<string> assetCategoryNameList)
-        {
-            try
-            {
-                List<AssetCategory> assetCategoryToAddList = new List<AssetCategory>();
-                foreach (var assetCategoryName in assetCategoryNameList)
-                {
-                    var assetCategoryToAdd = new AssetCategory()
-                    {
-                        Name = assetCategoryName,
-                    };
-                    assetCategoryToAddList.Add(assetCategoryToAdd);
-                }
-                if (assetCategoryToAddList.Count > 0)
-                {
-                    await _assetCategoryRepo.AddAssetCategoryListAsync(assetCategoryToAddList);
-                }
                 return Ok();
             }
             catch (Exception ex)
@@ -144,31 +118,13 @@ namespace MyPortfolio.Controllers.AssetController
         {
             try
             {
-                await _assetCategoryRepo.DeleteAssetCategoryAsync(assetCategoryId);
-                return Ok();
-            }
-            catch (KeyNotFoundException)
-            {
-                return NoContent();
-            }
-            catch (Exception ex)
-            {
-                // Log dell'errore (es. con un logger, se configurato)
-                return StatusCode(500, $"Errore interno del server: {ex.Message}");
-            }
-        }
-
-        [HttpDelete]
-        [Route("deleteList")]
-        [SwaggerOperation(Summary = "Delete expensive category list")]
-        public async Task<IActionResult> DeleteAssetCategoryList(List<int> assetCategoryIdList)
-        {
-            try
-            {
-                foreach (var assetCategoryId in assetCategoryIdList)
+                // se ho asset con questa categoria non cancello
+                var assetList = await _assetRepo.GetAllAssetAsync();
+                if (assetList.Any(x => x.Category?.Id == assetCategoryId))
                 {
-                    await _assetCategoryRepo.DeleteAssetCategoryAsync(assetCategoryId);
+                    return Conflict("Esistono asset associate a questo tipo");
                 }
+                await _assetCategoryRepo.DeleteAssetCategoryAsync(assetCategoryId);
                 return Ok();
             }
             catch (KeyNotFoundException)
@@ -184,15 +140,16 @@ namespace MyPortfolio.Controllers.AssetController
 
         [HttpPut("{assetCategoryId}")]
         [SwaggerOperation(Summary = "Update asset category")]
-        public async Task<IActionResult> UpdateAssetById(int assetCategoryId, string newAssetCategoryName)
+        public async Task<IActionResult> UpdateAssetCategoryById(int assetCategoryId, [FromBody] AssetCategoryDTO newAssetCategory)
         {
             try
             {
-                var assetCategoryUpdated = new AssetCategory()
+                AssetCategory assetCategoryToAdd = new AssetCategory()
                 {
-                    Name = newAssetCategoryName,
+                    Name = newAssetCategory.Name,
+                    IsInvested = newAssetCategory.IsInvested,
                 };
-                var assetCategory = await _assetCategoryRepo.UpdateAssetCategoryAsync(assetCategoryId, assetCategoryUpdated);
+                var assetCategory = await _assetCategoryRepo.UpdateAssetCategoryAsync(assetCategoryId, assetCategoryToAdd);
                 if (assetCategory is null)
                 {
                     return NotFound("Nessuna category trovato");

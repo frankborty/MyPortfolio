@@ -138,24 +138,24 @@ namespace MyPortfolio.Utility
             currentCategoryList = await _assetCategoryRepo.GetAllAssetCategoryAsync();
             List<AssetCategory> categoryList = currentCategoryList.ToList();
             List<Asset> assetListToAdd = new List<Asset>() {
-                new  Asset(){ AssetCategory = AssetUtils.AssetStaticUtils.GetCategoryFromName("Account", categoryList), Name = "PostePay" },
-                new  Asset(){ AssetCategory = AssetUtils.AssetStaticUtils.GetCategoryFromName("Account", categoryList), Name = "ING" },
-                new  Asset(){ AssetCategory = AssetUtils.AssetStaticUtils.GetCategoryFromName("Account", categoryList), Name = "BBVA" },
-                new  Asset(){ AssetCategory = AssetUtils.AssetStaticUtils.GetCategoryFromName("Cash", categoryList), Name = "Euro" },
-                new  Asset(){ AssetCategory = AssetUtils.AssetStaticUtils.GetCategoryFromName("Account", categoryList), Name = "PayPal" },
-                new  Asset(){ AssetCategory = AssetUtils.AssetStaticUtils.GetCategoryFromName("Credit", categoryList), Name = "Martina" },
-                new  Asset(){ AssetCategory = AssetUtils.AssetStaticUtils.GetCategoryFromName("Credit", categoryList), Name = "Virginia" },
-                new  Asset(){ AssetCategory = AssetUtils.AssetStaticUtils.GetCategoryFromName("Account", categoryList), Name = "Directa" },
+                new  Asset(){ Category = AssetUtils.AssetStaticUtils.GetCategoryFromName("Account", categoryList), Name = "PostePay" },
+                new  Asset(){ Category = AssetUtils.AssetStaticUtils.GetCategoryFromName("Account", categoryList), Name = "ING" },
+                new  Asset(){ Category = AssetUtils.AssetStaticUtils.GetCategoryFromName("Account", categoryList), Name = "BBVA" },
+                new  Asset(){ Category = AssetUtils.AssetStaticUtils.GetCategoryFromName("Cash", categoryList), Name = "Euro" },
+                new  Asset(){ Category = AssetUtils.AssetStaticUtils.GetCategoryFromName("Account", categoryList), Name = "PayPal" },
+                new  Asset(){ Category = AssetUtils.AssetStaticUtils.GetCategoryFromName("Credit", categoryList), Name = "Martina" },
+                new  Asset(){ Category = AssetUtils.AssetStaticUtils.GetCategoryFromName("Credit", categoryList), Name = "Virginia" },
+                new  Asset(){ Category = AssetUtils.AssetStaticUtils.GetCategoryFromName("Account", categoryList), Name = "Directa" },
 
-                new  Asset(){ AssetCategory = AssetUtils.AssetStaticUtils.GetCategoryFromName("Financial", categoryList), Name = "XZMU", ISIN = "IE00BFMNPS42", Share = 183 },
-                new  Asset(){ AssetCategory = AssetUtils.AssetStaticUtils.GetCategoryFromName("Financial", categoryList), Name = "SUAS", ISIN = "IE00BYVJRR92", Share = 680 },
-                new  Asset(){ AssetCategory = AssetUtils.AssetStaticUtils.GetCategoryFromName("Financial", categoryList), Name = "V3AA", ISIN = "IE00BNG8L278", Share = 1000 },
-                new  Asset(){ AssetCategory = AssetUtils.AssetStaticUtils.GetCategoryFromName("Financial", categoryList), Name = "EMESG", ISIN = "LU2109787551", Share = 50 },
-                new  Asset(){ AssetCategory = AssetUtils.AssetStaticUtils.GetCategoryFromName("Financial", categoryList), Name = "V3EA", ISIN = "IE000QUOSE01", Share = 432 },
-                new  Asset(){ AssetCategory = AssetUtils.AssetStaticUtils.GetCategoryFromName("Financial", categoryList), Name = "V3MA", ISIN = "IE000KPJJWM6", Share = 900 },
-                new  Asset(){ AssetCategory = AssetUtils.AssetStaticUtils.GetCategoryFromName("Financial", categoryList), Name = "V3PA", ISIN = "IE000GOJO2A3", Share = 392 },
-                new  Asset(){ AssetCategory = AssetUtils.AssetStaticUtils.GetCategoryFromName("Financial", categoryList), Name = "M.509954", ISIN = "IT0005496994", Share = 50 },
-                new  Asset(){ AssetCategory = AssetUtils.AssetStaticUtils.GetCategoryFromName("Financial", categoryList), Name = "M.510366", ISIN = "IT0005532715", Share = 50 }
+                new  Asset(){ Category = AssetUtils.AssetStaticUtils.GetCategoryFromName("Financial", categoryList), Name = "XZMU", ISIN = "IE00BFMNPS42", Share = 183 },
+                new  Asset(){ Category = AssetUtils.AssetStaticUtils.GetCategoryFromName("Financial", categoryList), Name = "SUAS", ISIN = "IE00BYVJRR92", Share = 680 },
+                new  Asset(){ Category = AssetUtils.AssetStaticUtils.GetCategoryFromName("Financial", categoryList), Name = "V3AA", ISIN = "IE00BNG8L278", Share = 1000 },
+                new  Asset(){ Category = AssetUtils.AssetStaticUtils.GetCategoryFromName("Financial", categoryList), Name = "EMESG", ISIN = "LU2109787551", Share = 50 },
+                new  Asset(){ Category = AssetUtils.AssetStaticUtils.GetCategoryFromName("Financial", categoryList), Name = "V3EA", ISIN = "IE000QUOSE01", Share = 432 },
+                new  Asset(){ Category = AssetUtils.AssetStaticUtils.GetCategoryFromName("Financial", categoryList), Name = "V3MA", ISIN = "IE000KPJJWM6", Share = 900 },
+                new  Asset(){ Category = AssetUtils.AssetStaticUtils.GetCategoryFromName("Financial", categoryList), Name = "V3PA", ISIN = "IE000GOJO2A3", Share = 392 },
+                new  Asset(){ Category = AssetUtils.AssetStaticUtils.GetCategoryFromName("Financial", categoryList), Name = "M.509954", ISIN = "IT0005496994", Share = 50 },
+                new  Asset(){ Category = AssetUtils.AssetStaticUtils.GetCategoryFromName("Financial", categoryList), Name = "M.510366", ISIN = "IT0005532715", Share = 50 }
             };
 
             var currentAssetList = await _assetRepo.GetAllAssetAsync();

@@ -122,7 +122,7 @@ namespace MyPortfolio.Controllers.ExpenseController
                 var expenseList = await _expenseRepo.GetAllExpensesAsync();
                 if (expenseList.Any(x => x.ExpenseType?.Id == expenseTypeId))
                 {
-                    throw new Exception("Esistono spese associate a questo tipo");
+                    return Conflict("Esistono asset associate a questo tipo");
                 }
 
                 await _expenseTypeRepo.DeleteExpenseTypeAsync(expenseTypeId);
@@ -141,14 +141,14 @@ namespace MyPortfolio.Controllers.ExpenseController
 
         [HttpPut("{expenseTypeId}")]
         [SwaggerOperation(Summary = "Update expense type")]
-        public async Task<IActionResult> UpdateExpenseById(int expenseTypeId, [FromBody] ExpenseTypeDTO expenseTypeToUpdate)
+        public async Task<IActionResult> UpdateExpenseById(int expenseTypeId, [FromBody] ExpenseTypeDTO newExpenseType)
         {
             try
             {
                 ExpenseType updatedExpenseType = new ExpenseType()
                 {
-                    Name=expenseTypeToUpdate.Name,
-                    CategoryId=expenseTypeToUpdate.Category.Id
+                    Name= newExpenseType.Name,
+                    CategoryId= newExpenseType.Category.Id
                 };
                 var expenseType = await _expenseTypeRepo.UpdateExpenseTypeAsync(expenseTypeId, updatedExpenseType);
                 if (expenseType is null)

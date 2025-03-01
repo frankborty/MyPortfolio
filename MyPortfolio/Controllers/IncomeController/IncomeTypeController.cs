@@ -125,7 +125,7 @@ namespace MyPortfolio.Controllers.IncomeController
                 var expenseList = await _incomeRepo.GetAllIncomesAsync();
                 if (expenseList.Any(x => x.IncomeType?.Id == incomeTypeId))
                 {
-                    throw new Exception("Esistono entrate associate a questo tipo");
+                    return Conflict("Esistono asset associate a questo tipo");
                 }
                 await _incomeTypeRepo.DeleteIncomeTypeAsync(incomeTypeId);
                 return Ok();

@@ -2,6 +2,7 @@
 using MyPortfolio.Data.Repositories.AssetRepo;
 using MyPortfolio.DTO.AssetDTO;
 using MyPortfolio.Models.Assets;
+using MyPortfolio.Utility;
 using MyPortfolio.Utility.AssetUtils;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -12,9 +13,11 @@ namespace MyPortfolio.Controllers.AssetController
     public class AssetController : ControllerBase
     {
         private readonly IAssetRepo _assetRepo;
-        public AssetController(IAssetRepo assetRepo)
+        private readonly IAssetValueRepo _assetValueRepo;
+        public AssetController(IAssetRepo assetRepo, IAssetValueRepo assetValueRepo)
         {
             _assetRepo = assetRepo;
+            _assetValueRepo = assetValueRepo;
         }
 
         [HttpGet]
@@ -68,12 +71,31 @@ namespace MyPortfolio.Controllers.AssetController
 
         [HttpPost]
         [SwaggerOperation(Summary = "Add asset")]
-        public async Task<IActionResult> AddAsset(AssetToAddDTO asset)
+        public async Task<IActionResult> AddAsset(AssetDTO asset)
         {
             try
             {
-                Asset assetToAdd = AssetDTOConverter.FromAssetToAddDTO(asset);
-                await AssetStaticUtils.AddSingleAsset(_assetRepo, assetToAdd);
+                Asset assetToAdd = AssetDTOConverter.FromAssetDTO(asset);
+                Asset? newAsset = await _assetRepo.AddAssetAsync(assetToAdd);
+                if (newAsset is null)
+                {
+                    throw new Exception("Creato asset null");
+                }
+
+                //aggiunto anche un assetValue con data odierna e balance nullo
+                Asset? createdAsset = await _assetRepo.GetAssetByIdAsync(newAsset.Id);
+                if (createdAsset is null)
+                {
+                    throw new Exception("Creato asset null");
+                }
+                var assetValueToAdd = new AssetValue()
+                {
+                    AssetId = newAsset.Id,
+                    TimeStamp = DateTime.Now,
+                    Value = 0,
+                    Asset = createdAsset
+                };
+                await _assetValueRepo.AddAssetValueAsync(assetValueToAdd);
                 return Ok();
             }
             catch (Exception ex)
@@ -83,26 +105,6 @@ namespace MyPortfolio.Controllers.AssetController
             }
         }
 
-        [HttpPost]
-        [Route("addList")]
-        [SwaggerOperation(Summary = "Add asset list")]
-        public async Task<IActionResult> AddAssetList([FromBody] List<AssetToAddDTO> assetList)
-        {
-            try
-            {
-                foreach (var asset in assetList)
-                {
-                    Asset assetToAdd = AssetDTOConverter.FromAssetToAddDTO(asset);
-                    await AssetStaticUtils.AddSingleAsset(_assetRepo, assetToAdd);
-                }
-                return Ok();
-            }
-            catch (Exception ex)
-            {
-                // Log dell'errore (es. con un logger, se configurato)
-                return StatusCode(500, $"Errore interno del server: {ex.Message}");
-            }
-        }
 
         [HttpDelete]
         [SwaggerOperation(Summary = "Delete asset")]
@@ -124,37 +126,14 @@ namespace MyPortfolio.Controllers.AssetController
             }
         }
 
-        [HttpDelete]
-        [Route("deleteList")]
-        [SwaggerOperation(Summary = "Delete asset list")]
-        public async Task<IActionResult> DeleteAssetList(List<int> assetIdList)
-        {
-            try
-            {
-                foreach (var assetId in assetIdList)
-                {
-                    await _assetRepo.DeleteAssetAsync(assetId);
-                }
-                return Ok();
-            }
-            catch (KeyNotFoundException)
-            {
-                return NoContent();
-            }
-            catch (Exception ex)
-            {
-                // Log dell'errore (es. con un logger, se configurato)
-                return StatusCode(500, $"Errore interno del server: {ex.Message}");
-            }
-        }
-
+        
         [HttpPut("{assetId}")]
         [SwaggerOperation(Summary = "Update asset")]
-        public async Task<IActionResult> UpdateAssetById(int assetId, [FromBody] AssetToAddDTO assetToUpdate)
+        public async Task<IActionResult> UpdateAssetById(int assetId, [FromBody] AssetDTO newAsset)
         {
             try
             {
-                Asset assetUpdated = AssetDTOConverter.FromAssetToAddDTO(assetToUpdate);
+                Asset assetUpdated = AssetDTOConverter.FromAssetDTO(newAsset);
                 var asset = await _assetRepo.UpdateAssetAsync(assetId, assetUpdated);
                 if (asset is null)
                 {

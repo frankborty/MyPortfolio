@@ -44,7 +44,7 @@ namespace MyPortfolio.Data.Repositories.AssetRepo
         {
             var tmporaryResult =  await dataDbContext.AssetValues
                 .Include(a => a.Asset)
-                .ThenInclude(a => a.AssetCategory)
+                .ThenInclude(a => a.Category)
                 .OrderBy(a=>a.TimeStamp)
                 .ToListAsync();
             //non capisco perchè se faccio tutto assieme si perde l'ordinamento
@@ -55,7 +55,7 @@ namespace MyPortfolio.Data.Repositories.AssetRepo
         {
             return await dataDbContext.AssetValues
                 .Include(a => a.Asset)
-                .ThenInclude(a => a.AssetCategory)
+                .ThenInclude(a => a.Category)
                 .ToListAsync();
         }
 

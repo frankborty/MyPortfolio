@@ -38,25 +38,6 @@ namespace MyPortfolio.Utility.AssetUtils
             return null;
         }
 
-        private static Asset ConvertFileLineInAsset(string content, List<AssetCategory> assetCategoryList)
-        {
-            Asset asset = new Asset();
-            string[] lineTokens = content.Split('\t');
-            if (lineTokens.Length != 4)
-            {
-                throw new Exception($"Invalid Line: {lineTokens}");
-            }
-            asset.Name = lineTokens[0];
-            AssetCategory? assetCategory = GetCategoryFromName(lineTokens[3], assetCategoryList);
-            if (assetCategory is null)
-            {
-                throw new Exception($"Invalid asset type {lineTokens}");
-            }
-
-            asset.AssetCategory = assetCategory;
-            return asset;
-        }
-
         internal static async Task<List<AssetValue>> ProcessAssetValueFile(IFormFile file, List<Asset> assetList)
         {
             List<AssetValue> assetValueList = new List<AssetValue>();
