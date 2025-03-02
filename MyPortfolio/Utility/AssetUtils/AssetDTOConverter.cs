@@ -13,17 +13,9 @@ namespace MyPortfolio.Utility.AssetUtils
                 Name = asset.Name,
                 ISIN = asset.ISIN,
                 Url = asset.Url,
+                PMC = asset.PMC,
                 Note = asset.Note,
                 Share = asset.Share,
-                Category = AssetCategoryDTOConverter.ToAssetCategoryDTO(asset.Category)
-            };
-        }
-        public static AssetSimpleDTO ToAssetSimpleDTO(Asset asset)
-        {
-            return new AssetSimpleDTO()
-            {
-                Id = asset.Id,
-                Name = asset.Name,
                 Category = AssetCategoryDTOConverter.ToAssetCategoryDTO(asset.Category)
             };
         }
@@ -37,6 +29,7 @@ namespace MyPortfolio.Utility.AssetUtils
                 Note = assetToAdd.Note,
                 Share = assetToAdd.Share,
                 Url = assetToAdd.Url,
+                PMC = assetToAdd.PMC,
                 CategoryId = assetToAdd.Category.Id
             };
         }

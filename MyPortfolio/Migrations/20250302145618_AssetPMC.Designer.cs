@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyPortfolio.Data;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MyPortfolio.Migrations
 {
     [DbContext(typeof(DataDbContext))]
-    partial class DataDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250302145618_AssetPMC")]
+    partial class AssetPMC
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -93,15 +96,15 @@ namespace MyPortfolio.Migrations
                     b.Property<int>("AssetId")
                         .HasColumnType("integer");
 
+                    b.Property<decimal>("AvgPrice")
+                        .HasColumnType("numeric");
+
                     b.Property<DateTime>("Date")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("OperationType")
                         .IsRequired()
                         .HasColumnType("text");
-
-                    b.Property<decimal>("PMC")
-                        .HasColumnType("numeric");
 
                     b.Property<decimal>("Share")
                         .HasColumnType("numeric");

@@ -8,17 +8,10 @@
         public string Note { get; set; } = string.Empty;
         public decimal Share { get; set; }
         public string Url { get; set; } = string.Empty;
-        public decimal AvgPrice { get; set; }
+        public int PMC { get; set; } = 0;
         public string TimeStamp { get; set; } = DateTime.Now.ToString("yyyyMMdd_HHmmss");
         public AssetCategoryDTO Category { get; set; } = new AssetCategoryDTO();
 
         public AssetDTO() { }
-    }
-
-    public class AssetSimpleDTO
-    {
-        public string Name { get; set; } = string.Empty;
-        public int Id { get; set; } = -1;
-        public AssetCategoryDTO Category { get; set; } = new AssetCategoryDTO();
     }
 }

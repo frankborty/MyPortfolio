@@ -15,7 +15,7 @@
 
     public class AssetValueListDTO
     {
-        public AssetSimpleDTO Asset { get; set; } = new AssetSimpleDTO();
+        public AssetDTO Asset { get; set; } = new AssetDTO();
         public List<AssetValueDTO> AssetValueList { get; set; } = new List<AssetValueDTO>();
     }
 }

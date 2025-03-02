@@ -61,7 +61,6 @@ namespace MyPortfolio.Data.Repositories.AssetRepo
             assetOperation.AssetId = entity.AssetId;
             assetOperation.Date = entity.Date;
             assetOperation.OperationType = entity.OperationType;
-            assetOperation.AvgPrice = entity.AvgPrice;
             assetOperation.Share = entity.Share;
             await dataDbContext.SaveChangesAsync();
             return assetOperation;

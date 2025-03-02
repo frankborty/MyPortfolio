@@ -7,6 +7,7 @@ namespace MyPortfolio.Data.Repositories.AssetRepo
         public Task<IEnumerable<AssetValue>> GetAllAssetValueAsync();
         public Task<IEnumerable<AssetValue>> GetAllAssetValueWithDetailsAsync();
         public Task<IEnumerable<IGrouping<Asset, AssetValue>>> GetAllAssetValueWithDetailsGroupByAssetIdAsync();
+        public Task<IEnumerable<IGrouping<Asset, AssetValue>>> GetAllAssetValueGroupByAssetIdAsync();
         public Task<IEnumerable<AssetValue>> GetAssetValueByAssetIdAsync(int assetId);
         public Task<AssetValue?> GetAssetValueByIdAsync(int id);
         public Task<IEnumerable<AssetValue>> GetAssetValueByAssetNameAsync(string assetName);

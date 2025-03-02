@@ -2,7 +2,6 @@
 using MyPortfolio.Data.Repositories.AssetRepo;
 using MyPortfolio.DTO.AssetDTO;
 using MyPortfolio.Models.Assets;
-using MyPortfolio.Utility;
 using MyPortfolio.Utility.AssetUtils;
 using Swashbuckle.AspNetCore.Annotations;
 

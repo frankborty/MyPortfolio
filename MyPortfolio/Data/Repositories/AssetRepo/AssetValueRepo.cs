@@ -51,6 +51,16 @@ namespace MyPortfolio.Data.Repositories.AssetRepo
             return tmporaryResult.GroupBy(a => a.Asset).ToList();
         }
 
+
+        public async Task<IEnumerable<IGrouping<Asset, AssetValue>>> GetAllAssetValueGroupByAssetIdAsync()
+        {
+            var tmporaryResult = await dataDbContext.AssetValues
+                .OrderBy(a => a.TimeStamp)
+                .ToListAsync();
+            //non capisco perchè se faccio tutto assieme si perde l'ordinamento
+            return tmporaryResult.GroupBy(a => a.Asset).ToList();
+        }
+
         public async Task<IEnumerable<AssetValue>> GetAllAssetValueWithDetailsAsync()
         {
             return await dataDbContext.AssetValues

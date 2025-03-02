@@ -124,7 +124,7 @@ namespace MyPortfolio.Utility.AssetUtils
             
             if (decimal.TryParse(lineTokens[2].Replace(".", ","), out decimal price))
             {
-                assetOperation.AvgPrice = price;
+                assetOperation.PMC = price;
             }
             else
             {
@@ -141,7 +141,7 @@ namespace MyPortfolio.Utility.AssetUtils
         {
             AssetValueListDTO assetValueResult = new AssetValueListDTO()
             {
-                Asset = AssetDTOConverter.ToAssetSimpleDTO(assetValueList.Key)
+                Asset = AssetDTOConverter.ToAssetDTO(assetValueList.Key)
             };
 
             var groupedByMonth = assetValueList.GroupBy(a => new { a.TimeStamp.Year, a.TimeStamp.Month }).ToList();

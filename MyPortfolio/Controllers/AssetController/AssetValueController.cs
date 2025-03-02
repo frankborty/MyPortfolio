@@ -67,6 +67,54 @@ namespace MyPortfolio.Controllers.AssetController
             }
         }
 
+
+        [HttpGet]
+        [Route("financialVariation")]
+        [SwaggerOperation(Summary = "Get asset variation list")]
+        //ToDo: devo modificarla perchè la variazione si calcola sul prezzo medio di acquisto e sul prezzo attuale
+        public async Task<IActionResult> GetFinancialAssetVariation()
+        {
+            try
+            {
+                List<FinancialAssetValuationDTO> assetVariationList = new List<FinancialAssetValuationDTO>();
+                var assetList = await _assetRepo.GetAllAssetAsync();
+                IEnumerable<IGrouping<Asset, AssetValue>> allAssetValueListQuery = await _assetValueRepo.GetAllAssetValueGroupByAssetIdAsync();
+                var allAssetVaueList = allAssetValueListQuery.ToList();
+
+                foreach (var asset in assetList)
+                {
+                    if (asset.Category?.IsInvested != true)
+                    {
+                        continue;
+                    }
+                    FinancialAssetValuationDTO assetVariation = new FinancialAssetValuationDTO()
+                    {
+                        Asset = AssetDTOConverter.ToAssetDTO(asset)
+                    };
+                    foreach(var assetValue in allAssetVaueList)
+                    {
+                        if (assetValue.Key == asset)
+                        {
+                            decimal firstPrice = assetValue.First().Value;
+                            decimal lastPrice = assetValue.Last().Value;
+                            assetVariation.InitialValue = firstPrice;
+                            assetVariation.FinalValue = lastPrice;
+                            assetVariation.AbsDelta = lastPrice - firstPrice;
+                            assetVariation.PercentDelta = ((lastPrice - firstPrice) / firstPrice) * 100;
+                            break;
+                        }
+                    }
+                    assetVariationList.Add(assetVariation);
+                }
+
+                return Ok(assetVariationList);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Errore interno del server: {ex.Message}");
+            }
+        }
+
         [HttpGet]
         [Route("{assetValueName}/byName")]
         [SwaggerOperation(Summary = "Get asset value by asse name")]
