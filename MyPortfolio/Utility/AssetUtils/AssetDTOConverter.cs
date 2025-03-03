@@ -14,6 +14,7 @@ namespace MyPortfolio.Utility.AssetUtils
                 ISIN = asset.ISIN,
                 Url = asset.Url,
                 PMC = asset.PMC,
+                CurrentValue = asset.CurrentValue,
                 Note = asset.Note,
                 Share = asset.Share,
                 Category = AssetCategoryDTOConverter.ToAssetCategoryDTO(asset.Category)
@@ -30,6 +31,7 @@ namespace MyPortfolio.Utility.AssetUtils
                 Share = assetToAdd.Share,
                 Url = assetToAdd.Url,
                 PMC = assetToAdd.PMC,
+                CurrentValue = assetToAdd.CurrentValue,
                 CategoryId = assetToAdd.Category.Id
             };
         }

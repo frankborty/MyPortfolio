@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MyPortfolio.Migrations
 {
     [DbContext(typeof(DataDbContext))]
-    [Migration("20250301120642_AssetUrl")]
-    partial class AssetUrl
+    [Migration("20250303172722_Init")]
+    partial class Init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -36,6 +36,9 @@ namespace MyPortfolio.Migrations
                     b.Property<int>("CategoryId")
                         .HasColumnType("integer");
 
+                    b.Property<decimal>("CurrentValue")
+                        .HasColumnType("numeric");
+
                     b.Property<string>("ISIN")
                         .IsRequired()
                         .HasColumnType("text");
@@ -47,6 +50,9 @@ namespace MyPortfolio.Migrations
                     b.Property<string>("Note")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<decimal>("PMC")
+                        .HasColumnType("numeric");
 
                     b.Property<decimal>("Share")
                         .HasColumnType("numeric");
@@ -93,15 +99,15 @@ namespace MyPortfolio.Migrations
                     b.Property<int>("AssetId")
                         .HasColumnType("integer");
 
-                    b.Property<decimal>("AvgPrice")
-                        .HasColumnType("numeric");
-
                     b.Property<DateTime>("Date")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("OperationType")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<decimal>("PMC")
+                        .HasColumnType("numeric");
 
                     b.Property<decimal>("Share")
                         .HasColumnType("numeric");
@@ -259,13 +265,13 @@ namespace MyPortfolio.Migrations
 
             modelBuilder.Entity("MyPortfolio.Models.Assets.Asset", b =>
                 {
-                    b.HasOne("MyPortfolio.Models.Assets.AssetCategory", "AssetCategory")
+                    b.HasOne("MyPortfolio.Models.Assets.AssetCategory", "Category")
                         .WithMany("Assets")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("AssetCategory");
+                    b.Navigation("Category");
                 });
 
             modelBuilder.Entity("MyPortfolio.Models.Assets.AssetOperation", b =>

@@ -33,6 +33,9 @@ namespace MyPortfolio.Migrations
                     b.Property<int>("CategoryId")
                         .HasColumnType("integer");
 
+                    b.Property<decimal>("CurrentValue")
+                        .HasColumnType("numeric");
+
                     b.Property<string>("ISIN")
                         .IsRequired()
                         .HasColumnType("text");
@@ -45,8 +48,8 @@ namespace MyPortfolio.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("PMC")
-                        .HasColumnType("integer");
+                    b.Property<decimal>("PMC")
+                        .HasColumnType("numeric");
 
                     b.Property<decimal>("Share")
                         .HasColumnType("numeric");

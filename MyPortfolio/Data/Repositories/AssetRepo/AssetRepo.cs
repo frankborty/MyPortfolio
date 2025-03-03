@@ -65,6 +65,7 @@ namespace MyPortfolio.Data.Repositories.AssetRepo
             assetToUpdate.CategoryId = asset.CategoryId;
             assetToUpdate.Url = asset.Url;
             assetToUpdate.PMC = asset.PMC;
+            assetToUpdate.CurrentValue = asset.CurrentValue;
             assetToUpdate.ISIN = asset.ISIN;
             await dataDbContext.SaveChangesAsync();
             return assetToUpdate;

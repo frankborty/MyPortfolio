@@ -12,7 +12,7 @@ services:
     image: postgres:latest
     environment:
       POSTGRES_USER: franco
-      POSTGRES_PASSWORD: tmac90
+      POSTGRES_PASSWORD: PasswordPostgreSQL
       POSTGRES_DB: MyPortfolio_DataDocker
     ports:
       - "5432:5432"
