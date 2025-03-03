@@ -354,14 +354,12 @@ Bar	17/02/2024	13,00	E	Fun	Bar
 Rifornimento	17/02/2024	30,00	E	Auto	Rifornimento
 Spesa	19/02/2024	18,00	E	Spesa	EuroSpin
 Superenalotto	22/02/2024	12,00	E	AltreSpese	SpeseVarie
-Rifornimento	22/02/2024	10,00	E	Auto	Rifornimento
 Spazzolino	23/02/2024	14,00	E	Shop	AltriGadget
 Estetista	23/02/2024	25,00	E	Salute	AltroSalute
 Bar	23/02/2024	10,00	E	Fun	Bar
 Cena con fra	23/02/2024	34,00	E	Fun	Ristoranti
 Bar	24/02/2024	11,00	E	Fun	Bar
 Interruttore	26/02/2024	8,00	E	Shop	AltriGadget
-Rifornimento	26/02/2024	30,00	E	Auto	Rifornimento
 Now	01/03/2024	10,00	E	Casa	AltroPerCasa
 Piano	01/03/2024	8,00	E	Casa	Telefono
 Bar	01/03/2024	15,00	E	Fun	Bar
@@ -378,11 +376,13 @@ Cena a casa di Sara	16/03/2024	45,00	E	Fun	CeneVarie
 Dentista	21/03/2024	210,00	E	Salute	Dottori
 Revisione	22/03/2024	80,00	E	Auto	Revisione
 Estetista	22/03/2024	20,00	E	Salute	AltroSalute
+Rifornimento	22/03/2024	10,00	E	Auto	Rifornimento
 Bar	22/03/2024	12,00	E	Fun	Bar
 Regalo comple Cri	23/03/2024	19,00	E	Regali	OtherRegali
 Biglietti tergu (martina mauro)	23/03/2024	10,00	E	Fun	Feste
 Bar	23/03/2024	8,00	E	Fun	Bar
 Gomme x4	26/03/2024	350,00	E	Auto	Gomme
+Rifornimento	26/03/2024	30,00	E	Auto	Rifornimento
 Catene neve	26/03/2024	30,00	E	Auto	AltroAuto
 Bar	29/03/2024	13,00	E	Fun	Bar
 Bar	31/03/2024	30,00	E	Fun	Bar

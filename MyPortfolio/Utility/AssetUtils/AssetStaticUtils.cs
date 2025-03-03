@@ -152,7 +152,7 @@ namespace MyPortfolio.Utility.AssetUtils
                 assetValueResult.AssetValueList.Add(new AssetValueDTO()
                 {
                     Value = orderdMonthValue.Last().Value,
-                    TimeStamp = GenericUtils.ConvertDateTimeToString(orderdMonthValue.Last().TimeStamp),
+                    TimeStamp = orderdMonthValue.Last().TimeStamp,
                     Note = orderdMonthValue.Last().Note
                 });
             }

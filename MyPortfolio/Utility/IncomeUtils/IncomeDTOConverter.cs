@@ -11,7 +11,7 @@ namespace MyPortfolio.Utility.IncomeUtils
             {
                 Id = income.Id,
                 Amount = income.Amount,
-                Date = GenericUtils.ConvertDateTimeToString(income.Date),
+                Date = income.Date,
                 Note = income.Note,
                 IncomeType = IncomeTypeDTOConverter.ToIncomeTypeDTO(income.IncomeType)
             };
@@ -22,7 +22,7 @@ namespace MyPortfolio.Utility.IncomeUtils
             return new Income()
             {
                 Amount = incomeToAdd.Amount,
-                Date = GenericUtils.ConvertStringToDateTime(incomeToAdd.Date),
+                Date = incomeToAdd.Date,
                 Note = incomeToAdd.Note,
                 TypeId = incomeToAdd.IncomeType.Id,
             };

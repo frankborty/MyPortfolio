@@ -10,7 +10,7 @@
         public string Url { get; set; } = string.Empty;
         public decimal PMC { get; set; } = 0;
         public decimal CurrentValue { get; set; } = 0;
-        public string TimeStamp { get; set; } = DateTime.Now.ToString("yyyyMMdd_HHmmss");
+        public DateTime TimeStamp { get; set; } = DateTime.Now;
         public AssetCategoryDTO Category { get; set; } = new AssetCategoryDTO();
 
         public AssetDTO() { }

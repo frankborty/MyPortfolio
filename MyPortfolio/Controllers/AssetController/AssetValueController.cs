@@ -152,7 +152,7 @@ namespace MyPortfolio.Controllers.AssetController
                 var assetValueToAdd = new AssetValue()
                 {
                     AssetId = assetValueDTO.AssetId,
-                    TimeStamp = GenericUtils.ConvertStringToDateTime(assetValueDTO.TimeStamp),
+                    TimeStamp = assetValueDTO.TimeStamp,
                     Value = assetValueDTO.Value
                 };
                 await _assetValueRepo.AddAssetValueAsync(assetValueToAdd);
@@ -177,7 +177,7 @@ namespace MyPortfolio.Controllers.AssetController
                     var assetValueToAdd = new AssetValue()
                     {
                         AssetId = assetValueDTO.AssetId,
-                        TimeStamp = GenericUtils.ConvertStringToDateTime(assetValueDTO.TimeStamp),
+                        TimeStamp = assetValueDTO.TimeStamp,
                         Value = assetValueDTO.Value
                     };
                     assetValueToAddList.Add(assetValueToAdd);
@@ -246,7 +246,7 @@ namespace MyPortfolio.Controllers.AssetController
                 var assetValueUpdated = new AssetValue()
                 {
                     AssetId = newAssetValue.AssetId,
-                    TimeStamp = GenericUtils.ConvertStringToDateTime(newAssetValue.TimeStamp),
+                    TimeStamp = newAssetValue.TimeStamp,
                     Value = newAssetValue.Value
                 };
                 var assetValue = await _assetValueRepo.UpdateAssetValueAsync(assetValueId, assetValueUpdated);
@@ -307,7 +307,7 @@ namespace MyPortfolio.Controllers.AssetController
 
                 foreach (AssetValueDTO assetNewValue in assetValueByMonth.AssetValueList)
                 {
-                    var monthYearStoredVallue = storedAssetVaueList.FirstOrDefault(g => g.Key == assetNewValue.TimeStamp.Substring(0,6))?.ToList();
+                    var monthYearStoredVallue = storedAssetVaueList.FirstOrDefault(g => g.Key == assetNewValue.TimeStamp.ToString("yyyyMM"))?.ToList();
                     if(monthYearStoredVallue is null)
                     {
                         var assetToInsert = await _assetRepo.GetAssetByIdAsync(assetValueByMonth.Asset.Id);
@@ -315,7 +315,7 @@ namespace MyPortfolio.Controllers.AssetController
                         var assetValueToAdd = new AssetValue()
                         {
                             AssetId = assetValueByMonth.Asset.Id,
-                            TimeStamp = GenericUtils.ConvertStringToDateTime(assetNewValue.TimeStamp),
+                            TimeStamp = assetNewValue.TimeStamp,
                             Value = assetNewValue.Value,
                             Asset = assetToInsert ?? new Asset()
                         };
