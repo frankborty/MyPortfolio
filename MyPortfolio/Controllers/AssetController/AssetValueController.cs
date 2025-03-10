@@ -149,11 +149,17 @@ namespace MyPortfolio.Controllers.AssetController
         {
             try
             {
+                var asset = await _assetRepo.GetAssetByIdAsync(assetValueDTO.AssetId);
+                if(asset is null)
+                {
+                    return NotFound($"Asset {assetValueDTO.AssetId} not found");
+                }
                 var assetValueToAdd = new AssetValue()
                 {
                     AssetId = assetValueDTO.AssetId,
                     TimeStamp = assetValueDTO.TimeStamp,
-                    Value = assetValueDTO.Value
+                    Value = assetValueDTO.Value,
+                    Asset = asset
                 };
                 await _assetValueRepo.AddAssetValueAsync(assetValueToAdd);
                 return Ok();
@@ -311,6 +317,10 @@ namespace MyPortfolio.Controllers.AssetController
                     if(monthYearStoredVallue is null)
                     {
                         var assetToInsert = await _assetRepo.GetAssetByIdAsync(assetValueByMonth.Asset.Id);
+                        if (assetToInsert is null)
+                        {
+                            return NotFound($"Asset {assetValueByMonth.Asset.Id} not found");
+                        }
                         //aggiungo il nuovo valore con iil primo giorno del mese
                         var assetValueToAdd = new AssetValue()
                         {

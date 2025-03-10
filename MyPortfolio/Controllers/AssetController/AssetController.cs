@@ -46,6 +46,36 @@ namespace MyPortfolio.Controllers.AssetController
             }
         }
 
+        [HttpGet]
+        [Route("withValue")]
+        [SwaggerOperation(Summary = "Get all assets with current value")]
+        public async Task<IActionResult> GetAllAssetsWithValue()
+        {
+            try
+            {
+                List<AssetValue> assetValueList = (await _assetValueRepo.GetAllAssetValueAsync()).OrderByDescending(x=>x.TimeStamp).ToList();
+                var assetList = await _assetRepo.GetAllAssetAsync();
+                if (assetList == null || !assetList.Any())
+                {
+                    return NotFound("Nessun asset trovato");
+                }
+                List<AssetDTO> assetListDto = new List<AssetDTO>();
+                foreach (var asset in assetList)
+                {
+                    AssetDTO assetDto = AssetDTOConverter.ToAssetDTO(asset);
+                    assetDto.CurrentValue = assetValueList.FirstOrDefault(x => x.AssetId == assetDto.Id)?.Value ?? -1;
+                    assetListDto.Add(assetDto);
+                }
+
+                return Ok(assetListDto);
+            }
+            catch (Exception ex)
+            {
+                // Log dell'errore (es. con un logger, se configurato)
+                return StatusCode(500, $"Errore interno del server: {ex.Message}");
+            }
+        }
+
         [HttpGet("{assetId}")]
         [SwaggerOperation(Summary = "Get asset by ID")]
         public async Task<IActionResult> GetAssetById(int assetId)
