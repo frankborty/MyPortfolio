@@ -5,6 +5,7 @@ namespace MyPortfolio.Data.Repositories.AssetRepo
     public interface IAssetOperationRepo
     {
         public Task<IEnumerable<AssetOperation>> GetAllAssetOperationAsync();
+        public Task<IEnumerable<AssetOperation>> GetAllAssetOperationWithAssetAsync();
         public Task<AssetOperation?> GetAssetOperationByIdAsync(int id);
         public Task<IEnumerable<AssetOperation>> GetAssetOperationByAssetIdAsync(int assetId);
         public Task<AssetOperation?> AddAssetOperationAsync(AssetOperation entity);

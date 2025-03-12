@@ -40,6 +40,13 @@ namespace MyPortfolio.Data.Repositories.AssetRepo
             return await dataDbContext.AssetOperations.ToListAsync();
         }
 
+        public async Task<IEnumerable<AssetOperation>> GetAllAssetOperationWithAssetAsync()
+        {
+            return await dataDbContext.AssetOperations
+                .Include(o=>o.Asset)
+                .ToListAsync();
+        }
+
         public async Task<IEnumerable<AssetOperation>> GetAssetOperationByAssetIdAsync(int assetId)
         {
             return await dataDbContext.AssetOperations.Where(a => a.AssetId == assetId).ToListAsync();

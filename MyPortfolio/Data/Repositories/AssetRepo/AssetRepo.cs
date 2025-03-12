@@ -70,5 +70,20 @@ namespace MyPortfolio.Data.Repositories.AssetRepo
             await dataDbContext.SaveChangesAsync();
             return assetToUpdate;
         }
+
+        public async Task<Asset> UpdateAssetShareAsync(int assetId, decimal share)
+        {
+            Asset? assetToUpdate = await dataDbContext.Assets
+                .FirstOrDefaultAsync(e => e.Id == assetId);
+
+            if (assetToUpdate is null)
+            {
+                throw new KeyNotFoundException();
+            }
+
+            assetToUpdate.Share += share;
+            await dataDbContext.SaveChangesAsync();
+            return assetToUpdate;
+        }
     }
 }

@@ -4,6 +4,7 @@ using MyPortfolio.DTO.AssetDTO;
 using MyPortfolio.Models.Assets;
 using MyPortfolio.Utility.AssetUtils;
 using Swashbuckle.AspNetCore.Annotations;
+using System.Linq;
 
 namespace MyPortfolio.Controllers.AssetController
 {
@@ -13,10 +14,12 @@ namespace MyPortfolio.Controllers.AssetController
     {
         private readonly IAssetRepo _assetRepo;
         private readonly IAssetValueRepo _assetValueRepo;
-        public AssetController(IAssetRepo assetRepo, IAssetValueRepo assetValueRepo)
+        private readonly IAssetOperationRepo _assetOperationRepo;
+        public AssetController(IAssetRepo assetRepo, IAssetValueRepo assetValueRepo, IAssetOperationRepo assetOperationRepo)
         {
             _assetRepo = assetRepo;
             _assetValueRepo = assetValueRepo;
+            _assetOperationRepo = assetOperationRepo;
         }
 
         [HttpGet]
@@ -54,6 +57,7 @@ namespace MyPortfolio.Controllers.AssetController
             try
             {
                 List<AssetValue> assetValueList = (await _assetValueRepo.GetAllAssetValueAsync()).OrderByDescending(x=>x.TimeStamp).ToList();
+                Dictionary<int, List<AssetOperation>> assetOperationGroupedByAssetId = (await _assetOperationRepo.GetAllAssetOperationAsync()).GroupBy(o=>o.AssetId).ToDictionary(g => g.Key, g => g.ToList());
                 var assetList = await _assetRepo.GetAllAssetAsync();
                 if (assetList == null || !assetList.Any())
                 {
@@ -64,6 +68,18 @@ namespace MyPortfolio.Controllers.AssetController
                 {
                     AssetDTO assetDto = AssetDTOConverter.ToAssetDTO(asset);
                     assetDto.CurrentValue = assetValueList.FirstOrDefault(x => x.AssetId == assetDto.Id)?.Value ?? -1;
+
+                    decimal spesaTotale = 0;
+
+                    //calcolo il numero di share
+                    if (assetOperationGroupedByAssetId.TryGetValue(asset.Id, out var values)) {
+                        assetDto.Share = values.Sum(x => x.Share);
+                        spesaTotale = values.Sum(x => x.OperationType == "BUY" ? x.PMC * x.Share : 0);
+                    }
+                    if (assetDto.Share != 0)
+                    {
+                        assetDto.PMC = spesaTotale / assetDto.Share;
+                    }
                     assetListDto.Add(assetDto);
                 }
 
@@ -156,27 +172,7 @@ namespace MyPortfolio.Controllers.AssetController
         }
 
         
-        [HttpPut("{assetId}")]
-        [SwaggerOperation(Summary = "Update asset")]
-        public async Task<IActionResult> UpdateAssetById(int assetId, [FromBody] AssetDTO newAsset)
-        {
-            try
-            {
-                Asset assetUpdated = AssetDTOConverter.FromAssetDTO(newAsset);
-                var asset = await _assetRepo.UpdateAssetAsync(assetId, assetUpdated);
-                if (asset is null)
-                {
-                    return NotFound("Nessun asset trovata.");
-                }
+        
 
-                AssetDTO assetDto = AssetDTOConverter.ToAssetDTO(asset);
-                return Ok(assetDto);
-            }
-            catch (Exception ex)
-            {
-                // Log dell'errore (es. con un logger, se configurato)
-                return StatusCode(500, $"Errore interno del server: {ex.Message}");
-            }
-        }
     }
 }

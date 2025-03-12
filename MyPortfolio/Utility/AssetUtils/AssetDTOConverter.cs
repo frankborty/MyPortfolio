@@ -71,5 +71,35 @@ namespace MyPortfolio.Utility.AssetUtils
             };
         }
     }
+
+    public static class AssetOperationDTOConverter
+    {
+        public static AssetOperationDTO ToAssetOperationDTO(AssetOperation assetOperation)
+        {
+            AssetOperationDTO result = new AssetOperationDTO();
+            if (assetOperation is null)
+            {
+                return result;
+            }
+            result.AssetId = assetOperation.AssetId;
+            result.OperationType = assetOperation.OperationType;
+            result.Date = assetOperation.Date;
+            result.Share = assetOperation.Share;
+            result.PMC = assetOperation.PMC;
+            return result;
+        }
+
+        public static AssetOperation FromAssetOperationDTO(AssetOperationDTO assetOperationDTO)
+        {
+            return new AssetOperation()
+            {
+                AssetId = assetOperationDTO.AssetId,
+                Date = assetOperationDTO.Date,
+                OperationType = assetOperationDTO.OperationType,
+                PMC = assetOperationDTO.PMC,
+                Share = assetOperationDTO.Share
+            };
+        }
+    }
 }
 
