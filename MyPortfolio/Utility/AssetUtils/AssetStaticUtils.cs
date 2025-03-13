@@ -70,7 +70,7 @@ namespace MyPortfolio.Utility.AssetUtils
             assetValue.Asset = asset;
             assetValue.AssetId = asset.Id;
             assetValue.TimeStamp = DateTime.ParseExact(lineTokens[1], "dd/MM/yyyy", CultureInfo.InvariantCulture);
-            if (decimal.TryParse(lineTokens[2].Replace(".", ","), out decimal value))
+            if (decimal.TryParse(lineTokens[2], out decimal value))
             {
                 assetValue.Value = value;
             }
@@ -78,7 +78,6 @@ namespace MyPortfolio.Utility.AssetUtils
             {
                 throw new Exception($"Invalid Share: {lineTokens}");
             }
-
             return assetValue;
         }
 
@@ -137,21 +136,24 @@ namespace MyPortfolio.Utility.AssetUtils
             return assetOperation;
         }
 
-        internal static AssetValueListDTO CreateMonthValueList(IGrouping<Asset, AssetValue> assetValueList)
+        internal static AssetValueListDTO CreateMonthValueList(IGrouping<Asset, AssetValue> assetValueList, IEnumerable<AssetOperation> assetOperationList)
         {
             AssetValueListDTO assetValueResult = new AssetValueListDTO()
             {
                 Asset = AssetDTOConverter.ToAssetDTO(assetValueList.Key)
             };
-
+            bool isFinancial = assetValueResult.Asset.Category.IsInvested;
             var groupedByMonth = assetValueList.GroupBy(a => new { a.TimeStamp.Year, a.TimeStamp.Month }).ToList();
 
             foreach (var monthValueList in groupedByMonth)
             {
                 var orderdMonthValue = monthValueList.OrderBy(g => g.TimeStamp).ToList();
+
+                decimal shareNumber = GetShareNumber(assetValueResult.Asset.Id, orderdMonthValue.Last().TimeStamp, assetOperationList);
+
                 assetValueResult.AssetValueList.Add(new AssetValueDTO()
                 {
-                    Value = orderdMonthValue.Last().Value,
+                    Value = isFinancial ? orderdMonthValue.Last().Value * shareNumber : orderdMonthValue.Last().Value,
                     TimeStamp = orderdMonthValue.Last().TimeStamp,
                     Note = orderdMonthValue.Last().Note
                 });
@@ -160,6 +162,25 @@ namespace MyPortfolio.Utility.AssetUtils
             //assetValueResult.AssetValueList = assetValueResult.AssetValueList.OrderBy(av => av.TimeStamp).ToList();
 
             return assetValueResult;
+        }
+
+        public static decimal GetShareNumber(int id, DateTime timeStamp, IEnumerable<AssetOperation> assetOperationList)
+        {
+            decimal result = 0;
+            foreach (var assetOperation in assetOperationList) {
+                if (assetOperation.AssetId == id)
+                {
+                    if (assetOperation.Date <= timeStamp)
+                    {
+                        result += assetOperation.Share;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+            }
+            return result;
         }
     }
 }

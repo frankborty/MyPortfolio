@@ -14,10 +14,12 @@ namespace MyPortfolio.Controllers.AssetController
     {
         private readonly IAssetValueRepo _assetValueRepo;
         private readonly IAssetRepo _assetRepo;
-        public AssetValueController(IAssetValueRepo assetValueRepo, IAssetRepo assetRepo)
+        private readonly IAssetOperationRepo _assetOperationRepo;
+        public AssetValueController(IAssetValueRepo assetValueRepo, IAssetRepo assetRepo, IAssetOperationRepo assetOperationRepo)
         {
             _assetValueRepo = assetValueRepo;
             _assetRepo = assetRepo;
+            _assetOperationRepo = assetOperationRepo;
         }
 
         [HttpGet]
@@ -279,12 +281,13 @@ namespace MyPortfolio.Controllers.AssetController
             try
             {
                 IEnumerable<IGrouping<Asset, AssetValue>> allAssetValueListQuery = await _assetValueRepo.GetAllAssetValueWithDetailsGroupByAssetIdAsync();
+                var assetOperationList = await _assetOperationRepo.GetAllAssetOperationAsync();
                 var allAssetVaueList = allAssetValueListQuery.ToList();
 
 
                 List<AssetValueListDTO> result = new List<AssetValueListDTO>();
                 foreach (var assetValueList in allAssetVaueList) {
-                    result.Add(AssetStaticUtils.CreateMonthValueList(assetValueList));
+                    result.Add(AssetStaticUtils.CreateMonthValueList(assetValueList, assetOperationList));
                 }
 
                 
@@ -309,10 +312,14 @@ namespace MyPortfolio.Controllers.AssetController
                     return Ok();
                 }
 
+                var assetOperationList = await _assetOperationRepo.GetAllAssetOperationAsync(); 
                 IEnumerable<IGrouping<string, AssetValue>> storedAssetVaueList = allAssetValueList.OrderBy(a => a.TimeStamp).GroupBy(a => a.TimeStamp.ToString("yyyyMM"));
 
                 foreach (AssetValueDTO assetNewValue in assetValueByMonth.AssetValueList)
                 {
+                    decimal shareNumber = 1;
+                    
+
                     var monthYearStoredVallue = storedAssetVaueList.FirstOrDefault(g => g.Key == assetNewValue.TimeStamp.ToString("yyyyMM"))?.ToList();
                     if(monthYearStoredVallue is null)
                     {
@@ -321,12 +328,16 @@ namespace MyPortfolio.Controllers.AssetController
                         {
                             return NotFound($"Asset {assetValueByMonth.Asset.Id} not found");
                         }
-                        //aggiungo il nuovo valore con iil primo giorno del mese
+                        if (assetValueByMonth.Asset.Category.IsInvested)
+                        {
+                            shareNumber = AssetStaticUtils.GetShareNumber(assetValueByMonth.Asset.Id, assetNewValue.TimeStamp, assetOperationList);
+                        }
+                        //aggiungo il nuovo valore con il primo giorno del mese
                         var assetValueToAdd = new AssetValue()
                         {
                             AssetId = assetValueByMonth.Asset.Id,
                             TimeStamp = assetNewValue.TimeStamp,
-                            Value = assetNewValue.Value,
+                            Value = assetNewValue.Value / shareNumber,
                             Asset = assetToInsert ?? new Asset()
                         };
                         await _assetValueRepo.AddAssetValueAsync(assetValueToAdd);
@@ -335,7 +346,12 @@ namespace MyPortfolio.Controllers.AssetController
                     {
                         //aggiorno il valore dell'asset con data maggiore
                         var assetToUpdate = monthYearStoredVallue.OrderByDescending(a => a.TimeStamp).First();
-                        assetToUpdate.Value = assetNewValue.Value;
+
+                        if (assetValueByMonth.Asset.Category.IsInvested)
+                        {
+                            shareNumber = AssetStaticUtils.GetShareNumber(assetValueByMonth.Asset.Id, assetNewValue.TimeStamp, assetOperationList);
+                        }
+                        assetToUpdate.Value = assetNewValue.Value / shareNumber;
                         await _assetValueRepo.UpdateAssetValueAsync(assetToUpdate.Id, assetToUpdate);
                     }
 
