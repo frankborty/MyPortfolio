@@ -61,27 +61,9 @@ namespace MyPortfolio.Data.Repositories.AssetRepo
             }
 
             assetToUpdate.Note = asset.Note;
-            assetToUpdate.Share = asset.Share;
             assetToUpdate.CategoryId = asset.CategoryId;
             assetToUpdate.Url = asset.Url;
-            assetToUpdate.PMC = asset.PMC;
-            assetToUpdate.CurrentValue = asset.CurrentValue;
             assetToUpdate.ISIN = asset.ISIN;
-            await dataDbContext.SaveChangesAsync();
-            return assetToUpdate;
-        }
-
-        public async Task<Asset> UpdateAssetShareAsync(int assetId, decimal share)
-        {
-            Asset? assetToUpdate = await dataDbContext.Assets
-                .FirstOrDefaultAsync(e => e.Id == assetId);
-
-            if (assetToUpdate is null)
-            {
-                throw new KeyNotFoundException();
-            }
-
-            assetToUpdate.Share += share;
             await dataDbContext.SaveChangesAsync();
             return assetToUpdate;
         }

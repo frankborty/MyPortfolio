@@ -275,7 +275,7 @@ namespace MyPortfolio.Controllers.AssetController
 
         [HttpGet]
         [Route("SummaryByMonth")]
-        [SwaggerOperation(Summary = "Get asset month vakye")]
+        [SwaggerOperation(Summary = "Get asset month value")]
         public async Task<IActionResult> GetAssetValueListByMonth()
         {
             try
@@ -301,7 +301,7 @@ namespace MyPortfolio.Controllers.AssetController
 
         [HttpPut]
         [Route("SummaryByMonth")]
-        [SwaggerOperation(Summary = "Get asset month vakye")]
+        [SwaggerOperation(Summary = "Set asset month value")]
         public async Task<IActionResult> SetAssetValueListByMonth([FromBody] AssetValueListDTO assetValueByMonth)
         {
             try

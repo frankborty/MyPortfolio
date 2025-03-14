@@ -62,9 +62,6 @@ namespace MyPortfolio.Migrations
                     Url = table.Column<string>(type: "text", nullable: false),
                     ISIN = table.Column<string>(type: "text", nullable: false),
                     Note = table.Column<string>(type: "text", nullable: false),
-                    Share = table.Column<decimal>(type: "numeric", nullable: false),
-                    PMC = table.Column<decimal>(type: "numeric", nullable: false),
-                    CurrentValue = table.Column<decimal>(type: "numeric", nullable: false),
                     CategoryId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>

@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MyPortfolio.Migrations
 {
     [DbContext(typeof(DataDbContext))]
-    [Migration("20250303172722_Init")]
+    [Migration("20250314190218_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -36,9 +36,6 @@ namespace MyPortfolio.Migrations
                     b.Property<int>("CategoryId")
                         .HasColumnType("integer");
 
-                    b.Property<decimal>("CurrentValue")
-                        .HasColumnType("numeric");
-
                     b.Property<string>("ISIN")
                         .IsRequired()
                         .HasColumnType("text");
@@ -50,12 +47,6 @@ namespace MyPortfolio.Migrations
                     b.Property<string>("Note")
                         .IsRequired()
                         .HasColumnType("text");
-
-                    b.Property<decimal>("PMC")
-                        .HasColumnType("numeric");
-
-                    b.Property<decimal>("Share")
-                        .HasColumnType("numeric");
 
                     b.Property<string>("Url")
                         .IsRequired()
