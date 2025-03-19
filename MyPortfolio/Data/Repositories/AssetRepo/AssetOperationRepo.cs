@@ -69,6 +69,7 @@ namespace MyPortfolio.Data.Repositories.AssetRepo
             assetOperation.Date = entity.Date;
             assetOperation.OperationType = entity.OperationType;
             assetOperation.Share = entity.Share;
+            assetOperation.PMC = entity.PMC;
             await dataDbContext.SaveChangesAsync();
             return assetOperation;
         }
