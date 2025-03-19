@@ -123,7 +123,7 @@ namespace MyPortfolio.Controllers.AssetController
             }
         }
 
-        [HttpPut("{assetId}")]
+        [HttpPut("{assetOperationId}")]
         [SwaggerOperation(Summary = "Update asset operation")]
         public async Task<IActionResult> UpdateAssetOperationById(int assetOperationId, [FromBody] AssetOperationDTO newAssetOperation)
         {
