@@ -2,6 +2,7 @@
 {
     public class AssetOperationDTO
     {
+        public int AssetOperatinId { get; set; }
         public int AssetId { get; set; }
         public decimal Share { get; set; }
         public decimal PMC { get; set; }

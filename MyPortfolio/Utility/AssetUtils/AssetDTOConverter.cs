@@ -75,6 +75,7 @@ namespace MyPortfolio.Utility.AssetUtils
             {
                 return result;
             }
+            result.AssetOperatinId=assetOperation.Id;
             result.AssetId = assetOperation.AssetId;
             result.OperationType = assetOperation.OperationType;
             result.Date = assetOperation.Date;
