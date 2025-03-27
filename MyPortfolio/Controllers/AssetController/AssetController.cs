@@ -171,8 +171,27 @@ namespace MyPortfolio.Controllers.AssetController
             }
         }
 
-        
-        
 
+        [HttpPut("{assetId}")]
+        [SwaggerOperation(Summary = "Update asset")]
+        public async Task<IActionResult> UpdateAssetById(int assetId, [FromBody] AssetDTO newAsset)
+        {
+            try
+            {
+                Asset assetUpdated = AssetDTOConverter.FromAssetDTO(newAsset);
+                var asset = await _assetRepo.UpdateAssetAsync(assetId, assetUpdated);
+                if (asset is null)
+                {
+                    return NotFound("Nessun asset trovata.");
+                }
+                AssetDTO assetDto = AssetDTOConverter.ToAssetDTO(asset);
+                return Ok(assetDto);
+            }
+            catch (Exception ex)
+            {
+                // Log dell'errore (es. con un logger, se configurato)
+                return StatusCode(500, $"Errore interno del server: {ex.Message}");
+            }
+        }
     }
 }
