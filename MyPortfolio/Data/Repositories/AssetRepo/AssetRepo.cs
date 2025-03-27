@@ -64,6 +64,7 @@ namespace MyPortfolio.Data.Repositories.AssetRepo
             assetToUpdate.CategoryId = asset.CategoryId;
             assetToUpdate.Url = asset.Url;
             assetToUpdate.ISIN = asset.ISIN;
+            assetToUpdate.PyName = asset.PyName;
             await dataDbContext.SaveChangesAsync();
             return assetToUpdate;
         }

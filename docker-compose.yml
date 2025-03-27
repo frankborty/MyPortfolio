@@ -18,7 +18,7 @@ services:
       - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
-      
+     
   mypf_pgadmin:
     image: dpage/pgadmin4:latest
     environment:
@@ -30,6 +30,13 @@ services:
       - mypf_db
     volumes:
       - pgadmin_data:/var/lib/pgadmin
+      
+  mypf_python:
+    build:
+      context: ./FinanceStockValue  # Sostituisci con il percorso corretto del tuo progetto Python
+      dockerfile: Dockerfile  # Usa il Dockerfile dello script Python
+    ports:
+      - "50000:50000"  # Espone la porta 50000 per l'API Python (puoi cambiarla se necessario)
       
 #  mypf_fe:
 #    build:

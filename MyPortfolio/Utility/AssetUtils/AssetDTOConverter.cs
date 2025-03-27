@@ -14,6 +14,7 @@ namespace MyPortfolio.Utility.AssetUtils
                 ISIN = asset.ISIN,
                 Url = asset.Url,
                 Note = asset.Note,
+                PyName = asset.PyName,
                 Category = AssetCategoryDTOConverter.ToAssetCategoryDTO(asset.Category)
             };
         }
@@ -23,6 +24,7 @@ namespace MyPortfolio.Utility.AssetUtils
             return new Asset()
             {
                 ISIN = assetToAdd.ISIN,
+                PyName = assetToAdd.PyName,
                 Name = assetToAdd.Name,
                 Note = assetToAdd.Note,
                 Url = assetToAdd.Url,

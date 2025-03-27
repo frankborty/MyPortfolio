@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MyPortfolio.Data.Repositories.AssetRepo;
 using MyPortfolio.DTO.AssetDTO;
+using MyPortfolio.Models;
 using MyPortfolio.Models.Assets;
 using MyPortfolio.Utility;
 using MyPortfolio.Utility.AssetUtils;
 using Swashbuckle.AspNetCore.Annotations;
+using System;
 
 namespace MyPortfolio.Controllers.AssetController
 {
@@ -23,7 +25,7 @@ namespace MyPortfolio.Controllers.AssetController
         }
 
         [HttpGet]
-        [SwaggerOperation(Summary = "Get all expensive value")]
+        [SwaggerOperation(Summary = "Get all asset value")]
         public async Task<IActionResult> GetAllAssetValues()
         {
             try
@@ -364,5 +366,79 @@ namespace MyPortfolio.Controllers.AssetController
             }
         }
 
+        [HttpGet("{assetId}/LoadFinancialValue")]
+        [SwaggerOperation(Summary = "Load financial value from python")]
+        public async Task<IActionResult> GetAssetValueListFromPython(int assetId, string pythonUrl)
+        {
+            try
+            {
+                Console.WriteLine($"AssetId: {assetId} -> Url: {pythonUrl}");
+                var asset = await _assetRepo.GetAssetByIdAsync(assetId);
+                if(asset is null || asset.Category?.IsInvested == false || asset.Name.StartsWith("M."))
+                {
+                    throw new Exception("Invalid asset id");
+                }
+                var result = await GenericUtils.GetAssetValueFromPython(pythonUrl, asset.PyName);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Errore interno del server: {ex.Message}");
+            }
+        }
+
+        [HttpGet]
+        [Route("LoadAllFinancialValue")]
+        [SwaggerOperation(Summary = "Load financial value from python")]
+        public async Task<IActionResult> GetAssetValueAllFromPython(string pythonUrl)
+        {
+            try
+            {
+                var assetList = await _assetRepo.GetAllAssetAsync();
+                List<CurrentAssetPrice> currentAssetPriceList = new List<CurrentAssetPrice>();
+                List<AssetValue> assetValueToAddList = new List<AssetValue>();
+                foreach (var asset in assetList)
+                {
+                    if(asset.Category?.IsInvested == true)
+                    {
+                        if (asset.Name.StartsWith("M."))
+                        {
+                            var assetValueToAdd = new AssetValue()
+                            {
+                                Asset = asset,
+                                AssetId = asset.Id,
+                                TimeStamp = DateTime.Now,
+                                Value = 100,
+                            };
+                            assetValueToAddList.Add(assetValueToAdd);
+                        }
+                        try
+                        {
+                            var result = await GenericUtils.GetAssetValueFromPython(pythonUrl, asset.PyName);
+                            currentAssetPriceList.Add(result);
+                            var assetValueToAdd = new AssetValue()
+                            {
+                                Asset = asset,
+                                AssetId = asset.Id,
+                                TimeStamp = DateTime.Now,
+                                Value = result.Price,
+                            };
+                            assetValueToAddList.Add(assetValueToAdd);
+                        }
+                        catch { }
+                    }
+                }
+
+                if (assetValueToAddList.Count > 0)
+                {
+                    await _assetValueRepo.AddAssetValueListAsync(assetValueToAddList);
+                }
+                return Ok(currentAssetPriceList);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Errore interno del server: {ex.Message}");
+            }
+        }
     }
 }

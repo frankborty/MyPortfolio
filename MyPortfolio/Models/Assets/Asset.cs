@@ -7,6 +7,7 @@
         public string Url { get; set; } = string.Empty;
         public string ISIN { get; set; } = string.Empty;
         public string Note { get; set; } = string.Empty;
+        public string PyName { get; set; } = string.Empty;
         public int CategoryId { get; set; }
         public AssetCategory? Category { get; set; }
         public List<AssetOperation>? OperationList { get; set; }
