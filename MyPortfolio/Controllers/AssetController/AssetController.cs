@@ -73,7 +73,7 @@ namespace MyPortfolio.Controllers.AssetController
 
                     //calcolo il numero di share
                     if (assetOperationGroupedByAssetId.TryGetValue(asset.Id, out var values)) {
-                        assetDto.Share = values.Sum(x => x.Share);
+                        assetDto.Share = values.Sum(x => x.OperationType == "BUY" ? x.Share : -x.Share);
                         spesaTotale = values.Sum(x => x.OperationType == "BUY" ? x.PMC * x.Share : 0);
                     }
                     if (assetDto.Share != 0)
