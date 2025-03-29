@@ -301,6 +301,38 @@ namespace MyPortfolio.Controllers.AssetController
             }
         }
 
+
+
+        [HttpGet]
+        [Route("UnitPriceByMonth")]
+        [SwaggerOperation(Summary = "Get asset unit price value by month")]
+        public async Task<IActionResult> GetUnitPriceListByMonth()
+        {
+            try
+            {
+                IEnumerable<IGrouping<Asset, AssetValue>> allAssetValueListQuery = await _assetValueRepo.GetAllAssetValueWithDetailsGroupByAssetIdAsync();
+                var assetOperationList = await _assetOperationRepo.GetAllAssetOperationAsync();
+                var allAssetVaueList = allAssetValueListQuery.ToList();
+
+
+                List<AssetValueListDTO> result = new List<AssetValueListDTO>();
+                foreach (var assetValueList in allAssetVaueList)
+                {
+                    if (assetValueList.Key.Category?.IsInvested == true && !assetValueList.Key.Name.StartsWith("M."))
+                    {
+                        result.Add(AssetStaticUtils.CreateUnitPriceMonthValueList(assetValueList, assetOperationList));
+                    }
+                }
+
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Errore interno del server: {ex.Message}");
+            }
+        }
+
         [HttpPut]
         [Route("SummaryByMonth")]
         [SwaggerOperation(Summary = "Set asset month value")]

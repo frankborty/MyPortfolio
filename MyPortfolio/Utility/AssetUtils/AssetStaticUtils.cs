@@ -164,6 +164,32 @@ namespace MyPortfolio.Utility.AssetUtils
             return assetValueResult;
         }
 
+
+
+        internal static AssetValueListDTO CreateUnitPriceMonthValueList(IGrouping<Asset, AssetValue> assetValueList, IEnumerable<AssetOperation> assetOperationList)
+        {
+            AssetValueListDTO assetValueResult = new AssetValueListDTO()
+            {
+                Asset = AssetDTOConverter.ToAssetDTO(assetValueList.Key)
+            };
+            var groupedByMonth = assetValueList.GroupBy(a => new { a.TimeStamp.Year, a.TimeStamp.Month }).ToList();
+
+            foreach (var monthValueList in groupedByMonth)
+            {
+                var orderdMonthValue = monthValueList.OrderBy(g => g.TimeStamp).ToList();
+                assetValueResult.AssetValueList.Add(new AssetValueDTO()
+                {
+                    Value = orderdMonthValue.Last().Value,
+                    TimeStamp = orderdMonthValue.Last().TimeStamp,
+                    Note = orderdMonthValue.Last().Note
+                });
+            }
+
+            //assetValueResult.AssetValueList = assetValueResult.AssetValueList.OrderBy(av => av.TimeStamp).ToList();
+
+            return assetValueResult;
+        }
+
         public static decimal GetShareNumber(int id, DateTime timeStamp, IEnumerable<AssetOperation> assetOperationList)
         {
             decimal result = 0;
