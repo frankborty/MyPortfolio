@@ -411,6 +411,14 @@ namespace MyPortfolio.Controllers.AssetController
                     throw new Exception("Invalid asset id");
                 }
                 var result = await GenericUtils.GetAssetValueFromPython(pythonUrl, asset.PyName);
+                var assetValueToAdd = new AssetValue()
+                {
+                    Asset = asset,
+                    AssetId = asset.Id,
+                    TimeStamp = DateTime.Now,
+                    Value = result.Price,
+                };
+                await _assetValueRepo.AddAssetValueAsync(assetValueToAdd);
                 return Ok(result);
             }
             catch (Exception ex)
