@@ -30,12 +30,18 @@ stipendio	10/09/2024	2277	;
 stipendio	10/10/2024	2273	;
 stipendio	10/11/2024	2108	;
 stipendio	10/12/2024	2343	;
+stipendio	10/01/2025	1863	Conguaglio IRPEF -536
+stipendio	10/02/2025	2268	;
+stipendio	10/03/2025	2262	;
 regali	13/03/2024	100	Zia Gabriella, compleanno
+regali	13/03/2025	100	Zia Gabriella, compleanno
 regali	25/12/2024	100	Zia Gabriella, Natale
 stipendiaggiuntivi	20/06/2024	2082	;
 stipendiaggiuntivi	15/12/2024	2082	;
 rimborsi	10/01/2024	142	rimborso spese viaggio Torino 2023
+rimborsi	10/01/2025	152	rimborso spese viaggio Torino 2024
 altro	10/08/2024	50	Checco per Now
+altro	05/01/2025	70	Checco per Now
 interessiCC	27/01/2024	10	;
 interessiCC	27/02/2024	58	;
 interessiCC	27/03/2024	60	;
@@ -48,6 +54,9 @@ interessiCC	27/09/2024	72	;
 interessiCC	27/10/2024	75	;
 interessiCC	27/11/2024	73	;
 interessiCC	27/12/2024	73	;
+interessiCC	27/01/2025	82	;
+interessiCC	27/02/2025	85	;
+interessiCC	27/03/2025	50	;
 Cedole	23/06/2023	96,87	M.509954
 Cedole	11/09/2023	57,73	M.510366
 Cedole	28/12/2023	66,8	M.509954

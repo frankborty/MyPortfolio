@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MyPortfolio.Data.Repositories.ExpenseRepo;
 using MyPortfolio.DTO.ExpenseDTO;
-using MyPortfolio.DTO.IncomeDTO;
 using MyPortfolio.Models.Expenses;
 using MyPortfolio.Utility.ExpenseUtils;
 using Swashbuckle.AspNetCore.Annotations;
@@ -16,7 +15,7 @@ namespace MyPortfolio.Controllers.ExpenseController
         private readonly IExpenseTypeRepo _expenseTypeRepo;
         private readonly IExpenseRepo _expenseRepo;
         public ExpenseCategoryController(IExpenseCategoryRepo expenseCategoryRepo,
-            IExpenseTypeRepo expenseTypeRepo,             
+            IExpenseTypeRepo expenseTypeRepo,
             IExpenseRepo expenseRepo)
         {
             _expenseCategoryRepo = expenseCategoryRepo;
@@ -161,7 +160,7 @@ namespace MyPortfolio.Controllers.ExpenseController
             {
                 // se ho spese con questa categoria non cancello
                 var expenseList = await _expenseRepo.GetAllExpensesAsync();
-                if(expenseList.Any(x=>x.ExpenseType?.Category?.Id == expenseCategoryId))
+                if (expenseList.Any(x => x.ExpenseType?.Category?.Id == expenseCategoryId))
                 {
                     return Conflict("Esistono asset associate a questo tipo");
                 }
@@ -181,7 +180,7 @@ namespace MyPortfolio.Controllers.ExpenseController
 
         [HttpPut("{expenseCategoryId}")]
         [SwaggerOperation(Summary = "Update expense category")]
-        public async Task<IActionResult> UpdateExpenseById(int expenseCategoryId, [FromBody] ExpenseCategoryDTO expenseCategoryToUpdate)
+        public async Task<IActionResult> UpdateExpenseCategoryById(int expenseCategoryId, [FromBody] ExpenseCategoryDTO expenseCategoryToUpdate)
         {
             try
             {
