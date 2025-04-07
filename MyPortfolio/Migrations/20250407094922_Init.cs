@@ -62,6 +62,7 @@ namespace MyPortfolio.Migrations
                     Url = table.Column<string>(type: "text", nullable: false),
                     ISIN = table.Column<string>(type: "text", nullable: false),
                     Note = table.Column<string>(type: "text", nullable: false),
+                    PyName = table.Column<string>(type: "text", nullable: false),
                     CategoryId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>

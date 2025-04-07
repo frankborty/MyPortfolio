@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MyPortfolio.Migrations
 {
     [DbContext(typeof(DataDbContext))]
-    [Migration("20250314190218_Init")]
+    [Migration("20250407094922_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -45,6 +45,10 @@ namespace MyPortfolio.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("Note")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("PyName")
                         .IsRequired()
                         .HasColumnType("text");
 

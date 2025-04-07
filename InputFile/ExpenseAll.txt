@@ -680,8 +680,6 @@ Bar	25/01/2025	15,00	E	Fun	Bar
 Pulizia Denti	27/01/2025	70,00	E	Salute	Dottori
 Spesa	27/01/2025	15,00	E	Spesa	Conad
 Cena LuFalzu	31/01/2025	10,00	E	Fun	CeneVarie
-
-
 Piano	01/02/2025	8,00	E	Casa	Telefono
 Now	01/02/2025	15,00	E	Casa	AltroPerCasa
 Mamma	03/02/2025	200,00	E	Casa	Mamma
@@ -695,13 +693,12 @@ Regalo Marti	19/02/2025	50,00	E	Regali	OtherRegali
 Spesa	07/02/2025	14,00	E	Spesa	Conad
 Spesa	07/02/2025	31,00	E	Spesa	EuroSpin
 Pizza casa di Marti	07/02/2025	30,00	E	Fun	CeneVarie
-Bar	14/2/2025	13,00	E	Fun	Bar
-Rifornimento	15/2/2025	30,00	E	Auto	Rifornimento
-Bar	21/2/2025	6,00	E	Fun	Bar
+Bar	14/02/2025	13,00	E	Fun	Bar
+Rifornimento	15/02/2025	30,00	E	Auto	Rifornimento
+Bar	21/02/2025	6,00	E	Fun	Bar
 Cena Maestrali Fra, Nadia, ecc	22/02/2025	28,00	E	Fun	Ristoranti
-Bar	28/2/2025	25,00	E	Fun	Bar
-Superenalotto	13/2/2025	12,00	E	AltreSpese	SpeseVarie
-
+Bar	28/02/2025	25,00	E	Fun	Bar
+Superenalotto	13/02/2025	12,00	E	AltreSpese	SpeseVarie
 Now	01/03/2025	15,00	E	Casa	AltroPerCasa
 Piano	01/03/2025	8,00	E	Casa	Telefono
 Internet	01/03/2025	26,00	E	Casa	Internet
@@ -715,20 +712,19 @@ Spesa	08/03/2025	30,00	E	Spesa	EuroSpin
 Benzina per babbo	08/03/2025	11,00	E	Casa	AltroPerCasa
 Pentolaccia	08/03/2025	50,00	E	Fun	Feste
 Regalo laurea Giorgia	15/03/2025	40,00	E	Regali	OtherRegali
-Tagliando	20/03/2025	250,00	E	Auto	Meccanico
+Tagliando	20/03/2025	250,00	E	Auto	Revisione
 ParaurtiFreni_1	20/03/2025	220,00	E	Auto	Meccanico
 Regalo comple Giulia	15/03/2025	50,00	E	Regali	OtherRegali
 Peli facci	25/03/2025	25,00	E	Salute	AltroSalute
 Spese a Cagliari comple Giulia	22/03/2025	125,00	E	Fun	ExtraFun
 Bolletta gen-feb	11/03/2025	40,00	E	Casa	ElettNonnaMaria
 Dazn	14/03/2025	2,00	E	Casa	AltroPerCasa
-Rifornimento	15/3/2025	30,00	E	Auto	Rifornimento
-Superenalotto	19/3/2025	12,00	E	AltreSpese	SpeseVarie
-Bar	21/3/2025	13,00	E	Fun	Bar
-Bar	28/3/2025	13,00	E	Fun	Bar
-Aperitivo	29/3/2025	19,00	E	Fun	Bar
-Pizza MontiRuju	29/3/2025	35,00	E	Fun	Ristoranti
-
+Rifornimento	15/03/2025	30,00	E	Auto	Rifornimento
+Superenalotto	19/03/2025	12,00	E	AltreSpese	SpeseVarie
+Bar	21/03/2025	13,00	E	Fun	Bar
+Bar	28/03/2025	13,00	E	Fun	Bar
+Aperitivo	29/03/2025	19,00	E	Fun	Bar
+Pizza MontiRuju	29/03/2025	35,00	E	Fun	Ristoranti
 Piano	01/04/2025	8,00	E	Casa	Telefono
 Now	01/04/2025	10,00	E	Casa	AltroPerCasa
 Internet	01/04/2025	26,00	E	Casa	Internet
