@@ -60,6 +60,7 @@ namespace MyPortfolio.Data.Repositories.AssetRepo
                 throw new KeyNotFoundException();
             }
 
+            assetToUpdate.Name = asset.Name;
             assetToUpdate.Note = asset.Note;
             assetToUpdate.CategoryId = asset.CategoryId;
             assetToUpdate.Url = asset.Url;
