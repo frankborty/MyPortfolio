@@ -38,6 +38,21 @@ namespace MyPortfolio.Utility.AssetUtils
             return null;
         }
 
+        internal static async Task<List<Asset>> ProcessAssetDefinitionFile(IFormFile file, List<AssetCategory> assetCategoryList)
+        {
+            List<Asset> assetList = new List<Asset>();
+            List<string> fileContent = await FileManagerUtils.ReadIFileInStringList(file);
+            foreach (string content in fileContent)
+            {
+                if (content.Length > 3)
+                {
+                    Asset asset = ConvertFileLineInAssetDefinition(content, assetCategoryList);
+                    assetList.Add(asset);
+                }
+            }
+            return assetList;
+        }
+
         internal static async Task<List<AssetValue>> ProcessAssetValueFile(IFormFile file, List<Asset> assetList)
         {
             List<AssetValue> assetValueList = new List<AssetValue>();
@@ -51,6 +66,30 @@ namespace MyPortfolio.Utility.AssetUtils
                 }
             }
             return assetValueList;
+        }
+
+        private static Asset ConvertFileLineInAssetDefinition(string content, List<AssetCategory> assetCategoryList)
+        {
+            Asset asset = new Asset();
+            string[] lineTokens = content.Split(';');
+            if (lineTokens.Length != 5)
+            {
+                throw new Exception($"Invalid Line: {lineTokens}");
+            }
+            var category = GetCategoryFromName(lineTokens[1], assetCategoryList);
+            if (category is null)
+            {
+                throw new Exception($"Invalid Asset category: {lineTokens}");
+            }
+            asset.Name = lineTokens[0];
+            asset.Category = category;
+            if (category.IsInvested)
+            {
+                asset.ISIN = lineTokens[2];
+                asset.Url = lineTokens[3];
+                asset.PyName = lineTokens[4];
+            }
+            return asset;
         }
 
         private static AssetValue ConvertFileLineInAssetValue(string content, List<Asset> assetList)

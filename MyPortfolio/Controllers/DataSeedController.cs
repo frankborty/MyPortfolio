@@ -38,7 +38,7 @@ namespace MyPortfolio.Controllers
             {
                 await SeedUtils.SetExpenseSchema(_expenseTypeRepo, _expenseCategoryRepo);
                 await SeedUtils.SetIncomeSchema(_incomeTypeRepo);
-                await SeedUtils.SetAssetSchema(_assetRepo, _assetCategoryRepo);
+                await SeedUtils.SetAssetCategorySchema(_assetRepo, _assetCategoryRepo);
                 return Ok();
             }
             catch (Exception ex)
@@ -85,12 +85,12 @@ namespace MyPortfolio.Controllers
 
         [HttpPost]
         [Route("assetSchema")]
-        [SwaggerOperation(Summary = "Seed asset schema")]
+        [SwaggerOperation(Summary = "Seed asset category schema")]
         public async Task<IActionResult> PostAssetSchema()
         {
             try
             {
-                await SeedUtils.SetAssetSchema(_assetRepo, _assetCategoryRepo);
+                await SeedUtils.SetAssetCategorySchema(_assetRepo, _assetCategoryRepo);
 
                 return Ok();
             }

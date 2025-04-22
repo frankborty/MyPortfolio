@@ -1,0 +1,17 @@
+PostePay;Account;;;
+ING;Account;;;
+BBVA;Account;;;
+Euro;Cash;;;
+PayPal;Account;;;
+Martina;Credit;;;
+Virginia;Credit;;;
+Directa;Account;;;
+XZMU;Financial;IE00BFMNPS42;https://www.justetf.com/it/etf-profile.html?isin=IE00BFMNPS42;XZMU.MI
+SUAS;Financial;IE00BYVJRR92;https://www.justetf.com/it/etf-profile.html?isin=IE00BYVJRR92;SUAS.MI
+V3AA;Financial;IE00BNG8L278;https://www.justetf.com/it/etf-profile.html?isin=IE00BNG8L278;V3AA.MI
+EMESG;Financial;LU2109787551;https://www.justetf.com/it/etf-profile.html?isin=LU2109787551;EMESG.MI
+V3EA;Financial;IE000QUOSE01;https://www.justetf.com/it/etf-profile.html?isin=IE000QUOSE01;V3EA.MI
+V3MA;Financial;IE000KPJJWM6;https://www.justetf.com/it/etf-profile.html?isin=IE000KPJJWM6;V3MA.DE
+V3PA;Financial;IE000GOJO2A3;https://www.justetf.com/it/etf-profile.html?isin=IE000GOJO2A3;V3PA.MI
+M.509954;Financial;IT0005496994;https://www.borsaitaliana.it/borsa/obbligazioni/mot/btp/scheda/IT0005497000.html?lang=it;
+M.510366;Financial;IT0005532715;https://www.borsaitaliana.it/borsa/obbligazioni/mot/btp/scheda/IT0005532715.html?lang=it;

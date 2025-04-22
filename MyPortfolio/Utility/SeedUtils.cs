@@ -120,11 +120,10 @@ namespace MyPortfolio.Utility
             await _incomeTypeRepo.AddIncomeTypeListAsync(incomeTypeListToAdd);
         }
 
-        internal static async Task SetAssetSchema(IAssetRepo _assetRepo, IAssetCategoryRepo _assetCategoryRepo)
+        internal static async Task SetAssetCategorySchema(IAssetRepo _assetRepo, IAssetCategoryRepo _assetCategoryRepo)
         {
             List<AssetCategory> assetCategoryListToAdd = new List<AssetCategory>()
                 {
-                    new AssetCategory(){ Name = "Account" },
                     new AssetCategory(){ Name = "Account" },
                     new AssetCategory(){ Name = "Cash" },
                     new AssetCategory(){ Name = "Credit" },
@@ -134,33 +133,6 @@ namespace MyPortfolio.Utility
             var currentCategoryList = await _assetCategoryRepo.GetAllAssetCategoryAsync();
             assetCategoryListToAdd.RemoveAll(item1 => currentCategoryList.Any(item2 => item2.Name == item1.Name));
             await _assetCategoryRepo.AddAssetCategoryListAsync(assetCategoryListToAdd);
-
-            currentCategoryList = await _assetCategoryRepo.GetAllAssetCategoryAsync();
-            List<AssetCategory> categoryList = currentCategoryList.ToList();
-            List<Asset> assetListToAdd = new List<Asset>() {
-                new  Asset(){ Category = AssetUtils.AssetStaticUtils.GetCategoryFromName("Account", categoryList), Name = "PostePay" },
-                new  Asset(){ Category = AssetUtils.AssetStaticUtils.GetCategoryFromName("Account", categoryList), Name = "ING" },
-                new  Asset(){ Category = AssetUtils.AssetStaticUtils.GetCategoryFromName("Account", categoryList), Name = "BBVA" },
-                new  Asset(){ Category = AssetUtils.AssetStaticUtils.GetCategoryFromName("Cash", categoryList), Name = "Euro" },
-                new  Asset(){ Category = AssetUtils.AssetStaticUtils.GetCategoryFromName("Account", categoryList), Name = "PayPal" },
-                new  Asset(){ Category = AssetUtils.AssetStaticUtils.GetCategoryFromName("Credit", categoryList), Name = "Martina" },
-                new  Asset(){ Category = AssetUtils.AssetStaticUtils.GetCategoryFromName("Credit", categoryList), Name = "Virginia" },
-                new  Asset(){ Category = AssetUtils.AssetStaticUtils.GetCategoryFromName("Account", categoryList), Name = "Directa" },
-
-                new  Asset(){ Category = AssetUtils.AssetStaticUtils.GetCategoryFromName("Financial", categoryList), Name = "XZMU", ISIN = "IE00BFMNPS42", Url="https://www.justetf.com/it/etf-profile.html?isin=IE00BFMNPS42", PyName="XZMU.MI"},
-                new  Asset(){ Category = AssetUtils.AssetStaticUtils.GetCategoryFromName("Financial", categoryList), Name = "SUAS", ISIN = "IE00BYVJRR92", Url="https://www.justetf.com/it/etf-profile.html?isin=IE00BYVJRR92", PyName="SUAS.MI"},
-                new  Asset(){ Category = AssetUtils.AssetStaticUtils.GetCategoryFromName("Financial", categoryList), Name = "V3AA", ISIN = "IE00BNG8L278", Url="https://www.justetf.com/it/etf-profile.html?isin=IE00BNG8L278", PyName="V3AA.MI"},
-                new  Asset(){ Category = AssetUtils.AssetStaticUtils.GetCategoryFromName("Financial", categoryList), Name = "EMESG", ISIN = "LU2109787551", Url="https://www.justetf.com/it/etf-profile.html?isin=LU2109787551", PyName="EMESG.MI" },
-                new  Asset(){ Category = AssetUtils.AssetStaticUtils.GetCategoryFromName("Financial", categoryList), Name = "V3EA", ISIN = "IE000QUOSE01", Url="https://www.justetf.com/it/etf-profile.html?isin=IE000QUOSE01", PyName="V3EA.MI"},
-                new  Asset(){ Category = AssetUtils.AssetStaticUtils.GetCategoryFromName("Financial", categoryList), Name = "V3MA", ISIN = "IE000KPJJWM6", Url="https://www.justetf.com/it/etf-profile.html?isin=IE000KPJJWM6", PyName="V3MA.DE"},
-                new  Asset(){ Category = AssetUtils.AssetStaticUtils.GetCategoryFromName("Financial", categoryList), Name = "V3PA", ISIN = "IE000GOJO2A3", Url="https://www.justetf.com/it/etf-profile.html?isin=IE000GOJO2A3", PyName="V3PA.MI"},
-                new  Asset(){ Category = AssetUtils.AssetStaticUtils.GetCategoryFromName("Financial", categoryList), Name = "M.509954", ISIN = "IT0005496994", Url="https://www.borsaitaliana.it/borsa/obbligazioni/mot/btp/scheda/IT0005497000.html?lang=it"},
-                new  Asset(){ Category = AssetUtils.AssetStaticUtils.GetCategoryFromName("Financial", categoryList), Name = "M.510366", ISIN = "IT0005532715", Url="https://www.borsaitaliana.it/borsa/obbligazioni/mot/btp/scheda/IT0005532715.html?lang=it"}
-            };
-
-            var currentAssetList = await _assetRepo.GetAllAssetAsync();
-            assetListToAdd.RemoveAll(item1 => currentAssetList.Any(item2 => item2.Name == item1.Name));
-            await _assetRepo.AddAssetListAsync(assetListToAdd);
         }
     }
 }
