@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using MyPortfolio.Data.Repositories.AssetRepo;
 using MyPortfolio.DTO.AssetDTO;
 using MyPortfolio.Models;
@@ -14,11 +15,13 @@ namespace MyPortfolio.Controllers.AssetController
     [ApiController]
     public class AssetValueController : ControllerBase
     {
+        private readonly IConfiguration _configuration;
         private readonly IAssetValueRepo _assetValueRepo;
         private readonly IAssetRepo _assetRepo;
         private readonly IAssetOperationRepo _assetOperationRepo;
-        public AssetValueController(IAssetValueRepo assetValueRepo, IAssetRepo assetRepo, IAssetOperationRepo assetOperationRepo)
+        public AssetValueController(IConfiguration configuration, IAssetValueRepo assetValueRepo, IAssetRepo assetRepo, IAssetOperationRepo assetOperationRepo)
         {
+            _configuration = configuration;
             _assetValueRepo = assetValueRepo;
             _assetRepo = assetRepo;
             _assetOperationRepo = assetOperationRepo;
@@ -400,10 +403,15 @@ namespace MyPortfolio.Controllers.AssetController
 
         [HttpGet("{assetId}/LoadFinancialValue")]
         [SwaggerOperation(Summary = "Load financial value from python")]
-        public async Task<IActionResult> GetAssetValueListFromPython(int assetId, string pythonUrl)
+        public async Task<IActionResult> GetAssetValueListFromPython(int assetId)
         {
             try
             {
+                var pythonUrl = _configuration["ConnectionStrings:PythonFinancialURL"];
+                if (string.IsNullOrWhiteSpace(pythonUrl))
+                {
+                    return BadRequest("Python URL is not configured.");
+                }
                 Console.WriteLine($"AssetId: {assetId} -> Url: {pythonUrl}");
                 var asset = await _assetRepo.GetAssetByIdAsync(assetId);
                 if(asset is null || asset.Category?.IsInvested == false || asset.Name.StartsWith("M."))
@@ -430,10 +438,15 @@ namespace MyPortfolio.Controllers.AssetController
         [HttpGet]
         [Route("LoadAllFinancialValue")]
         [SwaggerOperation(Summary = "Load financial value from python")]
-        public async Task<IActionResult> GetAssetValueAllFromPython(string pythonUrl)
+        public async Task<IActionResult> GetAssetValueAllFromPython()
         {
             try
             {
+                var pythonUrl = _configuration["ConnectionStrings:PythonFinancialURL"];
+                if (string.IsNullOrWhiteSpace(pythonUrl))
+                {
+                    return BadRequest("Python URL is not configured.");
+                }
                 var assetList = await _assetRepo.GetAllAssetAsync();
                 List<CurrentAssetPrice> currentAssetPriceList = new List<CurrentAssetPrice>();
                 List<AssetValue> assetValueToAddList = new List<AssetValue>();
