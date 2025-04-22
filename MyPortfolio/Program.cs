@@ -11,8 +11,7 @@ CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo("it-IT");
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Configuration.AddEnvironmentVariables();
 
 
 builder.Services.AddDbContext<DataDbContext>(options =>
