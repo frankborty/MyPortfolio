@@ -41,15 +41,15 @@ services:
     ports:
       - "50000:50000"  # Espone la porta 50000 per l'API Python (puoi cambiarla se necessario)
       
-#  mypf_fe:
-#    build:
-#      context: ../MyBadPortfolioSite  # Path dove si trova il Dockerfile del FE
-#      dockerfile: Dockerfile
-#    ports:
-#      - "4200:80"  # 4200 per convenzione FE Angular, esposto da NGINX su 80
-#    depends_on:
-#      - mypf_be  # Il FE dipende dal BE
-#    restart: always  # Riavvia automaticamente in caso di errori
+  mypf_fe:
+    build:
+      context: ../MyPortfolioFE  # Path dove si trova il Dockerfile del FE
+      dockerfile: Dockerfile
+    ports:
+      - "4200:80"  # 4200 per convenzione FE Angular, esposto da NGINX su 80
+    depends_on:
+      - mypf_be  # Il FE dipende dal BE
+    restart: always  # Riavvia automaticamente in caso di errori
       
 
       
