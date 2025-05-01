@@ -13,7 +13,7 @@ namespace MyPortfolio.Utility
                 try
                 {
                     // Invia una richiesta GET all'API
-                    Console.WriteLine($"*************** {requestUrl} ***************");
+                    //Console.WriteLine($"*************** {requestUrl} ***************");
                     HttpResponseMessage response = await client.GetAsync(requestUrl);
 
                     // Verifica se la richiesta è andata a buon fine
@@ -25,7 +25,7 @@ namespace MyPortfolio.Utility
                         var responseObject = JsonSerializer.Deserialize<CurrentAssetPrice>(responseData);
                         if(responseObject is null)
                         {
-                            Console.WriteLine($"--------- NULL --------- ");
+                            //Console.WriteLine($"--------- NULL --------- ");
                             throw new NullReferenceException();
                         }
                         responseObject.Price= Math.Round(responseObject.Price, 3);
@@ -33,13 +33,13 @@ namespace MyPortfolio.Utility
                     }
                     else
                     {
-                        Console.WriteLine($"--------- Errore durante la richiesta: {response.ReasonPhrase} --------- ");
+                        //Console.WriteLine($"--------- Errore durante la richiesta: {response.ReasonPhrase} --------- ");
                         throw new Exception($"Errore durante la richiesta: {response.ReasonPhrase}");
                     }
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"--------- Si è verificato un errore: {ex.Message} --------- ");
+                    //Console.WriteLine($"--------- Si è verificato un errore: {ex.Message} --------- ");
                     throw new Exception($"Si è verificato un errore: {ex.Message}");
                 }
             }
