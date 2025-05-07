@@ -14,7 +14,9 @@ def get_stock_value():
         return jsonify({"error": "Nessun simbolo di azione fornito"}), 400
     
     # Ottieni i dati storici del titolo con yfinance
-    stock = yf.Ticker(symbol)
+    from curl_cffi import requests
+    session = requests.Session(impersonate="chrome")
+    stock = yf.Ticker(symbol, session=session)
     stock_info = stock.history(period="1d")  # Dati per l'ultimo giorno
     
     if stock_info.empty:
