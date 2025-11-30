@@ -5,7 +5,7 @@ namespace MyPortfolio.Utility
 {
     public static class GenericUtils
     {
-        public static async Task<CurrentAssetPrice> GetAssetValueFromPython(string url, string assetName)
+        public static async Task<CurrentAssetPrice> GetAssetValueFromStockPriceWatcher(string url, string assetName)
         {
             string requestUrl = $"{url}?symbol={assetName}";
             using (HttpClient client = new HttpClient())

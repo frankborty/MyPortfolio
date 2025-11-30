@@ -407,18 +407,18 @@ namespace MyPortfolio.Controllers.AssetController
         {
             try
             {
-                var pythonUrl = _configuration["ConnectionStrings:PythonFinancialURL"];
-                if (string.IsNullOrWhiteSpace(pythonUrl))
+                var stockPriceWatcherURL = _configuration["ConnectionStrings:StockPriceWatcherURL"];
+                if (string.IsNullOrWhiteSpace(stockPriceWatcherURL))
                 {
-                    return BadRequest("Python URL is not configured.");
+                    return BadRequest("StockPriceWatcherURL is not configured.");
                 }
-                Console.WriteLine($"AssetId: {assetId} -> Url: {pythonUrl}");
+                Console.WriteLine($"AssetId: {assetId} -> Url: {stockPriceWatcherURL}");
                 var asset = await _assetRepo.GetAssetByIdAsync(assetId);
                 if(asset is null || asset.Category?.IsInvested == false || asset.Name.StartsWith("M."))
                 {
                     throw new Exception("Invalid asset id");
                 }
-                var result = await GenericUtils.GetAssetValueFromPython(pythonUrl, asset.PyName);
+                var result = await GenericUtils.GetAssetValueFromStockPriceWatcher(stockPriceWatcherURL, asset.PyName);
                 var assetValueToAdd = new AssetValue()
                 {
                     Asset = asset,
@@ -442,10 +442,10 @@ namespace MyPortfolio.Controllers.AssetController
         {
             try
             {
-                var pythonUrl = _configuration["ConnectionStrings:PythonFinancialURL"];
-                if (string.IsNullOrWhiteSpace(pythonUrl))
+                var stockPriceWatcherURL = _configuration["ConnectionStrings:StockPriceWatcherURL"];
+                if (string.IsNullOrWhiteSpace(stockPriceWatcherURL))
                 {
-                    return BadRequest("Python URL is not configured.");
+                    return BadRequest("StockPriceWatcherURL is not configured.");
                 }
                 var assetList = await _assetRepo.GetAllAssetAsync();
                 List<CurrentAssetPrice> currentAssetPriceList = new List<CurrentAssetPrice>();
@@ -467,7 +467,7 @@ namespace MyPortfolio.Controllers.AssetController
                         }
                         try
                         {
-                            var result = await GenericUtils.GetAssetValueFromPython(pythonUrl, asset.PyName);
+                            var result = await GenericUtils.GetAssetValueFromStockPriceWatcher(stockPriceWatcherURL, asset.PyName);
                             currentAssetPriceList.Add(result);
                             var assetValueToAdd = new AssetValue()
                             {

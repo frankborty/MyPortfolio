@@ -5,41 +5,41 @@ services:
       dockerfile: MyPortfolio/Dockerfile
     ports:
       - "8080:8080"
-    depends_on:
-      - mypf_db
+ #   depends_on:
+ #     - mypf_db
     environment:
-      - ConnectionStrings__DataDBConnection=Host=mypf_db;Database=MyPortfolio_DataDocker;Username=franco;Password=PasswordPostgreSQL
-      - ConnectionStrings__PythonFinancialURL=http://mypf_python:50000/stock
+      - ConnectionStrings__DataDBConnection=DATA_DB_CONNECTION_PLACEHOLDER
+      - ConnectionStrings__StockPriceWatcherURL=STOCK_PRICE_WATCHER_URL_PLACEHOLDER
 
-  mypf_db:
-    image: postgres:latest
-    environment:
-      POSTGRES_USER: franco
-      POSTGRES_PASSWORD: PasswordPostgreSQL
-      POSTGRES_DB: MyPortfolio_DataDocker
-    ports:
-      - "5432:5432"
-    volumes:
-      - pgdata:/var/lib/postgresql/data
-     
-  mypf_pgadmin:
-    image: dpage/pgadmin4:latest
-    environment:
-      PGADMIN_DEFAULT_EMAIL: admin@admin.com
-      PGADMIN_DEFAULT_PASSWORD: admin
-    ports:
-      - "5050:80"
-    depends_on:
-      - mypf_db
-    volumes:
-      - pgadmin_data:/var/lib/pgadmin
+#  mypf_db:
+#    image: postgres:latest
+#    environment:
+#      POSTGRES_USER: franco
+#      POSTGRES_PASSWORD: PasswordPostgreSQL
+#      POSTGRES_DB: MyPortfolio_DataDocker
+#    ports:
+#      - "5432:5432"
+#    volumes:
+#      - pgdata:/var/lib/postgresql/data
+#     
+#  mypf_pgadmin:
+#    image: dpage/pgadmin4:latest
+#    environment:
+#      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+#      PGADMIN_DEFAULT_PASSWORD: admin
+#    ports:
+#      - "5050:80"
+#    depends_on:
+#      - mypf_db
+#    volumes:
+#      - pgadmin_data:/var/lib/pgadmin
       
-  mypf_python:
-    build:
-      context: ./FinanceStockValue  # Sostituisci con il percorso corretto del tuo progetto Python
-      dockerfile: Dockerfile  # Usa il Dockerfile dello script Python
-    ports:
-      - "50000:50000"  # Espone la porta 50000 per l'API Python (puoi cambiarla se necessario)
+#  mypf_python:
+#    build:
+#      context: ./FinanceStockValue  # Sostituisci con il percorso corretto del tuo progetto Python
+#      dockerfile: Dockerfile  # Usa il Dockerfile dello script Python
+#    ports:
+#      - "50000:50000"  # Espone la porta 50000 per l'API Python (puoi cambiarla se necessario)
       
   mypf_fe:
     build:
@@ -47,14 +47,14 @@ services:
       dockerfile: Dockerfile
     ports:
       - "4200:80"  # 4200 per convenzione FE Angular, esposto da NGINX su 80
-    depends_on:
-      - mypf_be  # Il FE dipende dal BE
+#    depends_on:
+#      - mypf_be  # Il FE dipende dal BE
     restart: always  # Riavvia automaticamente in caso di errori
       
 
       
 
-volumes:
-  pgdata:
-  pgadmin_data:
+#volumes:
+#  pgdata:
+#  pgadmin_data:
   
