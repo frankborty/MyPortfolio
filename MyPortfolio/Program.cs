@@ -37,12 +37,21 @@ builder.Services.AddSwaggerGen(options =>
     options.EnableAnnotations();
 });
 
-
+/*
 builder.Services.AddCors(options =>
 {
     ServiceFactory.ConfigureCors(builder.Configuration, options);
 });
-
+*/
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(policy =>
+    {
+        policy.AllowAnyOrigin()
+              .AllowAnyMethod()
+              .AllowAnyHeader();
+    });
+});
 
 var app = builder.Build();
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
@@ -60,8 +69,8 @@ var pendingMigrations = await application.Database.GetPendingMigrationsAsync();
 if (pendingMigrations != null)
     await application.Database.MigrateAsync();
 
-app.UseCors("AllowAll");
-
+//app.UseCors("AllowAll");
+app.UseCors();
 app.UseAuthentication();
 app.UseAuthorization();
 
