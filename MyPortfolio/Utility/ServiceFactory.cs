@@ -7,24 +7,29 @@ namespace MyPortfolio.Utility
         internal static void ConfigureCors(IConfiguration configuration, CorsOptions options)
         {
             // Leggi origin dal file di configurazione
-            var allowedOrigins = configuration.GetSection("Cors:AllowedOrigins").Get<string[]>() ?? Array.Empty<string>();
+            var allowedOriginsString = configuration["Cors:AllowedOrigins"];
+            var allowedOrigins = Array.Empty<string>();
 
-            options.AddPolicy(name: "AllowAll", cfg =>
+            if (!string.IsNullOrEmpty(allowedOriginsString))
             {
-                cfg.SetIsOriginAllowed(origin =>
-                {
-                    if (string.IsNullOrEmpty(origin))
-                        return false;
+                allowedOrigins = allowedOriginsString
+                    .Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+            }
 
-                    var host = new Uri(origin).Host;
-
-                    // Permetti origin configurati + tutti i domini Tailscale + localhost
-                    return allowedOrigins.Contains(origin) || host.EndsWith(".ts.net") || host == "localhost" || host.Contains("192.168.1");
-                })
-                .AllowAnyMethod()
-                .AllowAnyHeader()
-                .AllowCredentials();
-            });
+            options.AddPolicy("FrontendOnly", policy =>
+            {
+                if (allowedOrigins != null && allowedOrigins.Length > 0) 
+                { 
+                    policy.WithOrigins(allowedOrigins)
+                        .AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .AllowCredentials(); }
+                else
+                { 
+                    // Nessuna origine configurata: fallback sicuro (blocca tutto)
+                    policy.DisallowCredentials(); // o lasciamo policy vuota                                  
+                } 
+            });       
         }
-    }
+    }    
 }
