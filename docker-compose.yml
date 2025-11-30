@@ -5,11 +5,9 @@ services:
       dockerfile: MyPortfolio/Dockerfile
     ports:
       - "8080:8080"
-#   depends_on:
-#     - mypf_db
     environment:
-     - ConnectionStrings__DataDBConnection=Host=192.168.1.154;Database=MyPortfolioTest;Username=frankborty;Password=tmac90
-     - ConnectionStrings__StockPriceWatcherURL=http://192.168.1.150:50000/stock
+     - ConnectionStrings__DataDBConnection=${DB_URL}
+     - ConnectionStrings__StockPriceWatcherURL=${SPW_URL}
  
   mypf_fe:
     build:
@@ -22,7 +20,9 @@ services:
     restart: always  # Riavvia automaticamente in caso di errori
       
 
-volumes:
-  pgdata:
-  pgadmin_data:
-  
+  mypf_stock-price-watcher:
+    build:
+      context: ./FinanceStockValue  # Sostituisci con il percorso corretto del tuo progetto Python
+      dockerfile: Dockerfile  # Usa il Dockerfile dello script Python
+    ports:
+      - "50000:50000"  # Espone la porta 50000 per l'API Python (puoi cambiarla se necessario)
